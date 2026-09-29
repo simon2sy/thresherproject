@@ -1,0 +1,84 @@
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { Outlet, useLocation } from 'react-router-dom'
+import { MessageCircle, PhoneCall } from 'lucide-react'
+import { site } from '../config/site'
+import Navbar from './Navbar'
+import Footer from './Footer'
+import { ScrollManager, SmoothScroll } from './SmoothScroll'
+
+/**
+ * Layout
+ * ---------------------------------------------------------------------------
+ * Navbar + routed content + footer, plus the two site-wide behaviours that
+ * belong to every page:
+ *   · Lenis smooth scrolling and scroll position management on navigation
+ *   · a sticky call / quote bar on small screens (the fastest route to contact
+ *     on a phone, which is how most Nepali customers will arrive)
+ */
+export default function Layout() {
+  const location = useLocation()
+  const reduceMotion = useReducedMotion()
+
+  /**
+   * Route transitions. A short fade-and-rise is enough to signal "new page"
+   * without making navigation feel slow — the key change on `pathname` remounts
+   * the outlet so the exit/enter pair can play.
+   */
+  const pageMotion = reduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 12 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -8 },
+        transition: { duration: 0.32, ease: [0.22, 0.61, 0.36, 1] },
+      }
+
+  return (
+    <SmoothScroll>
+      <ScrollManager />
+
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-[3px] focus:bg-ink focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-sand-50"
+      >
+        Skip to content
+      </a>
+
+      <Navbar />
+
+      <main id="main" className="pb-20 lg:pb-0">
+        {/* Sync (not "wait") mode is deliberate: the outgoing page exits while
+            the incoming one enters, so the new page's useSeo metadata is
+            applied immediately rather than after the exit animation. */}
+        <AnimatePresence initial={false}>
+          <motion.div key={location.pathname} {...pageMotion}>
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
+      </main>
+
+      <Footer />
+
+      {/* Sticky contact bar — small screens only. Sits above the safe-area
+          inset on phones with a home indicator. */}
+      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-white/10 bg-[#040D11]/97 pb-[env(safe-area-inset-bottom)] lg:hidden">
+        <a
+          href={site.phone.href}
+          className="flex items-center justify-center gap-2 py-3.5 text-sm font-semibold text-sand-50 transition-colors active:bg-white/10"
+        >
+          <PhoneCall size={16} />
+          Call
+        </a>
+        <a
+          href={site.whatsapp.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 bg-gradient-to-r from-aqua-500 to-aqua-400 py-3.5 text-sm font-semibold text-white shadow-[0_-10px_30px_-16px_rgba(20,175,194,0.9)] transition-colors active:from-aqua-600 active:to-aqua-500"
+        >
+          <MessageCircle size={16} />
+          WhatsApp
+        </a>
+      </div>
+    </SmoothScroll>
+  )
+}

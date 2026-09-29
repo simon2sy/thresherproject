@@ -1,0 +1,495 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================================
+   DAJU BHAI GRILL UDYOG — design system
+   Industrial + agricultural visual language.
+   Tokens live here; Tailwind theme values live in tailwind.config.js.
+   =========================================================================== */
+
+@layer base {
+  :root {
+    --ink: #050e12;
+    --graphite: #0a181e;
+    --steel: #0f222a;
+    --agri: #14afc2;
+    --agri-deep: #0a8b9e;
+    --aqua: #14afc2;
+    --sand: #f6f4ee;
+    --paper: #fbfdfd;
+    --amber: #f7b733;
+    --shell: 1240px;
+    --rule: rgba(5, 14, 18, 0.12);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-ink antialiased;
+    /* Cool aqua-tinted canvas — keeps white cards and dark sections crisp. */
+    background-color: #eef4f5;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-extrabold tracking-[-0.02em];
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--aqua);
+    color: #fff;
+  }
+
+  /* Modern, high-contrast focus ring: 2px accent + soft halo so keyboard focus
+     is obvious on both light cards and dark sections. */
+  :focus-visible {
+    outline: 2px solid var(--aqua);
+    outline-offset: 3px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 5px rgba(20, 175, 194, 0.25);
+  }
+
+  /* Dark sections need a light focus ring. */
+  .on-dark :focus-visible,
+  footer :focus-visible {
+    outline-color: var(--amber);
+    box-shadow: 0 0 0 5px rgba(247, 183, 51, 0.28);
+  }
+
+  /* Anchored sections clear of the fixed navbar. */
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+
+  img,
+  svg,
+  canvas {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ---------- Layout ------------------------------------------------------ */
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-7 lg:px-10;
+  }
+
+  .section {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+
+  .section-tight {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  .rule {
+    @apply border-t border-ink/10;
+  }
+
+  /* ---------- Typography helpers ------------------------------------------ */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-2xs font-semibold uppercase tracking-technical;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply block h-px w-7 bg-current opacity-60;
+  }
+
+  .h-display {
+    @apply font-display text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-[3.6rem];
+  }
+
+  .h-section {
+    @apply font-display text-[1.75rem] font-extrabold leading-[1.1] tracking-[-0.025em] sm:text-4xl lg:text-[2.7rem];
+  }
+
+  .h-card {
+    @apply font-display text-xl font-bold leading-tight tracking-[-0.015em] sm:text-2xl;
+  }
+
+  .lede {
+    @apply text-[1.02rem] leading-relaxed text-ink/70 sm:text-lg;
+  }
+
+  .tech-label {
+    @apply text-2xs font-semibold uppercase tracking-technical text-ink/45;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Surfaces ---------------------------------------------------- */
+  .plate {
+    @apply border border-ink/10 bg-paper;
+  }
+
+  .plate-dark {
+    @apply border border-white/10 bg-graphite;
+  }
+
+  /**
+   * Elevated card. Modern devices resolve to a soft two-layer shadow rather
+   * than one hard drop, and the whole card lifts a few pixels with a faint
+   * evergreen rim so it feels lit from above rather than pasted on.
+   */
+  .card {
+    @apply border border-ink/10 bg-paper shadow-card transition-[transform,box-shadow,border-color] duration-300 ease-smooth;
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-1 border-agri-500/25 shadow-glow;
+  }
+
+  .card-dark {
+    @apply border border-white/10 bg-graphite shadow-plate transition-[transform,box-shadow,border-color] duration-300 ease-smooth;
+  }
+
+  .card-dark-hover:hover {
+    @apply -translate-y-1 border-amber_acc-400/30;
+    box-shadow: 0 0 0 1px rgba(247, 183, 51, 0.22), 0 26px 50px -22px rgba(0, 0, 0, 0.7);
+  }
+
+  /**
+   * Frosted panel for dark sections — reads as glass, not a flat fill.
+   * PERFORMANCE: `backdrop-filter` is only safe over a *static* backdrop. Never
+   * use this over the animated aurora (use `.glass-static` there) — blurring a
+   * moving target forces a re-blur on every frame.
+   */
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+  }
+
+  /* Glass look without a backdrop-filter — for panels layered over animation. */
+  .glass-static {
+    @apply border border-white/10 bg-white/[0.05];
+  }
+
+  .glass-strong {
+    @apply border border-white/[0.14] bg-white/[0.07] backdrop-blur-2xl;
+  }
+
+  /**
+   * Aqua-tinted frosted panel — the hero's headline surface.
+   * PERFORMANCE: deliberately no `backdrop-filter`. This panel sits on top of
+   * the continuously animating aurora mesh, so blurring its backdrop forces the
+   * compositor to re-blur a moving target every frame — the most expensive
+   * possible combination. A translucent tint reads almost identically here
+   * because the layer behind it is already dark.
+   */
+  .glass-aqua {
+    @apply border border-aqua-300/20 bg-[#0A1E25]/55;
+  }
+
+  /**
+   * Gradient display type. Aqua → amber on dark, deep-teal → amber on light.
+   */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      #ffffff 0%,
+      #a3eef4 34%,
+      #f7b733 72%,
+      #6fe0eb 100%
+    );
+  }
+
+  .text-gradient-ink {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(100deg, #050e12 0%, #0a8b9e 52%, #b87308 100%);
+  }
+
+  /**
+   * Animated brand gradient for the logo bar, section rails and chip text.
+   * `background-size` is 200% so a `translate` on an oversized wrapper makes
+   * the gradient travel seamlessly (see `gradient-pan`). Animating
+   * `background-position` instead would force a repaint on every frame.
+   */
+  .text-brand {
+    @apply bg-clip-text text-transparent;
+    background-image: theme('backgroundImage.brand-gradient');
+    background-size: 200% auto;
+  }
+
+  .bg-brand {
+    background-image: theme('backgroundImage.brand-gradient');
+  }
+
+  /**
+   * Wrapper for the travelling gradient. Must clip its child, and the child
+   * must be twice the width so translating it by -50% loops seamlessly.
+   */
+  .brand-bar {
+    @apply relative overflow-hidden;
+    background-image: theme('backgroundImage.brand-gradient');
+  }
+
+  .brand-bar > span {
+    @apply absolute inset-y-0 left-0 w-[200%];
+    background-image: inherit;
+  }
+
+  /* Top rim highlight used on dark panels to fake overhead light. */
+  .rim-top::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.22) 30%,
+      rgba(255, 255, 255, 0.22) 70%,
+      transparent
+    );
+  }
+
+  /* Speculular sweep on hover. Positioned by the parent, so no layout shift. */
+  .sheen {
+    @apply pointer-events-none absolute inset-0 overflow-hidden;
+  }
+
+  .sheen::after {
+    content: '';
+    @apply absolute inset-y-0 -left-full w-1/2;
+    background-image: theme('backgroundImage.sheen');
+    transition: left 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .group:hover .sheen::after,
+  .sheen:hover::after {
+    left: 150%;
+  }
+
+  /* ---------- Ambient animation ------------------------------------------- */
+  /* Every class below is paired with prefers-reduced-motion in the base layer,
+     so these all collapse to a static state when motion is not wanted. */
+
+  /**
+   * PERFORMANCE: the aurora backdrop animates inside sections that also hold
+   * ordinary content. `contain: paint` tells the browser that nothing inside
+   * this element paints outside its box, so it can composite the animated
+   * layers in isolation instead of re-rasterising the whole section.
+   */
+  .contain-paint {
+    contain: paint;
+  }
+
+  /* Vertical accent rail with a highlight that sweeps down it. */
+  .rail-brand {
+    @apply relative w-1.5 overflow-hidden;
+    background-image: theme('backgroundImage.brand-gradient');
+    background-size: 100% 300%;
+  }
+
+  /* Status dot with an expanding ring — "we're here / in stock / open". */
+  .pulse-dot {
+    @apply relative inline-flex h-2 w-2 rounded-full bg-aqua-400;
+  }
+
+  .pulse-dot::after {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-aqua-400 motion-safe:animate-ring-out;
+  }
+
+  /* Industrial registration ticks used on plate corners. */
+  .ticks {
+    position: relative;
+  }
+
+  .ticks::before,
+  .ticks::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 9px;
+    border-top: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    opacity: 0.32;
+    pointer-events: none;
+  }
+
+  .ticks::before {
+    left: 0;
+    border-left: 1px solid currentColor;
+  }
+
+  .ticks::after {
+    right: 0;
+    border-right: 1px solid currentColor;
+  }
+
+  .hatch-dark {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.045) 0 1px,
+      transparent 1px 9px
+    );
+  }
+
+  .hatch-light {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(11, 13, 14, 0.05) 0 1px,
+      transparent 1px 9px
+    );
+  }
+
+  /* ---------- Buttons ----------------------------------------------------- */
+  .btn {
+    @apply relative inline-flex select-none items-center justify-center gap-2 overflow-hidden rounded-[3px] border border-transparent px-5 py-3 text-[0.9rem] font-semibold leading-none transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-55;
+  }
+
+  /* Buttons carry the same specular sweep as cards, so every clickable
+     surface on the site shares one physical behaviour. */
+  .btn::after {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 -left-full w-1/2 opacity-0;
+    background-image: theme('backgroundImage.sheen');
+    transition: left 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.2s ease;
+  }
+
+  .btn:hover::after {
+    left: 150%;
+    @apply opacity-100;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    @apply bg-ink text-sand-50 shadow-card hover:bg-slate_steel hover:shadow-lift;
+  }
+
+  /* Primary CTA — aqua gradient with a coloured glow, so the most important
+     action on any page is the most eye-catching thing on screen. */
+  .btn-accent {
+    @apply bg-gradient-to-r from-aqua-500 to-aqua-400 text-white shadow-glow-aqua hover:from-aqua-400 hover:to-aqua-300 hover:shadow-[0_18px_44px_-14px_rgba(20,175,194,0.9)] active:translate-y-px;
+  }
+
+  .btn-outline {
+    @apply border-ink/25 text-ink transition-colors hover:border-aqua-500 hover:bg-aqua-500/[0.07] hover:text-aqua-700;
+  }
+
+  .btn-outline-light {
+    @apply border-white/30 text-white hover:border-aqua-300/70 hover:bg-aqua-400/10;
+  }
+
+  .btn-light {
+    @apply bg-sand-50 text-ink shadow-card hover:bg-white hover:shadow-lift;
+  }
+
+  .btn-amber {
+    @apply bg-amber_acc-400 text-ink shadow-[0_10px_30px_-14px_rgba(247,183,51,0.8)] hover:bg-amber_acc-300;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3.5 text-[0.95rem];
+  }
+
+  /* ---------- Links ------------------------------------------------------- */
+  .link-quiet {
+    @apply text-ink/65 underline decoration-ink/25 decoration-1 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink/60;
+  }
+
+  .link-on-dark {
+    @apply text-sand-100/75 transition-colors hover:text-sand-50;
+  }
+
+  /* ---------- Forms ------------------------------------------------------- */
+  .field {
+    @apply w-full rounded-[3px] border border-ink/15 bg-white px-3.5 py-3 text-[0.95rem] text-ink placeholder:text-ink/35 focus:border-agri-500 focus:outline-none focus:ring-2 focus:ring-agri-500/25;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-2xs font-semibold uppercase tracking-technical text-ink/55;
+  }
+
+  .field-error {
+    @apply mt-1.5 block text-xs font-medium text-red-700;
+  }
+
+  /* ---------- Data tables ------------------------------------------------- */
+  .table-spec {
+    @apply w-full border-collapse text-left;
+  }
+
+  .table-spec th,
+  .table-spec td {
+    @apply border-b border-ink/10 py-3 pr-4 align-top text-sm;
+  }
+
+  .table-spec thead th {
+    @apply text-2xs font-semibold uppercase tracking-technical text-ink/45;
+  }
+
+  .table-spec tbody th {
+    @apply w-[46%] font-medium text-ink/60 sm:w-[38%];
+  }
+
+  .table-spec tbody td {
+    @apply font-semibold text-ink;
+  }
+
+  /* ---------- Media ------------------------------------------------------- */
+  .media-frame {
+    @apply relative overflow-hidden border border-ink/10 bg-sand-200;
+  }
+
+  .img-cover {
+    @apply h-full w-full object-cover;
+  }
+
+  .shadow-lift {
+    box-shadow: 0 22px 50px -26px rgba(11, 13, 14, 0.5);
+  }
+}
+
+@layer utilities {
+  .text-shadow-deep {
+    text-shadow: 0 1px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grain-rule {
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      rgba(11, 13, 14, 0.16) 12%,
+      rgba(11, 13, 14, 0.16) 88%,
+      transparent
+    );
+  }
+}
