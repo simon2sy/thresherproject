@@ -103,7 +103,7 @@ export default function ProductViewer({ product }) {
         <div
           ref={stageRef}
           className={[
-            'relative overflow-hidden border border-ink/12',
+            'relative overflow-hidden border border-ink/10',
             fullscreen ? 'bg-ink' : is3D ? 'bg-graphite' : 'bg-sand-200',
           ].join(' ')}
         >
@@ -253,7 +253,7 @@ export default function ProductViewer({ product }) {
                   aria-current={index === imageIndex}
                   className={[
                     'block w-full overflow-hidden border bg-sand-100 transition-colors',
-                    index === imageIndex ? 'border-ink' : 'border-ink/12 hover:border-ink/40',
+                    index === imageIndex ? 'border-ink' : 'border-ink/10 hover:border-ink/40',
                   ].join(' ')}
                 >
                   <img
@@ -272,7 +272,7 @@ export default function ProductViewer({ product }) {
       </div>
       <div>
         {mode === 'exploded' ? (
-          <div className="border border-ink/12 bg-paper">
+          <div className="border border-ink/10 bg-paper">
             <div className="border-b border-ink/10 px-4 py-3">
               <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/55">
                 {t('viewer.componentsHeading')}
@@ -316,7 +316,7 @@ export default function ProductViewer({ product }) {
             </ul>
           </div>
         ) : (
-          <div className="border border-ink/12 bg-paper p-5">
+          <div className="border border-ink/10 bg-paper p-5">
             <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/55">
               {t('viewer.whyMachine')}
             </h2>

@@ -130,7 +130,7 @@ export default function Products() {
               ))}
             </div>
           ) : (
-            <div className="mt-10 border border-ink/12 bg-paper p-8 text-center">
+            <div className="mt-10 border border-ink/10 bg-paper p-8 text-center">
               <p className="font-display text-lg font-bold">{t('products.noMatchTitle')}</p>
               <p className="mx-auto mt-2 max-w-lg text-sm text-ink/65">
                 {t('products.noMatchText')}
@@ -158,7 +158,7 @@ export default function Products() {
               }
             />
 
-            <div className="mt-10 grid gap-px overflow-hidden border border-ink/12 bg-ink/12 sm:grid-cols-3">
+            <div className="mt-10 grid gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-3">
               {[
                 { title: t('products.q1Title'), text: t('products.q1Text') },
                 { title: t('products.q2Title'), text: t('products.q2Text') },

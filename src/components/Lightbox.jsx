@@ -57,7 +57,7 @@ export default function Lightbox({ items = [], index = null, onClose, category }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[80] flex flex-col bg-ink/97 backdrop-blur-sm"
+          className="fixed inset-0 z-[80] flex flex-col bg-ink/95 backdrop-blur-sm"
         >
           {/* Top bar */}
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-6">

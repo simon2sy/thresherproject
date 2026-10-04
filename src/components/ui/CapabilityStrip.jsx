@@ -73,7 +73,7 @@ export default function CapabilityStrip({ tone = 'dark', className = '' }) {
     <div
       className={[
         'grid grid-cols-2 gap-px lg:grid-cols-4',
-        dark ? 'bg-white/12' : 'bg-ink/12',
+        dark ? 'bg-white/10' : 'bg-ink/10',
         className,
       ].join(' ')}
     >

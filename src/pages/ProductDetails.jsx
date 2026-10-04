@@ -183,7 +183,7 @@ export default function ProductDetails() {
               <p className="lede mt-5">{product.summary}</p>
             </Reveal>
 
-            <ul className="mt-8 grid gap-px overflow-hidden border border-ink/12 bg-ink/12 sm:grid-cols-2">
+            <ul className="mt-8 grid gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-2">
               {product.features.map((feature) => (
                 <li key={feature} className="flex gap-3 bg-paper p-4 text-sm leading-relaxed">
                   <Check size={16} className="mt-0.5 shrink-0 text-agri-600" />
@@ -207,7 +207,7 @@ export default function ProductDetails() {
           </div>
 
           <div className="space-y-8">
-            <div className="border border-ink/12 bg-paper p-6">
+            <div className="border border-ink/10 bg-paper p-6">
               <h3 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
                 {t('productDetails.price')}
               </h3>
@@ -219,7 +219,7 @@ export default function ProductDetails() {
               </p>
             </div>
 
-            <div className="border border-ink/12 bg-paper p-6">
+            <div className="border border-ink/10 bg-paper p-6">
               <h3 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
                 {t('productDetails.compatibleCrops')}
               </h3>
@@ -235,7 +235,7 @@ export default function ProductDetails() {
               </ul>
             </div>
 
-            <div className="border border-ink/12 bg-paper p-6">
+            <div className="border border-ink/10 bg-paper p-6">
               <h3 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
                 {t('productDetails.accessories')}
               </h3>
@@ -276,7 +276,7 @@ export default function ProductDetails() {
                     'flex h-full flex-col rounded-[3px] border p-6 transition-shadow duration-300',
                     feature.highlight
                       ? 'border-ink bg-ink shadow-plate hover:shadow-lift'
-                      : 'border-ink/12 bg-paper hover:shadow-lift',
+                      : 'border-ink/10 bg-paper hover:shadow-lift',
                   ].join(' ')}
                 >
                   <span
@@ -341,7 +341,7 @@ export default function ProductDetails() {
             />
 
             <div className="space-y-6">
-              <div className="border border-white/12 bg-white/[0.03] p-6">
+              <div className="border border-white/10 bg-white/[0.03] p-6">
                 <h3 className="text-2xs font-semibold uppercase tracking-technical text-sand-100/50">
                   {t('productDetails.dimensionsWeight')}
                 </h3>
@@ -366,7 +366,7 @@ export default function ProductDetails() {
                 </dl>
               </div>
 
-              <div className="border border-white/12 bg-white/[0.03] p-6">
+              <div className="border border-white/10 bg-white/[0.03] p-6">
                 <h3 className="text-2xs font-semibold uppercase tracking-technical text-sand-100/50">
                   {t('productDetails.warrantyService')}
                 </h3>

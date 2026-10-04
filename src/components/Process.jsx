@@ -29,7 +29,7 @@ export default function Process({ tone = 'dark' }) {
         {/* Connecting rail */}
         <div
           className={`absolute left-0 right-0 top-[26px] hidden h-px lg:block ${
-            dark ? 'bg-white/12' : 'bg-ink/12'
+            dark ? 'bg-white/10' : 'bg-ink/10'
           }`}
         >
           <motion.span
@@ -79,8 +79,8 @@ export default function Process({ tone = 'dark' }) {
               <p
                 className={`mt-5 inline-flex border px-2.5 py-1.5 text-2xs uppercase tracking-technical ${
                   dark
-                    ? 'border-white/12 text-sand-100/50'
-                    : 'border-ink/12 text-ink/50'
+                    ? 'border-white/10 text-sand-100/50'
+                    : 'border-ink/10 text-ink/50'
                 }`}
               >
                 {step.spec}

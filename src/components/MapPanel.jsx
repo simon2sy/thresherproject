@@ -17,7 +17,7 @@ export default function MapPanel({ className = '' }) {
   const { embedUrl, query, directionsUrl } = site.map
 
   return (
-    <div className={`border border-ink/12 bg-paper ${className}`}>
+    <div className={`border border-ink/10 bg-paper ${className}`}>
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-graphite sm:aspect-[16/9]">
         {embedUrl ? (
           <iframe

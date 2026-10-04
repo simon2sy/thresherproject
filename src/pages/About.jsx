@@ -67,7 +67,7 @@ export default function About() {
             ))}
 
             <Reveal variant="fade" className="mt-10">
-              <figure className="border border-ink/12 bg-paper">
+              <figure className="border border-ink/10 bg-paper">
                 <img
                   src="/images/gallery/thresher-range-lineup.jpg"
                   alt={t('about.figAlt')}
@@ -90,7 +90,7 @@ export default function About() {
 
           {/* ---------- Facts + how we work ---------- */}
           <div className="space-y-8">
-            <Reveal className="border border-ink/12 bg-paper">
+            <Reveal className="border border-ink/10 bg-paper">
               <div className="border-b border-ink/10 px-5 py-4">
                 <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
                   {t('about.detailsHeading')}
@@ -115,7 +115,7 @@ export default function About() {
               </p>
             </Reveal>
 
-            <Reveal variant="fade" className="border border-ink/12 bg-paper p-5 sm:p-6">
+            <Reveal variant="fade" className="border border-ink/10 bg-paper p-5 sm:p-6">
               <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
                 {t('about.howWeWork')}
               </h2>
@@ -129,7 +129,7 @@ export default function About() {
               </ul>
             </Reveal>
 
-            <Reveal variant="fade" className="border border-ink/12 bg-paper p-5 sm:p-6">
+            <Reveal variant="fade" className="border border-ink/10 bg-paper p-5 sm:p-6">
               <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
                 {t('about.visiting')}
               </h2>

@@ -25,7 +25,7 @@ export default function WhyUs({ tone = 'light', showHeading = true }) {
         />
       ) : null}
 
-      <div className="mt-12 grid gap-px overflow-hidden border border-ink/12 bg-ink/12 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
         {whyUs.map((item, index) => (
           <Reveal
             key={item.id}

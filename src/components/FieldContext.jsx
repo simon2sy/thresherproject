@@ -28,7 +28,7 @@ export default function FieldContext() {
             delay={Math.min(index * 0.08, 0.24)}
             className={index === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}
           >
-            <figure className="group h-full border border-ink/12 bg-paper">
+            <figure className="group h-full border border-ink/10 bg-paper">
               <div className="overflow-hidden border-b border-ink/10 bg-sand-200">
                 <img
                   src={item.src}

@@ -18,7 +18,7 @@ export default function Contact({ tone = 'light', showHeading = true, id = 'inqu
   const { t } = useLanguage()
   const site = useSite()
   const dark = tone === 'dark'
-  const card = dark ? 'border-white/12 bg-white/[0.03]' : 'border-ink/12 bg-paper'
+  const card = dark ? 'border-white/10 bg-white/[0.03]' : 'border-ink/10 bg-paper'
   const heading = dark ? 'text-sand-50' : 'text-ink'
   const body = dark ? 'text-sand-100/65' : 'text-ink/65'
   const accent = dark ? 'text-aqua-300' : 'text-agri-600'
@@ -130,7 +130,7 @@ export default function Contact({ tone = 'light', showHeading = true, id = 'inqu
           </div>
         </Reveal>
         <Reveal variant="right" delay={0.08}>
-          <div id={id} className="scroll-mt-28 border border-ink/12 bg-paper p-6 sm:p-8">
+          <div id={id} className="scroll-mt-28 border border-ink/10 bg-paper p-6 sm:p-8">
             <h3 className="h-card">{t('contact.formTitle')}</h3>
             <p className="mt-2 text-sm text-ink/65">{t('contact.formHint')}</p>
             <div className="mt-7">

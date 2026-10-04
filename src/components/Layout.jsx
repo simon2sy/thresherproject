@@ -63,7 +63,7 @@ export default function Layout() {
 
       {/* Sticky contact bar — small screens only. Sits above the safe-area
           inset on phones with a home indicator. */}
-      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-white/10 bg-[#040D11]/97 pb-[env(safe-area-inset-bottom)] lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-white/10 bg-[#040D11]/95 pb-[env(safe-area-inset-bottom)] lg:hidden">
         <a
           href={site.phone.href}
           className="flex items-center justify-center gap-2 py-3.5 text-sm font-semibold text-sand-50 transition-colors active:bg-white/10"

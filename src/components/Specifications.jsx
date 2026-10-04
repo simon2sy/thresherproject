@@ -39,7 +39,7 @@ export default function Specifications({ tone = 'dark' }) {
 
         <Reveal variant="fade" delay={0.1}>
           <div
-            className={`mt-8 border p-5 ${dark ? 'border-white/12 bg-white/[0.03]' : 'border-ink/12 bg-paper'}`}
+            className={`mt-8 border p-5 ${dark ? 'border-white/10 bg-white/[0.03]' : 'border-ink/10 bg-paper'}`}
           >
             <h3
               className={`text-2xs font-semibold uppercase tracking-technical ${

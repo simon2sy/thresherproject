@@ -23,7 +23,7 @@ export default function SpecTable({ rows = [], notice, tone = 'light', caption }
 
   return (
     <div>
-      <div className={`overflow-hidden rounded-[3px] border ${dark ? 'border-white/12 bg-white/[0.03]' : 'border-ink/10 bg-paper'}`}>
+      <div className={`overflow-hidden rounded-[3px] border ${dark ? 'border-white/10 bg-white/[0.03]' : 'border-ink/10 bg-paper'}`}>
         <table className="table-spec hidden sm:table">
           {caption ? <caption className="sr-only">{caption}</caption> : null}
           <thead>
