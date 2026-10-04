@@ -177,10 +177,10 @@ export default function ProductDetails() {
               <p className="lede mt-5">{product.summary}</p>
             </Reveal>
 
-            <ul className="mt-8 grid gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-2">
+            <ul className="mt-8 grid grid-cols-2 gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-2">
               {product.features.map((feature) => (
-                <li key={feature} className="flex gap-3 bg-paper p-4 text-sm leading-relaxed">
-                  <Check size={16} className="mt-0.5 shrink-0 text-agri-600" />
+                <li key={feature} className="flex gap-2 bg-paper p-3 text-[0.72rem] leading-relaxed sm:gap-3 sm:p-4 sm:text-sm">
+                  <Check size={14} className="mt-0.5 shrink-0 text-agri-600 sm:h-4 sm:w-4" />
                   {feature}
                 </li>
               ))}
@@ -257,7 +257,7 @@ export default function ProductDetails() {
             lead={t('productDetails.glanceLead')}
           />
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {keyFeatures.map((feature, index) => (
               <Reveal
                 key={feature.title}
@@ -267,7 +267,7 @@ export default function ProductDetails() {
               >
                 <article
                   className={[
-                    'flex h-full flex-col rounded-[3px] border p-6 transition-shadow duration-300',
+                    'flex h-full flex-col rounded-[3px] border p-3.5 transition-shadow duration-300 sm:p-6',
                     feature.highlight
                       ? 'border-ink bg-ink shadow-plate hover:shadow-lift'
                       : 'border-ink/10 bg-paper hover:shadow-lift',
@@ -275,7 +275,7 @@ export default function ProductDetails() {
                 >
                   <span
                     className={[
-                      'grid h-12 w-12 shrink-0 place-items-center rounded-[3px]',
+                      'grid h-9 w-9 shrink-0 place-items-center rounded-[3px] sm:h-12 sm:w-12',
                       feature.highlight
                         ? 'bg-amber_acc-400 text-ink'
                         : 'border border-agri-100 bg-agri-50 text-agri-600',
@@ -285,7 +285,7 @@ export default function ProductDetails() {
                   </span>
 
                   <h3
-                    className={`mt-5 font-display text-lg font-bold ${
+                    className={`mt-4 font-display text-base font-bold sm:mt-5 sm:text-lg ${
                       feature.highlight ? 'text-sand-50' : 'text-ink'
                     }`}
                   >
@@ -294,7 +294,7 @@ export default function ProductDetails() {
 
                   {feature.value ? (
                     <p
-                      className={`mt-2 font-display text-3xl font-extrabold tracking-[-0.03em] tabular ${
+                      className={`mt-1.5 font-display text-2xl font-extrabold tracking-[-0.03em] tabular sm:mt-2 sm:text-3xl ${
                         feature.highlight ? 'text-amber_acc-300' : 'text-agri-600'
                       }`}
                     >
@@ -303,7 +303,7 @@ export default function ProductDetails() {
                   ) : null}
 
                   <p
-                    className={`mt-2.5 text-sm leading-relaxed ${
+                    className={`mt-2 text-xs leading-relaxed sm:mt-2.5 sm:text-sm ${
                       feature.highlight ? 'text-sand-100/70' : 'text-ink/65'
                     }`}
                   >
@@ -392,7 +392,7 @@ export default function ProductDetails() {
             }
           />
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <div className="mt-12 grid grid-cols-2 gap-3.5 sm:gap-6 md:grid-cols-2">
             {related.map((item, index) => (
               <ProductCard key={item.id} product={item} index={index} />
             ))}

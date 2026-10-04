@@ -79,7 +79,7 @@ export default function Home() {
             }
           />
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid grid-cols-2 gap-3.5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {products.map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} />
             ))}

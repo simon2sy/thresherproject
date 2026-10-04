@@ -124,7 +124,7 @@ export default function Products() {
           </div>
 
           {filtered.length > 0 ? (
-            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid grid-cols-2 gap-3.5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filtered.map((product, index) => (
                 <ProductCard key={product.id} product={product} index={index} />
               ))}
@@ -157,18 +157,18 @@ export default function Products() {
               }
             />
 
-            <div className="mt-10 grid gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-3">
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-3">
               {[
                 { title: t('products.q1Title'), text: t('products.q1Text') },
                 { title: t('products.q2Title'), text: t('products.q2Text') },
                 { title: t('products.q3Title'), text: t('products.q3Text') },
               ].map((item, index) => (
-                <Reveal key={item.title} variant="fade" delay={index * 0.06} className="bg-paper p-6">
+                <Reveal key={item.title} variant="fade" delay={index * 0.06} className="bg-paper p-3.5 sm:p-6">
                   <span className="tabular text-2xs text-ink/30">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <h3 className="mt-3 font-display text-base font-bold">{item.title}</h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-ink/65">{item.text}</p>
+                  <h3 className="mt-2.5 font-display text-[0.92rem] font-bold sm:mt-3 sm:text-base">{item.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-ink/65 sm:mt-2.5 sm:text-sm">{item.text}</p>
                 </Reveal>
               ))}
             </div>

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   motion,
   useMotionTemplate,
@@ -37,12 +37,24 @@ export default function TiltCard({
   lift = 6,
   spotlight = true,
   glowBorder = true,
+  disabled = false,
   className = '',
   style,
   ...rest
 }) {
   const ref = useRef(null)
   const reduceMotion = useReducedMotion()
+
+  // Touch devices report no hover: a pointermove there would leave the card
+  // leaning at the last touch position, so skip the tilt entirely.
+  const [coarsePointer, setCoarsePointer] = useState(false)
+  useEffect(() => {
+    const query = window.matchMedia('(hover: none)')
+    setCoarsePointer(query.matches)
+    const onChange = (event) => setCoarsePointer(event.matches)
+    query.addEventListener('change', onChange)
+    return () => query.removeEventListener('change', onChange)
+  }, [])
 
   // Pointer position as a percentage of the card, 0-1.
   const px = useMotionValue(0.5)
@@ -80,8 +92,9 @@ export default function TiltCard({
     py.set(0.5)
   }
 
-  // No tilt at all for reduced motion — render a plain, static surface.
-  if (reduceMotion) {
+  // No tilt at all for reduced motion, coarse pointers or an explicit
+  // `disabled` — render a plain, static surface.
+  if (reduceMotion || coarsePointer || disabled) {
     return (
       <div
         ref={ref}

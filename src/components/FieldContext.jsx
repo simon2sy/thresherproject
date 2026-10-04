@@ -21,7 +21,7 @@ export default function FieldContext() {
         lead={t('fieldContext.lead')}
       />
 
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {fieldContext.map((item, index) => (
           <Reveal
             key={item.id}
@@ -38,12 +38,12 @@ export default function FieldContext() {
                   className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               </div>
-              <figcaption className="p-5 sm:p-6">
-                <p className="text-2xs font-semibold uppercase tracking-technical text-harvest-700">
+              <figcaption className="p-3.5 sm:p-6">
+                <p className="text-[0.58rem] font-semibold uppercase tracking-technical text-harvest-700 sm:text-2xs">
                   Jhapa · Terai
                 </p>
-                <h3 className="mt-1.5 font-display text-lg font-bold tracking-[-0.015em]">{item.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-ink/65">{item.text}</p>
+                <h3 className="mt-1 font-display text-[0.92rem] font-bold tracking-[-0.015em] sm:mt-1.5 sm:text-lg">{item.title}</h3>
+                <p className="mt-2 hidden text-sm leading-relaxed text-ink/65 sm:mt-2.5 sm:block">{item.text}</p>
               </figcaption>
             </figure>
           </Reveal>

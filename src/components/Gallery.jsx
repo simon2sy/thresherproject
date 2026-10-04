@@ -82,7 +82,7 @@ export default function Gallery({ showFilters = true, limit, heading }) {
         </Reveal>
       ) : null}
 
-      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+      <div className="columns-2 gap-2.5 sm:gap-4 lg:columns-3 [&>*]:mb-2.5 sm:[&>*]:mb-4">
         {items.map((item, index) => (
           <Reveal
             key={item.id}
@@ -118,12 +118,12 @@ export default function Gallery({ showFilters = true, limit, heading }) {
               {/* Speck of light that travels across the frame on hover. */}
               <span className="sheen" aria-hidden="true" />
 
-              <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
-                <span className="block">
-                  <span className="block text-2xs font-semibold uppercase tracking-technical text-amber_acc-300">
+              <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-2.5 sm:gap-3 sm:p-4">
+                <span className="block min-w-0">
+                  <span className="block text-[0.58rem] font-semibold uppercase tracking-technical text-amber_acc-300 sm:text-2xs">
                     {item.category}
                   </span>
-                  <span className="mt-1 block font-display text-[0.95rem] font-bold leading-snug text-sand-50">
+                  <span className="mt-0.5 block font-display text-[0.78rem] font-bold leading-snug text-sand-50 sm:mt-1 sm:text-[0.95rem]">
                     {item.title}
                   </span>
                   {item.caption ? (

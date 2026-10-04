@@ -55,10 +55,10 @@ export default function ProductCard({ product, index = 0 }) {
               alt={`${product.code} ${product.name}`}
               loading="lazy"
               decoding="async"
-              className="relative aspect-[4/3] w-full object-contain p-3 transition-transform duration-500 ease-smooth group-hover:scale-[1.06] sm:p-5"
+              className="relative aspect-[4/3] w-full object-contain p-2 transition-transform duration-500 ease-smooth group-hover:scale-[1.06] sm:p-5"
             />
             {product.badge ? (
-              <span className="absolute left-0 top-3 bg-gradient-to-r from-harvest-500 to-harvest-400 px-2.5 py-1.5 text-2xs font-bold uppercase tracking-technical text-ink shadow-glow-harvest">
+              <span className="absolute left-0 top-2 bg-gradient-to-r from-harvest-500 to-harvest-400 px-1.5 py-1 text-[0.58rem] font-bold uppercase leading-tight tracking-technical text-ink shadow-glow-harvest sm:top-3 sm:px-2.5 sm:py-1.5 sm:text-2xs">
                 {product.badge}
               </span>
             ) : null}
@@ -71,14 +71,14 @@ export default function ProductCard({ product, index = 0 }) {
           </Link>
 
         {/* Body */}
-        <div className="flex flex-1 flex-col p-5 sm:p-6">
-          <p className="flex items-center gap-3 text-2xs uppercase tracking-technical text-ink/45">
-            <span className="rounded-[3px] bg-paddy-700 px-2 py-1 tabular font-semibold text-white">{product.code}</span>
+        <div className="flex flex-1 flex-col p-3.5 sm:p-5 lg:p-6">
+          <p className="flex items-center gap-2 text-2xs uppercase tracking-technical text-ink/45 sm:gap-3">
+            <span className="rounded-[3px] bg-paddy-700 px-1.5 py-0.5 tabular font-semibold text-white sm:px-2 sm:py-1">{product.code}</span>
             <span className="h-px flex-1 bg-gradient-to-r from-harvest-500/50 to-transparent" />
-            <span>{product.category}</span>
+            <span className="hidden sm:inline">{product.category}</span>
           </p>
 
-          <h3 className="h-card mt-3">
+          <h3 className="h-card mt-2.5 text-[0.95rem] sm:mt-3 sm:text-2xl">
             <Link
               to={`/threshers/${product.slug}`}
               className="transition-colors hover:text-harvest-700"
@@ -87,17 +87,17 @@ export default function ProductCard({ product, index = 0 }) {
             </Link>
           </h3>
 
-          <p className="mt-3 text-sm leading-relaxed text-ink/65">{product.short}</p>
+          <p className="mt-3 hidden text-sm leading-relaxed text-ink/65 sm:block">{product.short}</p>
 
           {/* Technical facts */}
-          <dl className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-[4px] border border-ink/10 bg-ink/10 sm:grid-cols-2">
+          <dl className="mt-3.5 grid grid-cols-1 gap-px overflow-hidden rounded-[4px] border border-ink/10 bg-ink/10 sm:mt-5 sm:grid-cols-2">
             {facts.map((fact) => (
-              <div key={fact.label} className={`px-3.5 py-3 ${fact.hot ? 'bg-harvest-100/70' : 'bg-paper'}`}>
-                <dt className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-technical text-ink/45">
-                  <fact.icon size={13} strokeWidth={1.8} aria-hidden="true" className={fact.hot ? 'text-harvest-600' : 'text-paddy-600'} />
-                  {fact.label}
+              <div key={fact.label} className={`px-2.5 py-2.5 sm:px-3.5 sm:py-3 ${fact.hot ? 'bg-harvest-100/70' : 'bg-paper'}`}>
+                <dt className="flex items-center gap-1.5 text-[0.58rem] font-semibold uppercase tracking-technical text-ink/45 sm:gap-2 sm:text-2xs">
+                  <fact.icon size={12} strokeWidth={1.8} aria-hidden="true" className={`shrink-0 ${fact.hot ? 'text-harvest-600' : 'text-paddy-600'}`} />
+                  <span className="truncate">{fact.label}</span>
                 </dt>
-                <dd className={`mt-1 text-[0.8rem] font-semibold leading-snug ${fact.hot ? 'text-harvest-800' : 'text-ink'}`}>
+                <dd className={`mt-1 text-[0.72rem] font-semibold leading-snug sm:text-[0.8rem] ${fact.hot ? 'text-harvest-800' : 'text-ink'}`}>
                   {fact.value}
                 </dd>
               </div>
@@ -105,10 +105,15 @@ export default function ProductCard({ product, index = 0 }) {
           </dl>
 
           {/* Actions */}
-          <div className="mt-auto flex flex-col gap-2.5 pt-6 sm:flex-row">
-            <Button to={`/threshers/${product.slug}`} variant="primary" size="sm" className="flex-1">
-              {t('common.viewDetails')}
-              <ArrowRight size={15} />
+          <div className="mt-auto flex flex-col gap-2.5 pt-4 sm:pt-6">
+            <Button
+              to={`/threshers/${product.slug}`}
+              variant="primary"
+              size="sm"
+              className="w-full !gap-1.5 !px-2 text-[0.72rem] sm:!gap-2 sm:!px-4 sm:text-[0.82rem]"
+            >
+              <span className="truncate">{t('common.viewDetails')}</span>
+              <ArrowRight size={14} className="shrink-0" />
             </Button>
           </div>
         </div>
