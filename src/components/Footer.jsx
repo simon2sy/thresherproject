@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Mail, MapPin, PhoneCall, User } from 'lucide-react'
-import { navLinks, site } from '../config/site'
-import { products } from '../data/products'
+import { useLanguage, useNavLinks, useProducts, useSite } from '../i18n'
 import { brandIcons } from './icons/BrandIcons'
 import Icon from './ui/Icon'
 import { scrollToTop } from './SmoothScroll'
@@ -15,6 +14,10 @@ import { scrollToTop } from './SmoothScroll'
 export default function Footer() {
   const year = new Date().getFullYear()
   const { pathname } = useLocation()
+  const { t } = useLanguage()
+  const site = useSite()
+  const navLinks = useNavLinks()
+  const products = useProducts()
 
   /** Same-page link: scroll to the top instead of doing a no-op navigation. */
   const handleSamePage = (event, to) => {
@@ -48,8 +51,7 @@ export default function Footer() {
             </div>
 
             <p className="mt-5 max-w-sm text-sm leading-relaxed">
-              Thresher machines and farm machinery for paddy, wheat, maize and other crops —
-              assembled and serviced in Jhapa Gaupalika, Jhapa.
+              {t('footer.description')}
             </p>
 
             <ul className="mt-6 flex items-center gap-2">
@@ -59,7 +61,7 @@ export default function Footer() {
                   <li key={social.label}>
                     <a
                       href={social.href}
-                      aria-label={`${site.name} on ${social.label}`}
+                      aria-label={t('footer.onSocialAria', { name: site.name, label: social.label })}
                       className="grid h-10 w-10 place-items-center rounded-[2px] border border-white/15 text-sand-100/70 transition-colors hover:border-white/40 hover:text-sand-50"
                     >
                       {Glyph ? <Glyph size={17} /> : null}
@@ -71,9 +73,9 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <nav aria-label="Footer">
+          <nav aria-label={t('nav.footerLabel')}>
             <h2 className="text-2xs font-semibold uppercase tracking-technical text-sand-100/45">
-              Navigate
+              {t('footer.navigate')}
             </h2>
             <ul className="mt-5 space-y-3 text-sm">
               {navLinks.map((link) => (
@@ -93,7 +95,7 @@ export default function Footer() {
           {/* Products — generated from the catalogue */}
           <div>
             <h2 className="text-2xs font-semibold uppercase tracking-technical text-sand-100/45">
-              Threshers
+              {t('footer.threshers')}
             </h2>
             <ul className="mt-5 space-y-3 text-sm">
               {products.map((product) => (
@@ -114,7 +116,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h2 className="text-2xs font-semibold uppercase tracking-technical text-sand-100/45">
-              Contact
+              {t('footer.contact')}
             </h2>
             <address className="mt-5 space-y-4 text-sm not-italic">
               <p className="flex gap-3">
@@ -130,7 +132,7 @@ export default function Footer() {
               <p className="flex gap-3">
                 <User size={17} className="mt-0.5 shrink-0 text-agri-300" />
                 <span>
-                  <span className="text-sand-100/50">Proprietor </span>
+                  <span className="text-sand-100/50">{t('footer.proprietor')} </span>
                   <span className="font-semibold text-sand-50">{site.proprietor}</span>
                 </span>
               </p>
@@ -166,14 +168,11 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.legalName}. All rights reserved.
+            © {year} {site.legalName}. {t('footer.rights')}
           </p>
           <p className="flex items-start gap-2 text-sand-100/45 sm:max-w-xl sm:text-right">
             <Icon name="info" size={14} className="mt-0.5 shrink-0" />
-            <span>
-              Some images and the specification values on this site are placeholders and will be
-              replaced with the verified catalogue data.
-            </span>
+            <span>{t('footer.placeholderNote')}</span>
           </p>
         </div>
       </div>

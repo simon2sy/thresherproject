@@ -1,4 +1,4 @@
-import { whyUs } from '../data/content'
+import { useLanguage, useWhyUs } from '../i18n'
 import Icon from './ui/Icon'
 import Reveal from './ui/Reveal'
 import SectionHeading from './ui/SectionHeading'
@@ -10,6 +10,8 @@ import SectionHeading from './ui/SectionHeading'
  * slogans. Content lives in src/data/content.js → `whyUs`.
  */
 export default function WhyUs({ tone = 'light', showHeading = true }) {
+  const { t } = useLanguage()
+  const whyUs = useWhyUs()
   const dark = tone === 'dark'
 
   return (
@@ -17,9 +19,9 @@ export default function WhyUs({ tone = 'light', showHeading = true }) {
       {showHeading ? (
         <SectionHeading
           tone={tone}
-          eyebrow="Why choose us"
-          title="Practical reasons to buy from us"
-          lead="No claims we cannot back up — these are the things that matter when a machine has to work through the whole season."
+          eyebrow={t('whyUs.eyebrow')}
+          title={t('whyUs.title')}
+          lead={t('whyUs.lead')}
         />
       ) : null}
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { useLanguage } from '../i18n'
 
 /**
  * Lightbox
@@ -16,6 +17,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react'
  * @param {string} [props.category]   label shown in the technical caption bar
  */
 export default function Lightbox({ items = [], index = null, onClose, category }) {
+  const { t } = useLanguage()
   const closeRef = useRef(null)
   const lastFocused = useRef(null)
   const open = index !== null && index >= 0 && items[index]
@@ -70,7 +72,7 @@ export default function Lightbox({ items = [], index = null, onClose, category }
               ref={closeRef}
               type="button"
               onClick={() => onClose(null)}
-              aria-label="Close image viewer"
+              aria-label={t('gallery.closeViewerAria')}
               className="grid h-10 w-10 place-items-center rounded-[2px] border border-white/20 text-sand-50 transition-colors hover:border-white/60"
             >
               <X size={18} />
@@ -105,7 +107,7 @@ export default function Lightbox({ items = [], index = null, onClose, category }
               <button
                 type="button"
                 onClick={() => onClose((index - 1 + items.length) % items.length)}
-                aria-label="Previous image"
+                aria-label={t('gallery.prevAria')}
                 className="grid h-11 w-11 place-items-center rounded-[2px] border border-white/20 text-sand-50 transition-colors hover:border-white/60"
               >
                 <ChevronLeft size={18} />
@@ -113,7 +115,7 @@ export default function Lightbox({ items = [], index = null, onClose, category }
               <button
                 type="button"
                 onClick={() => onClose((index + 1) % items.length)}
-                aria-label="Next image"
+                aria-label={t('gallery.nextAria')}
                 className="grid h-11 w-11 place-items-center rounded-[2px] border border-white/20 text-sand-50 transition-colors hover:border-white/60"
               >
                 <ChevronRight size={18} />

@@ -1,5 +1,4 @@
-import { technicalSpecifications } from '../data/content'
-import { site } from '../config/site'
+import { useLanguage, useSite, useTechnicalSpecifications } from '../i18n'
 import SpecTable from './ui/SpecTable'
 import Reveal from './ui/Reveal'
 import Icon from './ui/Icon'
@@ -12,35 +11,30 @@ import Icon from './ui/Icon'
  * in the same place, with no component changes.
  */
 export default function Specifications({ tone = 'dark' }) {
+  const { t } = useLanguage()
+  const site = useSite()
+  const technicalSpecifications = useTechnicalSpecifications()
   const dark = tone === 'dark'
 
-  const checks = [
-    'Your main crop and expected tonnage per season',
-    'Where the machine will stand — field edge, farmyard or threshing floor',
-    'Access to the field or yard — width of the track and turning space',
-    'Sacks, trolley or trailer arrangement at the grain outlet',
-  ]
+  const checks = [t('specs.check1'), t('specs.check2'), t('specs.check3'), t('specs.check4')]
 
   return (
     <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
       <div>
         <Reveal variant="fade">
           <p className={`eyebrow ${dark ? 'text-aqua-300' : 'text-agri-600'}`}>
-            Technical specifications
+            {t('specs.eyebrow')}
           </p>
         </Reveal>
 
         <Reveal>
           <h2 className={`h-section mt-4 ${dark ? 'text-sand-50' : 'text-ink'}`}>
-            Numbers you can plan around
+            {t('specs.title')}
           </h2>
         </Reveal>
 
         <Reveal delay={0.06}>
-          <p className={`lede mt-5 ${dark ? 'text-sand-100/70' : ''}`}>
-            Construction, drive and crop suitability decide whether a machine suits your land and
-            your harvest window. The table shows the format we publish for every model in the range.
-          </p>
+          <p className={`lede mt-5 ${dark ? 'text-sand-100/70' : ''}`}>{t('specs.lead')}</p>
         </Reveal>
 
         <Reveal variant="fade" delay={0.1}>
@@ -52,7 +46,7 @@ export default function Specifications({ tone = 'dark' }) {
                 dark ? 'text-sand-100/50' : 'text-ink/50'
               }`}
             >
-              What we check before recommending a machine
+              {t('specs.checkHeading')}
             </h3>
             <ul className="mt-4 space-y-3">
               {checks.map((check) => (
@@ -72,8 +66,7 @@ export default function Specifications({ tone = 'dark' }) {
               ))}
             </ul>
             <p className={`mt-5 text-xs ${dark ? 'text-sand-100/45' : 'text-ink/50'}`}>
-              Call {site.phone.display} or send the inquiry form with your crop and land size and we
-              will confirm what fits.
+              {t('specs.note', { phone: site.phone.display })}
             </p>
           </div>
         </Reveal>
@@ -84,7 +77,7 @@ export default function Specifications({ tone = 'dark' }) {
           rows={technicalSpecifications.rows}
           notice={technicalSpecifications.notice}
           tone={tone}
-          caption="Sample thresher technical specifications"
+          caption={t('specs.caption')}
         />
       </Reveal>
     </div>

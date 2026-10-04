@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { products } from '../../data/products'
+import { useLanguage, useProducts } from '../../i18n'
 import Counter from './Counter'
 
 /**
@@ -13,40 +13,61 @@ import Counter from './Counter'
  * real machine data replaces the samples.
  */
 
-/** Reads the warranty term out of a spec string, e.g. "1 year against …". */
+/**
+ * Reads the warranty term out of a spec string, e.g. "1 year against …" (EN)
+ * or "1 वर्ष — निर्माणजन्य त्रुटिविरुद्ध" (NE). Returns `{ unit, count }`.
+ */
 function parseWarrantyTerm(value = '') {
-  const years = value.match(/(\d+)\s*years?/i)
-  if (years) return `${years[1]} year${years[1] === '1' ? '' : 's'}`
-  const months = value.match(/(\d+)\s*months?/i)
-  if (months) return `${months[1]} month${months[1] === '1' ? '' : 's'}`
+  const years = value.match(/(\d+)\s*(years?|वर्ष)/i)
+  if (years) return { unit: 'year', count: Number(years[1]) }
+  const months = value.match(/(\d+)\s*(months?|महिना)/i)
+  if (months) return { unit: 'month', count: Number(months[1]) }
   return null
 }
 
+/** Localises the parsed warranty term ("1 year" / "2 years" …). */
+function formatWarrantyTerm(term, t) {
+  if (!term) return t('capability.onRequest')
+  if (term.unit === 'year') {
+    return term.count === 1
+      ? t('capability.yearOne')
+      : t('capability.years', { count: term.count })
+  }
+  return term.count === 1
+    ? t('capability.monthOne')
+    : t('capability.months', { count: term.count })
+}
+
 export default function CapabilityStrip({ tone = 'dark', className = '' }) {
+  const { t } = useLanguage()
+  const products = useProducts()
   const dark = tone === 'dark'
 
   const facts = useMemo(() => {
     const crops = new Set(products.flatMap((product) => product.crops))
-    const warrantyValue = products[0]?.specs.find((spec) => spec.label === 'Warranty')?.value
+    // Spec labels are localised, so match either language's label for Warranty.
+    const warrantyValue = products[0]?.specs.find(
+      (spec) => spec.label === 'Warranty' || spec.label === 'वारेन्टी',
+    )?.value
     const warrantyTerm = parseWarrantyTerm(warrantyValue)
 
     return [
-      { id: 'models', label: 'Thresher models', value: products.length, suffix: '' },
-      { id: 'crops', label: 'Crops covered', value: crops.size, suffix: '' },
+      { id: 'models', label: t('capability.models'), value: products.length, suffix: '' },
+      { id: 'crops', label: t('capability.crops'), value: crops.size, suffix: '' },
       {
         id: 'price',
-        label: 'Price',
-        text: products[0]?.price ?? 'On request',
-        unit: 'all models',
+        label: t('capability.price'),
+        text: products[0]?.price ?? t('capability.onRequest'),
+        unit: t('capability.allModels'),
       },
       {
         id: 'warranty',
-        label: 'Warranty',
-        text: warrantyTerm ?? 'On request',
-        unit: 'standard',
+        label: t('capability.warranty'),
+        text: formatWarrantyTerm(warrantyTerm, t),
+        unit: t('capability.standard'),
       },
     ]
-  }, [])
+  }, [products, t])
 
   return (
     <div

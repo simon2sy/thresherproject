@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { site } from '../config/site'
+import { site as englishSite } from '../config/site'
+import { useSite } from '../i18n'
 
 /**
  * Minimal dependency-free document head manager.
@@ -7,6 +8,10 @@ import { site } from '../config/site'
  * Keeps the SPA SEO-friendly: title, description, canonical, robots, Open
  * Graph / Twitter tags and JSON-LD structured data are all replaced per route.
  * The static values in `index.html` act as the crawlable fallback.
+ *
+ * Titles/descriptions are passed in already localised by the calling page
+ * (typically `t('meta.<route>.title')`), so switching language re-runs this
+ * hook and the whole head follows.
  *
  * @param {object} seo
  * @param {string} seo.title        full <title> (site name appended when omitted)
@@ -18,8 +23,7 @@ import { site } from '../config/site'
  * @param {Array}  [seo.jsonLd]     array of structured-data objects
  */
 
-const SITE_NAME = site.name
-const SITE_URL = site.url.replace(/\/$/, '')
+const SITE_URL = englishSite.url.replace(/\/$/, '')
 const DEFAULT_IMAGE = `${SITE_URL}/images/og-cover.jpg`
 
 const absolute = (value) => {
@@ -63,6 +67,7 @@ const upsertJsonLd = (blocks) => {
 }
 
 export function useSeo(seo = {}) {
+  const site = useSite()
   const {
     title,
     description,
@@ -75,7 +80,7 @@ export function useSeo(seo = {}) {
 
   // The dependency list is intentionally flat: every route passes a new object.
   const jsonLdKey = JSON.stringify(jsonLd)
-  const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME
+  const fullTitle = title ? `${title} | ${site.name}` : site.name
   const canonical = `${SITE_URL}${path === '/' ? '/' : path.replace(/\/$/, '')}`
   const ogImage = absolute(image || DEFAULT_IMAGE)
 
@@ -91,7 +96,7 @@ export function useSeo(seo = {}) {
     upsertMeta('property', 'og:description', description)
     upsertMeta('property', 'og:url', canonical)
     upsertMeta('property', 'og:image', ogImage)
-    upsertMeta('property', 'og:site_name', SITE_NAME)
+    upsertMeta('property', 'og:site_name', site.name)
 
     upsertMeta('name', 'twitter:card', 'summary_large_image')
     upsertMeta('name', 'twitter:title', fullTitle)
@@ -106,27 +111,37 @@ export function useSeo(seo = {}) {
 export const localBusinessSchema = () => ({
   '@context': 'https://schema.org',
   '@type': ['LocalBusiness', 'Store'],
-  name: site.name,
+  name: englishSite.name,
   description:
     'Agricultural machinery manufacturer and supplier specialising in thresher machines for paddy, wheat and maize.',
   url: SITE_URL,
-  telephone: site.phone.display,
-  ...(site.email.display ? { email: site.email.display } : {}),
+  telephone: englishSite.phone.display,
+  ...(englishSite.email.display ? { email: englishSite.email.display } : {}),
   priceRange: 'Rs. 360,000',
   image: DEFAULT_IMAGE,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: site.address.line1,
-    addressLocality: site.address.district,
-    addressRegion: `${site.address.district}, ${site.address.province}`,
-    postalCode: site.address.postalCode,
-    addressCountry: site.address.countryCode,
+    streetAddress: englishSite.address.line1,
+    addressLocality: englishSite.address.district,
+    addressRegion: `${englishSite.address.district}, ${englishSite.address.province}`,
+    postalCode: englishSite.address.postalCode,
+    addressCountry: englishSite.address.countryCode,
   },
-  geo: { '@type': 'GeoCoordinates', latitude: site.address.lat, longitude: site.address.lng },
-  areaServed: { '@type': 'AdministrativeArea', name: `${site.address.district}, ${site.address.country}` },
-  openingHoursSpecification: site.hours.map((slot) => ({
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: englishSite.address.lat,
+    longitude: englishSite.address.lng,
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: `${englishSite.address.district}, ${englishSite.address.country}`,
+  },
+  openingHoursSpecification: englishSite.hours.map((slot) => ({
     '@type': 'OpeningHoursSpecification',
-    dayOfWeek: slot.days === 'Saturday' ? 'Saturday' : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    dayOfWeek:
+      slot.days === 'Saturday'
+        ? 'Saturday'
+        : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     description: slot.time,
   })),
 })

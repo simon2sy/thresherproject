@@ -1,4 +1,4 @@
-import { fieldContext } from '../data/content'
+import { useFieldContext, useLanguage } from '../i18n'
 import Reveal from './ui/Reveal'
 import SectionHeading from './ui/SectionHeading'
 
@@ -10,12 +10,15 @@ import SectionHeading from './ui/SectionHeading'
  * from `fieldContext` in src/data/content.js.
  */
 export default function FieldContext() {
+  const { t } = useLanguage()
+  const fieldContext = useFieldContext()
+
   return (
     <div>
       <SectionHeading
-        eyebrow="In the field"
-        title="Built for how harvest actually happens here"
-        lead="Machines are bought for a specific crop, a specific field and a specific month. These are the working conditions the range is designed around."
+        eyebrow={t('fieldContext.eyebrow')}
+        title={t('fieldContext.title')}
+        lead={t('fieldContext.lead')}
       />
 
       <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,6 +1,5 @@
 import { ChevronDown, PhoneCall } from 'lucide-react'
-import { site } from '../config/site'
-import { products } from '../data/products'
+import { useLanguage, useProducts, useSite } from '../i18n'
 import Button from './ui/Button'
 import CapabilityStrip from './ui/CapabilityStrip'
 import Reveal from './ui/Reveal'
@@ -18,6 +17,9 @@ import { useMediaQuery } from '../hooks/useMediaQuery'
  * paint fast, and the interactive 3D viewer is left to the product pages.
  */
 export default function Hero() {
+  const { t } = useLanguage()
+  const site = useSite()
+  const products = useProducts()
   const flagship = products[0]
 
   /*
@@ -68,13 +70,16 @@ export default function Hero() {
             <Reveal variant="fade">
               <p className="eyebrow text-aqua-300">
                 <span className="pulse-dot" aria-hidden="true" />
-                Agricultural machinery · {site.address.locality}, {site.address.district}
+                {t('hero.eyebrow', {
+                  locality: site.address.locality,
+                  district: site.address.district,
+                })}
               </p>
             </Reveal>
 
             <Reveal delay={0.05}>
               <h1 className="h-display mt-5">
-                <span className="text-sand-50">Powering </span>
+                <span className="text-sand-50">{t('hero.titleLead')}</span>
                 {/*
                   The travelling gradient is a `transform` on an oversized inner
                   span (not `background-position`), so the headline animates on
@@ -82,7 +87,7 @@ export default function Hero() {
                 */}
                 <span className="relative inline-block overflow-hidden align-bottom">
                   <span className="text-brand motion-safe:animate-gradient-pan inline-block w-[200%]">
-                    Better Harvests.
+                    {t('hero.titleAccent')}
                   </span>
                 </span>
               </h1>
@@ -90,25 +95,23 @@ export default function Hero() {
 
             <Reveal delay={0.12}>
               <p className="lede mt-6 max-w-xl text-sand-100/75">
-                Reliable agricultural threshers engineered for efficient grain processing, built for
-                the demands of modern farming.
+                {t('hero.lede')}
               </p>
             </Reveal>
 
             <Reveal delay={0.18}>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-sand-100/55">
-                Multi-crop threshers for paddy, wheat and maize — assembled, demonstrated and
-                serviced from our workshop in Jhapa Gaupalika, Jhapa.
+                {t('hero.sub')}
               </p>
             </Reveal>
 
             <Reveal delay={0.24}>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Button to="/threshers" variant="accent" size="lg">
-                  Explore Threshers
+                  {t('common.exploreThreshers')}
                 </Button>
                 <Button to="/contact#inquiry" variant="outlineLight" size="lg">
-                  Request a Quote
+                  {t('common.requestQuote')}
                 </Button>
               </div>
             </Reveal>
@@ -127,10 +130,10 @@ export default function Hero() {
                     shouting. The dot pulses to signal "open for business". */}
                 <span className="flex items-center gap-2 motion-safe:animate-bob">
                   <span className="pulse-dot" aria-hidden="true" />
-                  Spare parts kept in stock
+                  {t('hero.spareParts')}
                 </span>
                 <span className="hidden h-3 w-px bg-white/15 sm:block" />
-                <span>Service from Jhapa</span>
+                <span>{t('hero.serviceFromJhapa')}</span>
               </div>
             </Reveal>
           </div>
@@ -144,7 +147,7 @@ export default function Hero() {
                   {flagship.name}
                 </p>
                 <p className="hidden text-2xs uppercase tracking-technical text-sand-100/40 sm:block">
-                  Range · {products.length} machines
+                  {t('hero.range', { count: products.length })}
                 </p>
               </div>
             </Reveal>
@@ -160,7 +163,7 @@ export default function Hero() {
               <div className="relative h-[300px] sm:h-[400px] lg:h-[520px]">
                 <img
                   src="/images/products/thresher1.jpeg"
-                  alt="Daju Bhai Grill Udyog agricultural thresher machine with feeding hopper, threshing drum and transport wheels"
+                  alt={t('hero.imageAlt')}
                   loading="eager"
                   decoding="async"
                   className="h-full w-full object-contain drop-shadow-[0_28px_50px_rgba(0,0,0,0.55)]"
@@ -171,16 +174,26 @@ export default function Hero() {
             <Reveal variant="fade" delay={0.28}>
               <dl className="mt-4 grid grid-cols-3 gap-px overflow-hidden border border-white/10 bg-white/10">
                 <div className="bg-ink px-3 py-3">
-                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">Drive</dt>
-                  <dd className="mt-1 text-xs font-semibold text-sand-50">Belt drive</dd>
+                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">
+                    {t('hero.specDrive')}
+                  </dt>
+                  <dd className="mt-1 text-xs font-semibold text-sand-50">
+                    {t('hero.specDriveValue')}
+                  </dd>
                 </div>
                 <div className="bg-ink px-3 py-3">
-                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">Price</dt>
+                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">
+                    {t('hero.specPrice')}
+                  </dt>
                   <dd className="mt-1 text-xs font-semibold text-sand-50">{flagship.price}</dd>
                 </div>
                 <div className="bg-ink px-3 py-3">
-                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">Crops</dt>
-                  <dd className="mt-1 text-xs font-semibold text-sand-50">Paddy · Wheat · Maize</dd>
+                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">
+                    {t('hero.specCrops')}
+                  </dt>
+                  <dd className="mt-1 text-xs font-semibold text-sand-50">
+                    {t('hero.specCropsValue')}
+                  </dd>
                 </div>
               </dl>
             </Reveal>
@@ -190,7 +203,7 @@ export default function Hero() {
               aria-hidden="true"
             >
               <ChevronDown size={14} />
-              Scroll for the full range
+              {t('hero.scrollHint')}
             </div>
           </div>
         </div>

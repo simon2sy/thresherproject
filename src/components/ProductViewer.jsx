@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Maximize2, Minimize2, Pause, Play, RotateCcw } from 'lucide-react'
-import { thresherParts } from '../data/thresherParts'
+import { useLanguage, useThresherParts } from '../i18n'
 import useDeviceCapability from '../hooks/useDeviceCapability'
 import ErrorBoundary from './ErrorBoundary'
 
@@ -23,13 +23,15 @@ const ThresherScene = lazy(() => import('./three/ThresherScene'))
  */
 
 const VIEW_PRESETS = [
-  { key: 'perspective', label: '3/4 view' },
-  { key: 'operating', label: 'Operating side' },
-  { key: 'drive', label: 'Drive side' },
-  { key: 'feed', label: 'Feed end' },
+  { key: 'perspective', labelKey: 'viewer.presetPerspective' },
+  { key: 'operating', labelKey: 'viewer.presetOperating' },
+  { key: 'drive', labelKey: 'viewer.presetDrive' },
+  { key: 'feed', labelKey: 'viewer.presetFeed' },
 ]
 
 export default function ProductViewer({ product }) {
+  const { t } = useLanguage()
+  const thresherParts = useThresherParts()
   const capability = useDeviceCapability()
   const [mode, setMode] = useState('photos')
   const [imageIndex, setImageIndex] = useState(0)
@@ -46,11 +48,11 @@ export default function ProductViewer({ product }) {
 
   const tabs = useMemo(
     () => [
-      { key: 'photos', label: 'Photos' },
-      { key: 'rotate', label: 'Rotate & Inspect' },
-      { key: 'exploded', label: 'Exploded View' },
+      { key: 'photos', label: t('viewer.tabPhotos') },
+      { key: 'rotate', label: t('viewer.tabRotate') },
+      { key: 'exploded', label: t('viewer.tabExploded') },
     ],
-    [],
+    [t],
   )
 
   // Keep the fullscreen flag in sync when fullscreen is left with the Esc key.
@@ -75,7 +77,7 @@ export default function ProductViewer({ product }) {
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
       <div>
-        <div role="tablist" aria-label="Machine presentation" className="mb-3 flex flex-wrap gap-2">
+        <div role="tablist" aria-label={t('viewer.tablistAria')} className="mb-3 flex flex-wrap gap-2">
           {tabs.map((tab) => {
             const active = mode === tab.key
             return (
@@ -110,7 +112,11 @@ export default function ProductViewer({ product }) {
               <img
                 key={gallery[imageIndex]}
                 src={gallery[imageIndex]}
-                alt={`${product.code} ${product.name} — view ${imageIndex + 1}`}
+                alt={t('viewer.viewAlt', {
+                  code: product.code,
+                  name: product.name,
+                  index: imageIndex + 1,
+                })}
                 className="h-full w-full object-contain p-6 sm:p-10"
                 decoding="async"
               />
@@ -121,8 +127,7 @@ export default function ProductViewer({ product }) {
                   fallback={
                     <div className="grid h-full w-full place-items-center px-6">
                       <p className="max-w-sm text-center text-xs uppercase tracking-technical text-sand-100/55">
-                        The 3D view could not start on this device. Use the Photos tab for the
-                        machine views.
+                        {t('viewer.failed3d')}
                       </p>
                     </div>
                   }
@@ -138,7 +143,7 @@ export default function ProductViewer({ product }) {
                       presetKey={mode === 'exploded' ? 'drive' : presetKey}
                       quality={capability.quality}
                       onReady={() => setReady(true)}
-                      ariaLabel={`Interactive 3D model of the ${product.code} ${product.name}`}
+                      ariaLabel={t('viewer.modelAria', { code: product.code, name: product.name })}
                     />
                   </Suspense>
                 </ErrorBoundary>
@@ -152,7 +157,7 @@ export default function ProductViewer({ product }) {
                       className="pointer-events-none absolute inset-0 grid place-items-center bg-graphite"
                     >
                       <p className="text-2xs uppercase tracking-technical text-sand-100/60">
-                        Loading 3D model…
+                        {t('viewer.loading3d')}
                       </p>
                     </motion.div>
                   ) : null}
@@ -164,12 +169,9 @@ export default function ProductViewer({ product }) {
               <div className="grid h-full w-full place-items-center px-6 text-center">
                 <div className="max-w-sm">
                   <p className="text-2xs uppercase tracking-technical text-ink/45">
-                    3D view unavailable
+                    {t('viewer.unavailable3d')}
                   </p>
-                  <p className="mt-3 text-sm text-ink/65">
-                    This device is not reporting WebGL support, or motion is reduced. Switch to the
-                    Photos tab to see the {product.code} from several angles.
-                  </p>
+                  <p className="mt-3 text-sm text-ink/65">{t('viewer.unavailable3dNote')}</p>
                 </div>
               </div>
             ) : null}
@@ -190,12 +192,12 @@ export default function ProductViewer({ product }) {
                           : 'border-white/15 text-sand-100/65 hover:border-white/40 hover:text-sand-50',
                       ].join(' ')}
                     >
-                      {preset.label}
+                      {t(preset.labelKey)}
                     </button>
                   ))
                 ) : (
                   <span className="text-2xs uppercase tracking-technical text-sand-100/60">
-                    Assemblies separated for inspection
+                    {t('viewer.separated')}
                   </span>
                 )}
               </div>
@@ -210,7 +212,7 @@ export default function ProductViewer({ product }) {
                       className="flex items-center gap-2 rounded-[2px] border border-white/15 px-2.5 py-1.5 text-2xs uppercase tracking-technical text-sand-100/70 transition-colors hover:border-white/40 hover:text-sand-50"
                     >
                       {running ? <Pause size={13} /> : <Play size={13} />}
-                      {running ? 'Running' : 'Stopped'}
+                      {running ? t('viewer.running') : t('viewer.stopped')}
                     </button>
                     <button
                       type="button"
@@ -221,7 +223,7 @@ export default function ProductViewer({ product }) {
                       className="flex items-center gap-2 rounded-[2px] border border-white/15 px-2.5 py-1.5 text-2xs uppercase tracking-technical text-sand-100/70 transition-colors hover:border-white/40 hover:text-sand-50"
                     >
                       <RotateCcw size={13} />
-                      Reset
+                      {t('viewer.reset')}
                     </button>
                   </>
                 ) : null}
@@ -229,7 +231,9 @@ export default function ProductViewer({ product }) {
                 <button
                   type="button"
                   onClick={toggleFullscreen}
-                  aria-label={fullscreen ? 'Exit fullscreen' : 'View fullscreen'}
+                  aria-label={
+                    fullscreen ? t('viewer.exitFullscreen') : t('viewer.viewFullscreen')
+                  }
                   className="grid h-8 w-8 place-items-center rounded-[2px] border border-white/15 text-sand-100/70 transition-colors hover:border-white/40 hover:text-sand-50"
                 >
                   {fullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
@@ -245,7 +249,7 @@ export default function ProductViewer({ product }) {
                 <button
                   type="button"
                   onClick={() => setImageIndex(index)}
-                  aria-label={`Show view ${index + 1} of ${gallery.length}`}
+                  aria-label={t('viewer.showViewAria', { index: index + 1, total: gallery.length })}
                   aria-current={index === imageIndex}
                   className={[
                     'block w-full overflow-hidden border bg-sand-100 transition-colors',
@@ -271,11 +275,9 @@ export default function ProductViewer({ product }) {
           <div className="border border-ink/12 bg-paper">
             <div className="border-b border-ink/10 px-4 py-3">
               <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/55">
-                Machine components
+                {t('viewer.componentsHeading')}
               </h2>
-              <p className="mt-1 text-xs text-ink/55">
-                Hover or tap a component to locate it on the machine.
-              </p>
+              <p className="mt-1 text-xs text-ink/55">{t('viewer.componentsHint')}</p>
             </div>
             <ul className="divide-y divide-ink/10">
               {thresherParts.map((part) => {
@@ -316,7 +318,7 @@ export default function ProductViewer({ product }) {
         ) : (
           <div className="border border-ink/12 bg-paper p-5">
             <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/55">
-              Why this machine
+              {t('viewer.whyMachine')}
             </h2>
             <ul className="mt-4 space-y-3">
               {product.features.map((feature) => (
@@ -329,7 +331,7 @@ export default function ProductViewer({ product }) {
 
             <div className="mt-6 border-t border-ink/10 pt-5">
               <h3 className="text-2xs font-semibold uppercase tracking-technical text-ink/55">
-                Price
+                {t('viewer.priceLabel')}
               </h3>
               <p className="mt-3 font-display text-xl font-extrabold tracking-[-0.02em] text-ink tabular">
                 {product.price}
@@ -338,8 +340,7 @@ export default function ProductViewer({ product }) {
 
             {capability.ready && !capability.canRender3D ? (
               <p className="mt-6 border-t border-ink/10 pt-5 text-xs text-ink/50">
-                The interactive 3D viewer is unavailable on this device. Photos and the full
-                specification table are shown instead.
+                {t('viewer.unavailable3dNote')}
               </p>
             ) : null}
           </div>

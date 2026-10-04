@@ -1,4 +1,5 @@
 import Icon from './Icon'
+import { useLanguage } from '../../i18n'
 
 /**
  * SpecTable
@@ -17,6 +18,7 @@ import Icon from './Icon'
  * @param {string} [props.caption]
  */
 export default function SpecTable({ rows = [], notice, tone = 'light', caption }) {
+  const { t } = useLanguage()
   const dark = tone === 'dark'
 
   return (
@@ -27,10 +29,10 @@ export default function SpecTable({ rows = [], notice, tone = 'light', caption }
           <thead>
             <tr>
               <th scope="col" className={dark ? '!text-sand-100/45' : ''}>
-                Specification
+                {t('specTable.specification')}
               </th>
               <th scope="col" className={dark ? '!text-sand-100/45' : ''}>
-                Details
+                {t('specTable.details')}
               </th>
             </tr>
           </thead>

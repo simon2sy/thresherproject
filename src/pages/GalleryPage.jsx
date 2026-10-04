@@ -1,5 +1,5 @@
 import { useSeo } from '../hooks/useSeo'
-import { site } from '../config/site'
+import { useLanguage, useSite } from '../i18n'
 import PageHeader from '../components/ui/PageHeader'
 import Button from '../components/ui/Button'
 import Gallery from '../components/Gallery'
@@ -13,16 +13,18 @@ import Reveal from '../components/ui/Reveal'
  * fullscreen lightbox, driven entirely by src/data/gallery.js.
  */
 export default function GalleryPage() {
+  const { t } = useLanguage()
+  const site = useSite()
+
   useSeo({
-    title: 'Gallery — Threshers, Workshop and Field Work in Jhapa',
-    description:
-      'Photos of assembled thresher machines, sub-assemblies, workshop fabrication and threshing work in the fields around Jhapa, Nepal.',
+    title: t('meta.gallery.title'),
+    description: t('meta.gallery.description'),
     path: '/gallery',
     jsonLd: [
       {
         '@context': 'https://schema.org',
         '@type': 'ImageGallery',
-        name: 'Daju Bhai Grill Udyog gallery',
+        name: t('galleryPage.jsonLdName', { site: site.name }),
         url: `${site.url}/gallery`,
       },
     ],
@@ -31,13 +33,13 @@ export default function GalleryPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Gallery"
-        title="Machines, components and field work"
-        lead="Assembled machines, sub-assemblies, workshop work and machines in use during harvest. Filter by category — open any image for the full view."
-        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Gallery' }]}
+        eyebrow={t('galleryPage.eyebrow')}
+        title={t('galleryPage.title')}
+        lead={t('galleryPage.lead')}
+        breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.gallery') }]}
         action={
           <Button to="/contact#inquiry" variant="accent" size="lg">
-            Request a Quote
+            {t('common.requestQuote')}
           </Button>
         }
       />
@@ -46,11 +48,7 @@ export default function GalleryPage() {
         <div className="shell">
           <Gallery />
           <Reveal variant="fade" className="mt-10">
-            <p className="max-w-3xl text-xs leading-relaxed text-ink/50">
-              These are photographs of threshing work and of the machines themselves, taken
-              in the field and on the yard. Machine names in the captions are the brands
-              visible on the bodywork in each photo.
-            </p>
+            <p className="max-w-3xl text-xs leading-relaxed text-ink/50">{t('galleryPage.note')}</p>
           </Reveal>
         </div>
       </section>

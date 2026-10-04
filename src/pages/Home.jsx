@@ -1,7 +1,6 @@
 import { ArrowRight } from 'lucide-react'
-import { products, SAMPLE_NOTICE } from '../data/products'
+import { useLanguage, useProducts, useSampleNotice, useSite } from '../i18n'
 import { useSeo, localBusinessSchema } from '../hooks/useSeo'
-import { site } from '../config/site'
 import Hero from '../components/Hero'
 import ProductCard from '../components/ProductCard'
 import WhyUs from '../components/WhyUs'
@@ -23,10 +22,14 @@ import Reveal from '../components/ui/Reveal'
  * table, the gallery and the contact route.
  */
 export default function Home() {
+  const { t } = useLanguage()
+  const site = useSite()
+  const products = useProducts()
+  const sampleNotice = useSampleNotice()
+
   useSeo({
-    title: 'Agricultural Thresher Machines in Nepal — Jhapa Gaupalika, Jhapa',
-    description:
-      'Thresher machines for paddy, wheat and maize built and supplied in Jhapa Gaupalika, Jhapa, Nepal. Heavy-duty steel construction and belt drive — every model Rs. 360,000.',
+    title: t('meta.home.title'),
+    description: t('meta.home.description'),
     path: '/',
     jsonLd: [
       localBusinessSchema(),
@@ -35,13 +38,12 @@ export default function Home() {
         '@type': 'WebSite',
         name: site.name,
         url: site.url,
-        description:
-          'Agricultural machinery manufacturer and supplier specialising in thresher machines for Nepal.',
+        description: t('home.webSiteDescription'),
       },
       {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: 'Thresher machine range',
+        name: t('home.itemListName'),
         itemListElement: products.map((product, index) => ({
           '@type': 'ListItem',
           position: index + 1,
@@ -60,14 +62,14 @@ export default function Home() {
       <section id="range" className="section">
         <div className="shell">
           <SectionHeading
-            eyebrow="Thresher range"
-            title="Built for the Harvest"
+            eyebrow={t('home.rangeEyebrow')}
+            title={t('home.rangeTitle')}
             highlight={7}
             titleClassName="[&>em]:bg-clip-text [&>em]:text-transparent [&>em]:bg-gradient-to-r [&>em]:from-ink [&>em]:via-agri-600 [&>em]:to-amber_acc-600"
-            lead="Three frame sizes covering smallholdings through to commercial and custom-hiring work — every model priced at Rs. 360,000."
+            lead={t('home.rangeLead')}
             action={
               <Button to="/threshers" variant="outline" size="sm">
-                View all threshers
+                {t('common.viewAllThreshers')}
                 <ArrowRight size={15} />
               </Button>
             }
@@ -80,7 +82,7 @@ export default function Home() {
           </div>
 
           <Reveal variant="fade" className="mt-8">
-            <p className="max-w-3xl text-xs leading-relaxed text-ink/50">{SAMPLE_NOTICE}</p>
+            <p className="max-w-3xl text-xs leading-relaxed text-ink/50">{sampleNotice}</p>
           </Reveal>
         </div>
       </section>
@@ -117,12 +119,12 @@ export default function Home() {
       <section className="section border-b border-ink/10">
         <div className="shell">
           <SectionHeading
-            eyebrow="Gallery"
-            title="Machines, components and field work"
-            lead="Assembled machines, sub-assemblies, workshop work and machines in use during harvest."
+            eyebrow={t('home.galleryEyebrow')}
+            title={t('home.galleryTitle')}
+            lead={t('home.galleryLead')}
             action={
               <Button to="/gallery" variant="outline" size="sm">
-                Open full gallery
+                {t('common.openGallery')}
                 <ArrowRight size={15} />
               </Button>
             }

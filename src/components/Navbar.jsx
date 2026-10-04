@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { Mail, MapPin, Menu, PhoneCall, X } from 'lucide-react'
-import { navLinks, site } from '../config/site'
+import { useLanguage, useNavLinks, useSite } from '../i18n'
 import Button from './ui/Button'
+import LanguageToggle from './ui/LanguageToggle'
 import AuroraBackdrop from './ui/AuroraBackdrop'
 import { scrollToTop } from './SmoothScroll'
 
@@ -15,6 +16,8 @@ import { scrollToTop } from './SmoothScroll'
 
 function Logo({ compact = false, onNavigate }) {
   const { pathname } = useLocation()
+  const { t } = useLanguage()
+  const site = useSite()
 
   /** Already on the target page: the router would not fire, so scroll manually. */
   const handleClick = (event) => {
@@ -26,7 +29,12 @@ function Logo({ compact = false, onNavigate }) {
   }
 
   return (
-    <Link to="/" onClick={handleClick} className="group flex items-center gap-3" aria-label={`${site.name} — home`}>
+    <Link
+      to="/"
+      onClick={handleClick}
+      className="group flex items-center gap-3"
+      aria-label={t('nav.homeAria', { name: site.name })}
+    >
       <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-[3px] bg-gradient-to-br from-aqua-400 to-aqua-600 text-[0.8rem] font-extrabold tracking-tight text-white shadow-glow-aqua transition-transform duration-300 ease-smooth group-hover:scale-105">
         DB
         {/* Aqua→amber bar that travels across the mark. */}
@@ -40,7 +48,7 @@ function Logo({ compact = false, onNavigate }) {
         </span>
         {!compact ? (
           <span className="mt-1 hidden text-2xs uppercase tracking-technical text-sand-100/55 sm:block">
-            Threshers &amp; Farm Machinery · Jhapa Gaupalika
+            {t('nav.tagline')}
           </span>
         ) : null}
       </span>
@@ -53,6 +61,9 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const { t } = useLanguage()
+  const site = useSite()
+  const navLinks = useNavLinks()
 
   /* Reading-progress bar. `useScroll` tracks the document; the spring keeps it
      smooth under fast scroll and on touch devices. */
@@ -189,7 +200,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <nav className="shell flex items-center justify-between py-3.5" aria-label="Primary">
+      <nav className="shell flex items-center justify-between py-3.5" aria-label={t('nav.primaryLabel')}>
         <Logo compact={scrolled} onNavigate={() => setOpen(false)} />
 
         <ul className="hidden items-center gap-1 lg:flex">
@@ -241,21 +252,23 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <LanguageToggle tone="dark" />
           <Button to="/contact#inquiry" variant="accent" size="sm">
-            Request a Quote
+            {t('common.requestQuote')}
           </Button>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
+          <LanguageToggle tone="dark" />
           <Button to="/contact#inquiry" variant="accent" size="sm" className="hidden sm:inline-flex">
-            Request a Quote
+            {t('common.requestQuote')}
           </Button>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
             className="grid h-11 w-11 place-items-center rounded-[2px] border border-white/20 text-sand-50 transition-colors hover:border-white/50"
           >
             {open ? <X size={19} /> : <Menu size={19} />}
@@ -311,7 +324,7 @@ export default function Navbar() {
 
             <div className="shell grid gap-3 pb-7 pt-4">
               <Button to="/contact#inquiry" variant="accent" size="lg" full>
-                Request a Quote
+                {t('common.requestQuote')}
               </Button>
               <a
                 href={site.phone.href}

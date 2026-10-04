@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
+import { useLanguage, useSite } from './i18n'
 import Home from './pages/Home'
 import Products from './pages/Products'
 import ProductDetails from './pages/ProductDetails'
@@ -18,17 +19,20 @@ import NotFound from './pages/NotFound'
  * marked noindex.
  */
 export default function App() {
+  const { t } = useLanguage()
+  const site = useSite()
+
   return (
     <ErrorBoundary
-      fallback={({ site }) => (
+      fallback={() => (
         <div className="shell py-32">
-          <p className="eyebrow text-agri-600">Something went wrong</p>
-          <h1 className="h-display mt-4 text-ink">The page could not be displayed</h1>
+          <p className="eyebrow text-agri-600">{t('error.eyebrow')}</p>
+          <h1 className="h-display mt-4 text-ink">{t('error.title')}</h1>
           <p className="lede mt-5">
-            Please reload the page, or contact {site.name} on {site.phone.display}.
+            {t('error.text', { name: site.name, phone: site.phone.display })}
           </p>
           <a href="/" className="btn btn-primary mt-8">
-            Back to home
+            {t('common.backToHome')}
           </a>
         </div>
       )}

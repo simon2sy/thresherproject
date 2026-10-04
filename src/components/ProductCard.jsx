@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, IndianRupee, Sprout } from 'lucide-react'
+import { useLanguage } from '../i18n'
 import Button from './ui/Button'
 import Reveal from './ui/Reveal'
 import TiltCard from './ui/TiltCard'
@@ -15,9 +16,19 @@ import TiltCard from './ui/TiltCard'
  * @param {number} [props.index] used for the reveal stagger
  */
 export default function ProductCard({ product, index = 0 }) {
+  const { t } = useLanguage()
+
+  /*
+   * The card advertises only the two headline crops (paddy and wheat); the
+   * full compatibility list stays on the product detail page. Matched in both
+   * languages so the filter still applies after an EN→NE toggle.
+   */
+  const CARD_CROPS = ['Paddy / Rice', 'Wheat', 'धान / चामल', 'गहुँ']
+  const cardCrops = product.crops.filter((crop) => CARD_CROPS.includes(crop))
+
   const facts = [
-    { icon: IndianRupee, label: 'Price', value: product.price },
-    { icon: Sprout, label: 'Crops', value: product.crops.join(', ') },
+    { icon: IndianRupee, label: t('productCard.price'), value: product.price },
+    { icon: Sprout, label: t('productCard.crops'), value: cardCrops.join(', ') },
   ]
 
   return (
@@ -88,7 +99,7 @@ export default function ProductCard({ product, index = 0 }) {
           {/* Actions */}
           <div className="mt-auto flex flex-col gap-2.5 pt-6 sm:flex-row">
             <Button to={`/threshers/${product.slug}`} variant="primary" size="sm" className="flex-1">
-              View Details
+              {t('common.viewDetails')}
               <ArrowRight size={15} />
             </Button>
             <Button
@@ -97,7 +108,7 @@ export default function ProductCard({ product, index = 0 }) {
               size="sm"
               className="flex-1"
             >
-              Enquire
+              {t('common.enquire')}
             </Button>
           </div>
         </div>

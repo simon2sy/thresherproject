@@ -1,5 +1,4 @@
-import { aboutStory, qualityNotes } from '../data/content'
-import { site } from '../config/site'
+import { useAboutStory, useLanguage, useQualityNotes, useSite } from '../i18n'
 import { useSeo, localBusinessSchema } from '../hooks/useSeo'
 import PageHeader from '../components/ui/PageHeader'
 import Button from '../components/ui/Button'
@@ -15,10 +14,14 @@ import CTASection from '../components/CTASection'
  * area) the interface says "to be confirmed" instead of inventing a value.
  */
 export default function About() {
+  const { t } = useLanguage()
+  const site = useSite()
+  const aboutStory = useAboutStory()
+  const qualityNotes = useQualityNotes()
+
   useSeo({
-    title: 'About Us — Agricultural Machinery in Jhapa',
-    description:
-      'Daju Bhai Grill Udyog builds and supplies thresher machines for Nepali farms from Jhapa Gaupalika, Jhapa. Practical engineering, replaceable wear parts and local service.',
+    title: t('meta.about.title'),
+    description: t('meta.about.description'),
     path: '/about',
     jsonLd: [
       localBusinessSchema(),
@@ -34,13 +37,13 @@ export default function About() {
   return (
     <>
       <PageHeader
-        eyebrow="About the company"
+        eyebrow={t('about.eyebrow')}
         title={aboutStory.title}
-        lead="Thresher machines, built and serviced in Jhapa Gaupalika, Jhapa — designed around the crops, the land sizes and the harvest calendar of Nepali farms."
-        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'About' }]}
+        lead={t('about.lead')}
+        breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.about') }]}
         action={
           <Button to="/contact#inquiry" variant="accent" size="lg">
-            Request a Quote
+            {t('common.requestQuote')}
           </Button>
         }
       />
@@ -67,25 +70,20 @@ export default function About() {
               <figure className="border border-ink/12 bg-paper">
                 <img
                   src="/images/gallery/thresher-range-lineup.jpg"
-                  alt="A row of thresher machines painted blue, green, red and orange, lined up in a line on grass at a machinery yard"
+                  alt={t('about.figAlt')}
                   loading="lazy"
                   decoding="async"
                   className="aspect-[16/9] w-full object-cover"
                 />
                 <figcaption className="border-t border-ink/10 px-5 py-4 text-sm text-ink/60">
-                  Frames are cut, welded and drilled before assembly. Wear parts are made as
-                  replaceable items so a machine can be kept in service for years.
+                  {t('about.figCaption')}
                 </figcaption>
               </figure>
             </Reveal>
 
             <Reveal variant="fade" className="mt-10">
               <div className="border-l-2 border-agri-500 bg-sand-50 p-5 sm:p-6">
-                <p className="text-sm leading-relaxed text-ink/70">
-                  If something about a machine is not clear — crop suitability, how it will be moved
-                  to your field or when it can be set up — ask before you buy. It is the
-                  cheapest conversation in the whole process.
-                </p>
+                <p className="text-sm leading-relaxed text-ink/70">{t('about.askNote')}</p>
               </div>
             </Reveal>
           </div>
@@ -95,12 +93,12 @@ export default function About() {
             <Reveal className="border border-ink/12 bg-paper">
               <div className="border-b border-ink/10 px-5 py-4">
                 <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
-                  Company details
+                  {t('about.detailsHeading')}
                 </h2>
               </div>
               <dl className="divide-y divide-ink/10">
                 <div className="flex items-start justify-between gap-6 px-5 py-3.5">
-                  <dt className="text-xs text-ink/55">Address</dt>
+                  <dt className="text-xs text-ink/55">{t('about.address')}</dt>
                   <dd className="text-right text-sm font-semibold text-ink">
                     {site.address.line1}, {site.address.line2}
                   </dd>
@@ -113,14 +111,13 @@ export default function About() {
                 ))}
               </dl>
               <p className="border-t border-ink/10 px-5 py-4 text-xs leading-relaxed text-ink/50">
-                Details marked “to be confirmed” are intentionally left blank rather than filled with
-                invented figures. They will be published once verified.
+                {t('about.detailsNote')}
               </p>
             </Reveal>
 
             <Reveal variant="fade" className="border border-ink/12 bg-paper p-5 sm:p-6">
               <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
-                How we work
+                {t('about.howWeWork')}
               </h2>
               <ul className="mt-4 space-y-3.5">
                 {qualityNotes.map((note) => (
@@ -134,11 +131,10 @@ export default function About() {
 
             <Reveal variant="fade" className="border border-ink/12 bg-paper p-5 sm:p-6">
               <h2 className="text-2xs font-semibold uppercase tracking-technical text-ink/50">
-                Visiting the workshop
+                {t('about.visiting')}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                Machines can be seen and run at the workshop in {site.address.locality}. Bring your
-                crop sample if you can — it makes the sieve and drum setting decision straightforward.
+                {t('about.visitingText', { locality: site.address.locality })}
               </p>
               <dl className="mt-5 space-y-2 text-sm">
                 {site.hours.map((slot) => (
@@ -149,7 +145,7 @@ export default function About() {
                 ))}
               </dl>
               <Button href={site.phone.href} variant="outline" size="sm" className="mt-5">
-                Call before visiting
+                {t('about.callBefore')}
               </Button>
             </Reveal>
           </div>

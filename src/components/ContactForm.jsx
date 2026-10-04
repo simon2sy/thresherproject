@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { CheckCircle2, Loader2, Send } from 'lucide-react'
 import { flags, site } from '../config/site'
-import { products } from '../data/products'
-import { inquiryOptions } from '../data/content'
+import { useInquiryOptions, useLanguage, useProducts } from '../i18n'
 import Button from './ui/Button'
 
 /**
@@ -36,25 +35,27 @@ const EMPTY_FORM = {
 const PHONE_PATTERN = /^[+]?[\d][\d\s\-()]{6,19}$/
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
-function validate(values) {
+function validate(values, t) {
   const errors = {}
 
-  if (!values.name.trim()) errors.name = 'Please enter your name.'
+  if (!values.name.trim()) errors.name = t('form.errName')
 
-  if (!values.phone.trim()) errors.phone = 'Please enter a phone number we can call you back on.'
-  else if (!PHONE_PATTERN.test(values.phone.trim()))
-    errors.phone = 'Use digits only, for example 98XXXXXXXX or +977 98XXXXXXXX.'
+  if (!values.phone.trim()) errors.phone = t('form.errPhoneEmpty')
+  else if (!PHONE_PATTERN.test(values.phone.trim())) errors.phone = t('form.errPhoneFormat')
 
   if (values.email.trim() && !EMAIL_PATTERN.test(values.email.trim()))
-    errors.email = 'Check the email address, or leave it empty.'
+    errors.email = t('form.errEmail')
 
-  if (!values.message.trim()) errors.message = 'Tell us the crop and machine you need.'
+  if (!values.message.trim()) errors.message = t('form.errMessage')
 
   return errors
 }
 
 export default function ContactForm() {
   const [searchParams] = useSearchParams()
+  const { t } = useLanguage()
+  const products = useProducts()
+  const inquiryOptions = useInquiryOptions()
   const [values, setValues] = useState(EMPTY_FORM)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
@@ -69,17 +70,31 @@ export default function ContactForm() {
       ...products.map((product) => `${product.code} — ${product.name}`),
       inquiryOptions.machineHelp,
     ],
-    [],
+    [products, inquiryOptions],
   )
 
-  // Pre-select the machine when the visitor arrives from a product page.
+  // Pre-select the machine when the visitor arrives from a product page, and
+  // keep an existing selection in sync when the language changes (the option
+  // label is localised, the model code is not).
   useEffect(() => {
     const requested = searchParams.get('product')
-    if (!requested) return
-    const match = machineOptions.find((option) =>
-      option.toLowerCase().startsWith(requested.toLowerCase()),
-    )
-    if (match) setValues((current) => ({ ...current, machine: match }))
+    if (requested) {
+      const match = machineOptions.find((option) =>
+        option.toLowerCase().startsWith(requested.toLowerCase()),
+      )
+      if (match) {
+        setValues((current) =>
+          current.machine === match ? current : { ...current, machine: match },
+        )
+        return
+      }
+    }
+    setValues((current) => {
+      if (!current.machine) return current
+      const code = current.machine.split('—')[0].trim()
+      const match = machineOptions.find((option) => option.startsWith(code))
+      return match && match !== current.machine ? { ...current, machine: match } : current
+    })
   }, [searchParams, machineOptions])
 
   const update = (field) => (event) => {
@@ -90,7 +105,7 @@ export default function ContactForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const nextErrors = validate(values)
+    const nextErrors = validate(values, t)
     setErrors(nextErrors)
 
     if (Object.keys(nextErrors).length > 0) {
@@ -128,27 +143,27 @@ export default function ContactForm() {
     } catch (error) {
       setStatus('error')
       setServerMessage(
-        'The inquiry could not be sent automatically. Please call or email us directly — the details are on this page.',
+        t('form.errorSend'),
       )
       if (import.meta.env.DEV) console.warn('[inquiry] submission failed', error)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate aria-label="Inquiry form">
+    <form onSubmit={handleSubmit} noValidate aria-label={t('form.ariaLabel')}>
       {status === 'sent' ? (
         <div className="border border-agri-200 bg-agri-50 p-6 sm:p-8" role="status" aria-live="polite">
           <CheckCircle2 className="text-agri-600" size={28} />
-          <h3 className="h-card mt-4">Inquiry recorded</h3>
+          <h3 className="h-card mt-4">{t('form.sentTitle')}</h3>
           <p className="mt-3 text-sm leading-relaxed text-ink/70">
-            Thank you — your details have been recorded
-            {flags.inquiryEndpoint ? ' and sent to our team.' : ' for this demonstration build.'} We
-            normally reply with machine options and pricing during business hours.
+            {t('form.sentBodyRecorded')}
+            {flags.inquiryEndpoint ? t('form.sentBodyToTeam') : t('form.sentBodyDemo')}
+            {t('form.sentBodyReply')}
           </p>
 
           <dl className="mt-6 grid gap-3 border-t border-agri-200 pt-5 text-sm sm:grid-cols-2">
             <div>
-              <dt className="tech-label">Phone</dt>
+              <dt className="tech-label">{t('contact.phone')}</dt>
               <dd className="mt-1 font-semibold">
                 <a href={site.phone.href} className="tabular">
                   {site.phone.display}
@@ -157,7 +172,7 @@ export default function ContactForm() {
             </div>
             {site.email.display ? (
               <div>
-                <dt className="tech-label">Email</dt>
+                <dt className="tech-label">{t('contact.email')}</dt>
                 <dd className="mt-1 font-semibold">
                   <a href={site.email.href} className="break-all">
                     {site.email.display}
@@ -169,7 +184,7 @@ export default function ContactForm() {
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button href={site.phone.href} variant="primary" size="sm">
-              Call the workshop
+              {t('common.callWorkshop')}
             </Button>
             <Button
               variant="outline"
@@ -179,7 +194,7 @@ export default function ContactForm() {
                 setStatus('idle')
               }}
             >
-              Send another inquiry
+              {t('form.sendAnother')}
             </Button>
           </div>
         </div>
@@ -187,7 +202,7 @@ export default function ContactForm() {
         <>
           {errorList.length > 0 ? (
             <div role="alert" className="mb-6 border border-red-300 bg-red-50 p-4 text-sm text-red-800">
-              <p className="font-semibold">Please check the highlighted fields:</p>
+              <p className="font-semibold">{t('form.checkFields')}</p>
               <ul className="mt-2 list-disc space-y-1 pl-5">
                 {errorList.map(([field, message]) => (
                   <li key={field}>{message}</li>
@@ -199,7 +214,7 @@ export default function ContactForm() {
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
               <label className="field-label" htmlFor="inquiry-name">
-                Name *
+                {t('form.name')}
               </label>
               <input
                 id="inquiry-name"
@@ -211,7 +226,7 @@ export default function ContactForm() {
                 onChange={update('name')}
                 aria-invalid={Boolean(errors.name)}
                 aria-describedby={errors.name ? 'inquiry-name-error' : undefined}
-                placeholder="Your full name"
+                placeholder={t('form.namePlaceholder')}
               />
               {errors.name ? (
                 <span id="inquiry-name-error" className="field-error">
@@ -222,7 +237,7 @@ export default function ContactForm() {
 
             <div>
               <label className="field-label" htmlFor="inquiry-phone">
-                Phone *
+                {t('form.phone')}
               </label>
               <input
                 id="inquiry-phone"
@@ -235,7 +250,7 @@ export default function ContactForm() {
                 onChange={update('phone')}
                 aria-invalid={Boolean(errors.phone)}
                 aria-describedby={errors.phone ? 'inquiry-phone-error' : undefined}
-                placeholder="98XXXXXXXX"
+                placeholder={t('form.phonePlaceholder')}
               />
               {errors.phone ? (
                 <span id="inquiry-phone-error" className="field-error">
@@ -246,7 +261,7 @@ export default function ContactForm() {
 
             <div>
               <label className="field-label" htmlFor="inquiry-email">
-                Email
+                {t('form.email')}
               </label>
               <input
                 id="inquiry-email"
@@ -258,7 +273,7 @@ export default function ContactForm() {
                 onChange={update('email')}
                 aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? 'inquiry-email-error' : undefined}
-                placeholder="name@example.com"
+                placeholder={t('form.emailPlaceholder')}
               />
               {errors.email ? (
                 <span id="inquiry-email-error" className="field-error">
@@ -269,7 +284,7 @@ export default function ContactForm() {
 
             <div>
               <label className="field-label" htmlFor="inquiry-location">
-                Location
+                {t('form.location')}
               </label>
               <input
                 id="inquiry-location"
@@ -278,13 +293,13 @@ export default function ContactForm() {
                 className="field"
                 value={values.location}
                 onChange={update('location')}
-                placeholder="Village / Municipality, District"
+                placeholder={t('form.locationPlaceholder')}
               />
             </div>
 
             <div className="sm:col-span-2">
               <label className="field-label" htmlFor="inquiry-machine">
-                Machine / Product
+                {t('form.machine')}
               </label>
               <select
                 id="inquiry-machine"
@@ -293,7 +308,7 @@ export default function ContactForm() {
                 value={values.machine}
                 onChange={update('machine')}
               >
-                <option value="">Select a thresher model</option>
+                <option value="">{t('form.machinePlaceholder')}</option>
                 {machineOptions.map((option) => (
                   <option key={option} value={option}>
                     {option}
@@ -304,7 +319,7 @@ export default function ContactForm() {
 
             <div>
               <label className="field-label" htmlFor="inquiry-capacity">
-                Required capacity
+                {t('form.capacity')}
               </label>
               <select
                 id="inquiry-capacity"
@@ -313,7 +328,7 @@ export default function ContactForm() {
                 value={values.capacity}
                 onChange={update('capacity')}
               >
-                <option value="">Select a capacity range</option>
+                <option value="">{t('form.capacityPlaceholder')}</option>
                 {inquiryOptions.capacityBands.map((band) => (
                   <option key={band} value={band}>
                     {band}
@@ -324,7 +339,7 @@ export default function ContactForm() {
 
             <div>
               <label className="field-label" htmlFor="inquiry-power">
-                Power available
+                {t('form.power')}
               </label>
               <select
                 id="inquiry-power"
@@ -333,7 +348,7 @@ export default function ContactForm() {
                 value={values.power}
                 onChange={update('power')}
               >
-                <option value="">Select a power source</option>
+                <option value="">{t('form.powerPlaceholder')}</option>
                 {inquiryOptions.powerSources.map((source) => (
                   <option key={source} value={source}>
                     {source}
@@ -344,7 +359,7 @@ export default function ContactForm() {
 
             <div className="sm:col-span-2">
               <label className="field-label" htmlFor="inquiry-message">
-                Message *
+                {t('form.message')}
               </label>
               <textarea
                 id="inquiry-message"
@@ -355,7 +370,7 @@ export default function ContactForm() {
                 onChange={update('message')}
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? 'inquiry-message-error' : undefined}
-                placeholder="Crop, land size, expected quantity, and anything else we should know."
+                placeholder={t('form.messagePlaceholder')}
               />
               {errors.message ? (
                 <span id="inquiry-message-error" className="field-error">
@@ -372,11 +387,11 @@ export default function ContactForm() {
               ) : (
                 <Send size={16} />
               )}
-              {status === 'sending' ? 'Sending…' : 'Send Inquiry'}
+              {status === 'sending' ? t('form.sending') : t('form.send')}
             </Button>
             <p className="text-xs text-ink/50 sm:max-w-xs">
-              We use your details only to answer this inquiry.
-              {!flags.inquiryEndpoint ? ' This build runs in demo mode — nothing is submitted.' : ''}
+              {t('form.privacy')}
+              {!flags.inquiryEndpoint ? t('form.demoMode') : ''}
             </p>
           </div>
 

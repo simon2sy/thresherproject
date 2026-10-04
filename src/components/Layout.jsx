@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Outlet, useLocation } from 'react-router-dom'
 import { MessageCircle, PhoneCall } from 'lucide-react'
-import { site } from '../config/site'
+import { useLanguage, useSite } from '../i18n'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import { ScrollManager, SmoothScroll } from './SmoothScroll'
@@ -18,6 +18,8 @@ import { ScrollManager, SmoothScroll } from './SmoothScroll'
 export default function Layout() {
   const location = useLocation()
   const reduceMotion = useReducedMotion()
+  const { t } = useLanguage()
+  const site = useSite()
 
   /**
    * Route transitions. A short fade-and-rise is enough to signal "new page"
@@ -41,7 +43,7 @@ export default function Layout() {
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-[3px] focus:bg-ink focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-sand-50"
       >
-        Skip to content
+        {t('layout.skip')}
       </a>
 
       <Navbar />
@@ -67,7 +69,7 @@ export default function Layout() {
           className="flex items-center justify-center gap-2 py-3.5 text-sm font-semibold text-sand-50 transition-colors active:bg-white/10"
         >
           <PhoneCall size={16} />
-          Call
+          {t('layout.call')}
         </a>
         <a
           href={site.whatsapp.href}
@@ -76,7 +78,7 @@ export default function Layout() {
           className="flex items-center justify-center gap-2 bg-gradient-to-r from-aqua-500 to-aqua-400 py-3.5 text-sm font-semibold text-white shadow-[0_-10px_30px_-16px_rgba(20,175,194,0.9)] transition-colors active:from-aqua-600 active:to-aqua-500"
         >
           <MessageCircle size={16} />
-          WhatsApp
+          {t('common.whatsapp')}
         </a>
       </div>
     </SmoothScroll>

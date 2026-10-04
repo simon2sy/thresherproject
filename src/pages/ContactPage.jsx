@@ -1,5 +1,5 @@
 import { useSeo, localBusinessSchema } from '../hooks/useSeo'
-import { site } from '../config/site'
+import { useLanguage, useSite } from '../i18n'
 import PageHeader from '../components/ui/PageHeader'
 import Button from '../components/ui/Button'
 import Contact from '../components/Contact'
@@ -13,9 +13,12 @@ import CTASection from '../components/CTASection'
  * site deep-links here, optionally with ?product=CODE) and the location map.
  */
 export default function ContactPage() {
+  const { t } = useLanguage()
+  const site = useSite()
+
   useSeo({
-    title: 'Contact — Thresher Sales & Support in Jhapa',
-    description: `Contact ${site.name} about thresher pricing, crop compatibility and availability. Call ${site.phone.display}, send a WhatsApp message or use the inquiry form. Jhapa Gaupalika, Jhapa, Nepal.`,
+    title: t('meta.contact.title'),
+    description: t('meta.contact.description', { phone: site.phone.display }),
     path: '/contact',
     jsonLd: [
       localBusinessSchema(),
@@ -31,13 +34,16 @@ export default function ContactPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Contact"
-        title="Thresher sales, specifications and support"
-        lead={`Based in ${site.address.line1}, ${site.address.district}, serving farmers, cooperatives and agri-businesses across eastern Nepal. Call, email, or send the form below with the details of your harvest.`}
-        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Contact' }]}
+        eyebrow={t('contactPage.eyebrow')}
+        title={t('contactPage.title')}
+        lead={t('contactPage.lead', {
+          locality: site.address.line1,
+          district: site.address.district,
+        })}
+        breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.contact') }]}
         action={
           <Button href={site.phone.href} variant="accent" size="lg">
-            Call the workshop
+            {t('contactPage.callWorkshop')}
           </Button>
         }
       />

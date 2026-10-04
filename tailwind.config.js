@@ -70,8 +70,8 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Manrope', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'sans-serif'],
+        display: ['Manrope', 'Inter', 'Noto Sans Devanagari', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'Noto Sans Devanagari', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'sans-serif'],
       },
       fontSize: {
         '2xs': ['0.6875rem', { lineHeight: '1rem' }],

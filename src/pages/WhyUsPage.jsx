@@ -1,4 +1,5 @@
 import { useSeo } from '../hooks/useSeo'
+import { useLanguage } from '../i18n'
 import PageHeader from '../components/ui/PageHeader'
 import Button from '../components/ui/Button'
 import WhyUs from '../components/WhyUs'
@@ -13,10 +14,11 @@ import CTASection from '../components/CTASection'
  * a buyer asks before requesting a quote.
  */
 export default function WhyUsPage() {
+  const { t } = useLanguage()
+
   useSeo({
-    title: 'Why Us — Practical Reasons to Buy a Thresher From Us',
-    description:
-      'Efficient crop processing, replaceable wear parts, belt drive simplicity, local service in Jhapa and configuration to your crop and power source — the practical reasons to buy a thresher from Daju Bhai Grill Udyog.',
+    title: t('meta.whyUs.title'),
+    description: t('meta.whyUs.description'),
     path: '/why-us',
     jsonLd: [
       {
@@ -25,10 +27,10 @@ export default function WhyUsPage() {
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Why buy a thresher from Daju Bhai Grill Udyog?',
+            name: t('whyUsPage.faqQuestion'),
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Machines are configured to your crop, land size and available power; wear parts are replaceable items; the belt drive is simple to maintain; and service is local to Jhapa.',
+              text: t('whyUsPage.faqAnswer'),
             },
           },
         ],
@@ -39,13 +41,13 @@ export default function WhyUsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Why choose us"
-        title="Practical reasons to buy from us"
-        lead="No claims we cannot back up — these are the things that matter when a machine has to work through the whole season."
-        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Why Us' }]}
+        eyebrow={t('whyUsPage.eyebrow')}
+        title={t('whyUsPage.title')}
+        lead={t('whyUsPage.lead')}
+        breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.whyUs') }]}
         action={
           <Button to="/contact#inquiry" variant="accent" size="lg">
-            Request a Quote
+            {t('common.requestQuote')}
           </Button>
         }
       />

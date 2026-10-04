@@ -1,5 +1,5 @@
 import { MapPin, Navigation } from 'lucide-react'
-import { site } from '../config/site'
+import { useLanguage, useSite } from '../i18n'
 
 /**
  * MapPanel
@@ -12,6 +12,8 @@ import { site } from '../config/site'
  * directions — so the section is useful, not decorative.
  */
 export default function MapPanel({ className = '' }) {
+  const { t } = useLanguage()
+  const site = useSite()
   const { embedUrl, query, directionsUrl } = site.map
 
   return (
@@ -19,7 +21,11 @@ export default function MapPanel({ className = '' }) {
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-graphite sm:aspect-[16/9]">
         {embedUrl ? (
           <iframe
-            title={`Map showing ${site.name} in ${site.address.locality}, ${site.address.district}`}
+            title={t('map.iframeTitle', {
+              name: site.name,
+              locality: site.address.locality,
+              district: site.address.district,
+            })}
             src={embedUrl}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
@@ -56,7 +62,7 @@ export default function MapPanel({ className = '' }) {
             </div>
 
             <p className="absolute bottom-3 left-3 right-3 text-2xs uppercase tracking-technical text-sand-100/40">
-              Map placeholder — replace with the exact workshop location
+              {t('map.placeholder')}
             </p>
           </div>
         )}
@@ -69,7 +75,7 @@ export default function MapPanel({ className = '' }) {
             {site.address.line1}, {site.address.line2}
           </p>
           <p className="mt-1 text-xs text-ink/45">
-            Search reference: <span className="font-medium text-ink/60">{query}</span>
+            {t('map.searchRef')} <span className="font-medium text-ink/60">{query}</span>
           </p>
         </div>
 
@@ -80,7 +86,7 @@ export default function MapPanel({ className = '' }) {
           className="inline-flex shrink-0 items-center justify-center gap-2 rounded-[3px] border border-ink/25 px-4 py-2.5 text-sm font-semibold transition-colors hover:border-ink hover:bg-ink/[0.04]"
         >
           <Navigation size={15} />
-          Open in Google Maps
+          {t('map.openMaps')}
         </a>
       </div>
     </div>

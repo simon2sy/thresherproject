@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
+import { useLanguage } from '../../i18n'
 import Reveal from './Reveal'
 import AuroraBackdrop from './AuroraBackdrop'
 
@@ -18,6 +19,7 @@ import AuroraBackdrop from './AuroraBackdrop'
  * @param {React.ReactNode} [props.action]
  */
 export default function PageHeader({ eyebrow, title, lead, breadcrumb = [], action = null }) {
+  const { t } = useLanguage()
   return (
     <header className="on-dark relative isolate overflow-hidden bg-ink pt-28 sm:pt-32 lg:pt-36">
       {/* Same aurora language as the hero, so inner pages feel like part of
@@ -40,7 +42,7 @@ export default function PageHeader({ eyebrow, title, lead, breadcrumb = [], acti
 
       <div className="shell relative pb-12 sm:pb-14 lg:pb-16">
         {breadcrumb.length > 0 ? (
-          <nav aria-label="Breadcrumb" className="mb-6">
+          <nav aria-label={t('nav.breadcrumb')} className="mb-6">
             <ol className="flex flex-wrap items-center gap-2 text-2xs uppercase tracking-technical text-sand-100/50">
               {breadcrumb.map((crumb, index) => (
                 <li key={`${crumb.label}-${index}`} className="flex items-center gap-2">

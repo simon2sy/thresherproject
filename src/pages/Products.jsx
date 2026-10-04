@@ -1,8 +1,7 @@
 import { useMemo, useState } from 'react'
 import { ArrowRight, RotateCcw } from 'lucide-react'
-import { cropFilters, products, SAMPLE_NOTICE } from '../data/products'
+import { useCropFilters, useLanguage, useProducts, useSampleNotice, useSite } from '../i18n'
 import { useSeo, localBusinessSchema } from '../hooks/useSeo'
-import { site } from '../config/site'
 import PageHeader from '../components/ui/PageHeader'
 import ProductCard from '../components/ProductCard'
 import Button from '../components/ui/Button'
@@ -23,19 +22,26 @@ const CHIP_OFF = 'border-ink/15 text-ink/60 hover:border-ink/40 hover:text-ink'
 const CHIP_ON = 'border-ink bg-ink text-sand-50'
 
 export default function Products() {
-  const [crop, setCrop] = useState('All crops')
+  const { t } = useLanguage()
+  const site = useSite()
+  const products = useProducts()
+  const cropFilters = useCropFilters()
+  const sampleNotice = useSampleNotice()
+  // The selected filter is tracked by position (0 = all crops) so it survives
+  // a language switch, where both the filter labels and the crop names change.
+  const [cropIndex, setCropIndex] = useState(0)
+  const crop = cropFilters[cropIndex] ?? cropFilters[0]
 
   useSeo({
-    title: 'Thresher Machines — Rice, Wheat & Maize Threshers in Nepal',
-    description:
-      'Explore the thresher range from Daju Bhai Grill Udyog, Jhapa Gaupalika: heavy-duty grain threshers, multi-crop threshers and compact farm threshers — every model Rs. 360,000.',
+    title: t('meta.products.title'),
+    description: t('meta.products.description'),
     path: '/threshers',
     jsonLd: [
       localBusinessSchema(),
       {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: 'Thresher machines',
+        name: t('products.itemListName'),
         itemListElement: products.map((product, index) => ({
           '@type': 'ListItem',
           position: index + 1,
@@ -48,26 +54,26 @@ export default function Products() {
 
   const filtered = useMemo(
     () =>
-      products.filter((product) => crop === 'All crops' || product.crops.includes(crop)),
-    [crop],
+      products.filter(
+        (product) => cropIndex === 0 || product.crops.includes(crop),
+      ),
+    [products, cropIndex, crop],
   )
 
-  const isFiltered = crop !== 'All crops'
+  const isFiltered = cropIndex !== 0
 
-  const filterGroups = [
-    { label: 'Filter by crop', value: crop, set: setCrop, options: cropFilters },
-  ]
+  const filterGroups = [{ label: t('products.filterLabel'), options: cropFilters }]
 
   return (
     <>
       <PageHeader
-        eyebrow="Thresher range"
-        title="Thresher machines for Nepali farms"
-        lead="Every model is a belt-driven machine with a rasp-bar drum, adjustable concave and blower cleaning — and every model is Rs. 360,000. What changes between models is the frame size and the crops it is set up for."
-        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Threshers' }]}
+        eyebrow={t('products.eyebrow')}
+        title={t('products.title')}
+        lead={t('products.lead')}
+        breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.threshers') }]}
         action={
           <Button to="/contact#inquiry" variant="accent" size="lg">
-            Request a Quote
+            {t('common.requestQuote')}
           </Button>
         }
       />
@@ -80,13 +86,13 @@ export default function Products() {
                 <div key={group.label}>
                   <p className="tech-label mb-2">{group.label}</p>
                   <div className="flex flex-wrap gap-2">
-                    {group.options.map((option) => (
+                    {group.options.map((option, optionIndex) => (
                       <button
                         key={option}
                         type="button"
-                        onClick={() => group.set(option)}
-                        aria-pressed={group.value === option}
-                        className={`${CHIP} ${group.value === option ? CHIP_ON : CHIP_OFF}`}
+                        onClick={() => setCropIndex(optionIndex)}
+                        aria-pressed={optionIndex === cropIndex}
+                        className={`${CHIP} ${optionIndex === cropIndex ? CHIP_ON : CHIP_OFF}`}
                       >
                         {option}
                       </button>
@@ -98,19 +104,20 @@ export default function Products() {
 
             <div className="flex items-center gap-4">
               <p className="tabular text-2xs uppercase tracking-technical text-ink/45">
-                {String(filtered.length).padStart(2, '0')} machine
-                {filtered.length === 1 ? '' : 's'}
+                {t(filtered.length === 1 ? 'products.countOne' : 'products.countMany', {
+                  n: String(filtered.length).padStart(2, '0'),
+                })}
               </p>
               {isFiltered ? (
                 <button
                   type="button"
                   onClick={() => {
-                    setCrop('All crops')
+                    setCropIndex(0)
                   }}
                   className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-technical text-ink/60 transition-colors hover:text-ink"
                 >
                   <RotateCcw size={13} />
-                  Clear
+                  {t('products.clear')}
                 </button>
               ) : null}
             </div>
@@ -124,29 +131,28 @@ export default function Products() {
             </div>
           ) : (
             <div className="mt-10 border border-ink/12 bg-paper p-8 text-center">
-              <p className="font-display text-lg font-bold">No machine matches that combination</p>
+              <p className="font-display text-lg font-bold">{t('products.noMatchTitle')}</p>
               <p className="mx-auto mt-2 max-w-lg text-sm text-ink/65">
-                Tell us the crop and the work you have in mind — machines are set up to order, so
-                an unusual combination is usually possible.
+                {t('products.noMatchText')}
               </p>
               <Button to="/contact#inquiry" variant="primary" size="sm" className="mt-5">
-                Ask about a configuration
+                {t('products.askConfig')}
               </Button>
             </div>
           )}
 
           <Reveal variant="fade" className="mt-8">
-            <p className="max-w-3xl text-xs leading-relaxed text-ink/50">{SAMPLE_NOTICE}</p>
+            <p className="max-w-3xl text-xs leading-relaxed text-ink/50">{sampleNotice}</p>
           </Reveal>
 
           <div className="mt-16 border-t border-ink/10 pt-14">
             <SectionHeading
-              eyebrow="Choosing a machine"
-              title="Three questions decide the model"
-              lead="Your harvest sets the pace, the crop sets the sieve, and every model in the range is Rs. 360,000."
+              eyebrow={t('products.chooseEyebrow')}
+              title={t('products.chooseTitle')}
+              lead={t('products.chooseLead')}
               action={
                 <Button to="/contact#inquiry" variant="outline" size="sm">
-                  Talk to us
+                  {t('common.talkToUs')}
                   <ArrowRight size={15} />
                 </Button>
               }
@@ -154,18 +160,9 @@ export default function Products() {
 
             <div className="mt-10 grid gap-px overflow-hidden border border-ink/12 bg-ink/12 sm:grid-cols-3">
               {[
-                {
-                  title: 'How much crop, and how fast?',
-                  text: 'A household threshing a few bigha needs a different machine from a custom-hiring operator covering several villages in one season.',
-                },
-                {
-                  title: 'Which crops, in which order?',
-                  text: 'Paddy, wheat and maize need different sieve and drum settings. Machines re-set between crops are quoted with the extra sieve set.',
-                },
-                {
-                  title: 'What does it cost?',
-                  text: 'Every model in the range is Rs. 360,000, and accessories are quoted separately with your order.',
-                },
+                { title: t('products.q1Title'), text: t('products.q1Text') },
+                { title: t('products.q2Title'), text: t('products.q2Text') },
+                { title: t('products.q3Title'), text: t('products.q3Text') },
               ].map((item, index) => (
                 <Reveal key={item.title} variant="fade" delay={index * 0.06} className="bg-paper p-6">
                   <span className="tabular text-2xs text-ink/30">

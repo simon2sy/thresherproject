@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { processSteps } from '../data/content'
+import { useLanguage, useProcessSteps } from '../i18n'
 import Reveal from './ui/Reveal'
 import SectionHeading from './ui/SectionHeading'
 
@@ -11,6 +11,8 @@ import SectionHeading from './ui/SectionHeading'
  * then reveals in sequence.
  */
 export default function Process({ tone = 'dark' }) {
+  const { t } = useLanguage()
+  const processSteps = useProcessSteps()
   const dark = tone === 'dark'
   const reduceMotion = useReducedMotion()
 
@@ -18,9 +20,9 @@ export default function Process({ tone = 'dark' }) {
     <div>
       <SectionHeading
         tone={tone}
-        eyebrow="How it works"
-        title="From standing crop to bagged grain"
-        lead="Four stages, in the order the crop passes through them. Every adjustment on the machine belongs to one of these stages."
+        eyebrow={t('process.eyebrow')}
+        title={t('process.title')}
+        lead={t('process.lead')}
       />
 
       <div className="relative mt-14">

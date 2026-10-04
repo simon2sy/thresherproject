@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import { site } from '../config/site'
 
 /**
  * ErrorBoundary
@@ -30,7 +29,9 @@ export default class ErrorBoundary extends Component {
     const { children, fallback = null, onError } = this.props
 
     if (failed) {
-      if (typeof fallback === 'function') return fallback({ site })
+      // The fallback may be a render function (used by App.jsx so it can read
+      // translated strings via hooks) — it takes no arguments now.
+      if (typeof fallback === 'function') return fallback()
       return fallback
     }
 

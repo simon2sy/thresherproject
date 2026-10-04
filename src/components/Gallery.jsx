@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { galleryCategories, galleryItems } from '../data/gallery'
+import { useGallery, useLanguage } from '../i18n'
 import Lightbox from './Lightbox'
 import Reveal from './ui/Reveal'
 
@@ -29,16 +29,22 @@ const ASPECT = {
 }
 
 export default function Gallery({ showFilters = true, limit, heading }) {
-  const [category, setCategory] = useState('All')
+  const { t } = useLanguage()
+  const gallery = useGallery()
+  const { categories: galleryCategories, items: galleryItems } = gallery
+  // The category is tracked by position (0 = All) so the selection survives a
+  // language switch, where the category labels themselves are reworded.
+  const [categoryIndex, setCategoryIndex] = useState(0)
   const [openIndex, setOpenIndex] = useState(null)
+  const category = galleryCategories[categoryIndex] ?? galleryCategories[0]
 
   const items = useMemo(() => {
     const filtered =
-      category === 'All'
+      categoryIndex === 0
         ? galleryItems
         : galleryItems.filter((item) => item.category === category)
     return typeof limit === 'number' ? filtered.slice(0, limit) : filtered
-  }, [category, limit])
+  }, [categoryIndex, category, galleryItems, limit])
 
   return (
     <div>
@@ -47,10 +53,10 @@ export default function Gallery({ showFilters = true, limit, heading }) {
           <div
             className="mb-8 flex flex-wrap items-center gap-2 sm:mb-10"
             role="tablist"
-            aria-label="Gallery categories"
+            aria-label={t('gallery.categoriesAria')}
           >
-            {galleryCategories.map((entry) => {
-              const active = entry === category
+            {galleryCategories.map((entry, index) => {
+              const active = index === categoryIndex
               return (
                 <button
                   key={entry}
@@ -58,7 +64,7 @@ export default function Gallery({ showFilters = true, limit, heading }) {
                   role="tab"
                   aria-selected={active}
                   onClick={() => {
-                    setCategory(entry)
+                    setCategoryIndex(index)
                     setOpenIndex(null)
                   }}
                   className={[
@@ -88,7 +94,7 @@ export default function Gallery({ showFilters = true, limit, heading }) {
               type="button"
               onClick={() => setOpenIndex(index)}
               className="group relative block w-full overflow-hidden rounded-[3px] border border-ink/10 bg-sand-200 text-left shadow-card transition-[transform,box-shadow,border-color] duration-300 ease-smooth hover:-translate-y-1.5 hover:border-aqua-500/40 hover:shadow-glow focus-visible:-translate-y-1.5"
-              aria-label={`Open larger view of ${item.title}`}
+              aria-label={t('gallery.openAria', { title: item.title })}
             >
               <img
                 src={item.src}
@@ -127,7 +133,7 @@ export default function Gallery({ showFilters = true, limit, heading }) {
                   ) : null}
                 </span>
                 <span className="tech-label shrink-0 pb-1 !text-sand-100/60 opacity-0 transition-opacity group-hover:opacity-100">
-                  View
+                  {t('gallery.view')}
                 </span>
               </span>
             </button>
@@ -141,7 +147,7 @@ export default function Gallery({ showFilters = true, limit, heading }) {
         items={items}
         index={openIndex}
         onClose={setOpenIndex}
-        category={category === 'All' ? undefined : category}
+        category={categoryIndex === 0 ? undefined : category}
       />
     </div>
   )
