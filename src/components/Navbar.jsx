@@ -60,7 +60,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
-  const isHome = location.pathname === '/'
   const { t } = useLanguage()
   const site = useSite()
   const navLinks = useNavLinks()
@@ -119,7 +118,11 @@ export default function Navbar() {
     }
   }, [open])
 
-  const solid = scrolled || !isHome || open
+  /*
+   * The home hero is now white, so the transparent light-text top state would
+   * be invisible over it: the bar stays solid at all times.
+   */
+  const solid = true
 
   return (
     <header

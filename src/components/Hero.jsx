@@ -3,8 +3,6 @@ import { useLanguage, useProducts, useSite } from '../i18n'
 import Button from './ui/Button'
 import CapabilityStrip from './ui/CapabilityStrip'
 import Reveal from './ui/Reveal'
-import AuroraBackdrop from './ui/AuroraBackdrop'
-import { useMediaQuery } from '../hooks/useMediaQuery'
 
 /**
  * Hero
@@ -22,39 +20,22 @@ export default function Hero() {
   const products = useProducts()
   const flagship = products[0]
 
-  /*
-   * PERFORMANCE: on small screens the aurora mesh is a full-bleed layer behind
-   * the whole hero. Phones are the most scroll-jank-prone devices and the
-   * drifting animation is the least valuable on a screen that small, so it is
-   * reduced to a single still layer there (CSS handles the rest).
-   */
-  const isCompact = useMediaQuery('(max-width: 767px)')
-
   return (
     <section
-      className="on-dark relative isolate overflow-hidden pt-28 sm:pt-32 lg:pt-36"
+      className="relative isolate overflow-hidden pt-28 sm:pt-32 lg:pt-36"
       style={{
-        /* Deep teal base — the aurora mesh layers on top of this. */
-        background: 'linear-gradient(158deg, #0E2A33 0%, #07161B 45%, #040D11 100%)',
+        /* Clean white base. */
+        background: '#FFFFFF',
       }}
     >
-      {/* Signature animated background: drifting aqua/amber mesh, slow
-          conic sweep, light streaks, film grain and a vignette. Reduced to a
-          single still layer on small screens to protect scroll performance. */}
-      <AuroraBackdrop
-        variant="hero"
-        sweep={!isCompact}
-        streaks={!isCompact}
-      />
 
-      {/* Faint technical grid over the mesh, masked so it fades to the edges.
-          Uses an explicit light stroke — the shared `grid-tech` token is
-          ink-coloured and would vanish against this dark background. */}
+      {/* Faint technical grid, masked so it fades to the edges. Uses an
+          explicit ink stroke tuned to match the shared `grid-tech` token. */}
       <div
         className="absolute inset-0 opacity-[0.16] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000_0%,transparent_100%)]"
         style={{
           backgroundImage:
-            'linear-gradient(to right, rgba(255,255,255,0.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.10) 1px, transparent 1px)',
+            'linear-gradient(to right, rgba(5,14,18,0.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(5,14,18,0.10) 1px, transparent 1px)',
           backgroundSize: '56px 56px',
         }}
         aria-hidden="true"
@@ -70,7 +51,7 @@ export default function Hero() {
               text-left / image-right arrangement. */}
           <div className="order-2 max-w-2xl lg:order-1">
             <Reveal variant="fade">
-              <p className="eyebrow text-aqua-300">
+              <p className="eyebrow text-agri-600">
                 <span className="pulse-dot" aria-hidden="true" />
                 {t('hero.eyebrow', {
                   locality: site.address.locality,
@@ -81,14 +62,14 @@ export default function Hero() {
 
             <Reveal delay={0.05}>
               <h1 className="h-display mt-5">
-                <span className="text-sand-50">{t('hero.titleLead')}</span>
+                <span className="text-ink">{t('hero.titleLead')}</span>
                 {/*
                   The travelling gradient is a `transform` on an oversized inner
                   span (not `background-position`), so the headline animates on
                   the compositor instead of repainting every frame.
                 */}
                 <span className="relative inline-block overflow-hidden align-bottom">
-                  <span className="text-brand motion-safe:animate-gradient-pan inline-block w-[200%]">
+                  <span className="text-brand-ink motion-safe:animate-gradient-pan inline-block w-[200%]">
                     {t('hero.titleAccent')}
                   </span>
                 </span>
@@ -96,13 +77,13 @@ export default function Hero() {
             </Reveal>
 
             <Reveal delay={0.12}>
-              <p className="lede mt-6 max-w-xl text-sand-100/75">
+              <p className="lede mt-6 max-w-xl text-ink/75">
                 {t('hero.lede')}
               </p>
             </Reveal>
 
             <Reveal delay={0.18}>
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-sand-100/55">
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink/60">
                 {t('hero.sub')}
               </p>
             </Reveal>
@@ -112,29 +93,29 @@ export default function Hero() {
                 <Button to="/threshers" variant="accent" size="lg">
                   {t('common.exploreThreshers')}
                 </Button>
-                <Button to="/contact#inquiry" variant="outlineLight" size="lg">
+                <Button to="/contact#inquiry" variant="outline" size="lg">
                   {t('common.requestQuote')}
                 </Button>
               </div>
             </Reveal>
 
             <Reveal variant="fade" delay={0.3}>
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-2xs uppercase tracking-technical text-sand-100/50">
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-2xs uppercase tracking-technical text-ink/60">
                 <a
                   href={site.phone.href}
-                  className="flex items-center gap-2 transition-colors hover:text-aqua-300"
+                  className="flex items-center gap-2 transition-colors hover:text-agri-600"
                 >
                   <PhoneCall size={13} />
                   {site.phone.display}
                 </a>
-                <span className="hidden h-3 w-px bg-white/15 sm:block" />
+                <span className="hidden h-3 w-px bg-ink/15 sm:block" />
                 {/* Availability chip — gently bobs to draw the eye without
                     shouting. The dot pulses to signal "open for business". */}
                 <span className="flex items-center gap-2 motion-safe:animate-bob">
                   <span className="pulse-dot" aria-hidden="true" />
                   {t('hero.spareParts')}
                 </span>
-                <span className="hidden h-3 w-px bg-white/15 sm:block" />
+                <span className="hidden h-3 w-px bg-ink/15 sm:block" />
                 <span>{t('hero.serviceFromJhapa')}</span>
               </div>
             </Reveal>
@@ -142,21 +123,21 @@ export default function Hero() {
 
           <div className="relative order-1 lg:order-2">
             <Reveal variant="fade" delay={0.1}>
-              <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
-                <p className="flex items-center gap-2.5 text-2xs uppercase tracking-technical text-sand-100/55">
-                  <span className="tabular font-semibold text-sand-50">{flagship.code}</span>
-                  <span className="h-3 w-px bg-white/15" />
+              <div className="flex items-center justify-between gap-4 border-b border-ink/10 pb-3">
+                <p className="flex items-center gap-2.5 text-2xs uppercase tracking-technical text-ink/55">
+                  <span className="tabular font-semibold text-ink">{flagship.code}</span>
+                  <span className="h-3 w-px bg-ink/15" />
                   {flagship.name}
                 </p>
-                <p className="hidden text-2xs uppercase tracking-technical text-sand-100/40 sm:block">
+                <p className="hidden text-2xs uppercase tracking-technical text-ink/45 sm:block">
                   {t('hero.range', { count: products.length })}
                 </p>
               </div>
             </Reveal>
 
-            {/* Machine sits on a frosted aqua panel with a warm pool of light
-                beneath it, so the product reads as the hero object. */}
-            <div className="glass-aqua rim-top relative mt-4 overflow-hidden rounded-[4px] p-4 motion-safe:animate-float-soft sm:p-6">
+            {/* Machine sits on a light card with a warm pool of light beneath
+                it, so the product reads as the hero object. */}
+            <div className="relative mt-4 overflow-hidden rounded-[4px] border border-ink/10 bg-white p-4 shadow-[0_30px_60px_-35px_rgba(11,11,12,0.35)] motion-safe:animate-float-soft sm:p-6">
               <span className="sheen" aria-hidden="true" />
               <div
                 className="pointer-events-none absolute -bottom-24 left-1/2 h-48 w-[130%] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(closest-side,rgba(52,203,219,0.28),transparent)]"
@@ -168,32 +149,32 @@ export default function Hero() {
                   alt={t('hero.imageAlt')}
                   loading="eager"
                   decoding="async"
-                  className="h-full w-full object-contain drop-shadow-[0_28px_50px_rgba(0,0,0,0.55)]"
+                  className="h-full w-full object-contain drop-shadow-[0_28px_50px_rgba(11,11,12,0.25)]"
                 />
               </div>
             </div>
 
             <Reveal variant="fade" delay={0.28}>
-              <dl className="mt-4 grid grid-cols-3 gap-px overflow-hidden border border-white/10 bg-white/10">
-                <div className="bg-ink px-3 py-3">
-                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">
+              <dl className="mt-4 grid grid-cols-3 gap-px overflow-hidden border border-ink/10 bg-ink/10">
+                <div className="bg-paper px-3 py-3">
+                  <dt className="text-2xs uppercase tracking-technical text-ink/45">
                     {t('hero.specDrive')}
                   </dt>
-                  <dd className="mt-1 text-xs font-semibold text-sand-50">
+                  <dd className="mt-1 text-xs font-semibold text-ink">
                     {t('hero.specDriveValue')}
                   </dd>
                 </div>
-                <div className="bg-ink px-3 py-3">
-                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">
+                <div className="bg-paper px-3 py-3">
+                  <dt className="text-2xs uppercase tracking-technical text-ink/45">
                     {t('hero.specPrice')}
                   </dt>
-                  <dd className="mt-1 text-xs font-semibold text-sand-50">{flagship.price}</dd>
+                  <dd className="mt-1 text-xs font-semibold text-ink">{flagship.price}</dd>
                 </div>
-                <div className="bg-ink px-3 py-3">
-                  <dt className="text-2xs uppercase tracking-technical text-sand-100/40">
+                <div className="bg-paper px-3 py-3">
+                  <dt className="text-2xs uppercase tracking-technical text-ink/45">
                     {t('hero.specCrops')}
                   </dt>
-                  <dd className="mt-1 text-xs font-semibold text-sand-50">
+                  <dd className="mt-1 text-xs font-semibold text-ink">
                     {t('hero.specCropsValue')}
                   </dd>
                 </div>
@@ -201,7 +182,7 @@ export default function Hero() {
             </Reveal>
 
             <div
-              className="pointer-events-none mt-6 hidden items-center gap-2 text-2xs uppercase tracking-technical text-sand-100/35 lg:flex"
+              className="pointer-events-none mt-6 hidden items-center gap-2 text-2xs uppercase tracking-technical text-ink/45 lg:flex"
               aria-hidden="true"
             >
               <ChevronDown size={14} />
@@ -210,7 +191,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <CapabilityStrip className="border border-white/10" />
+        <CapabilityStrip tone="light" className="border border-ink/10" />
       </div>
     </section>
   )

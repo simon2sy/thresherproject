@@ -236,6 +236,13 @@
     background-size: 200% auto;
   }
 
+  /* Light-background twin: deep-teal -> amber stays legible on white. */
+  .text-brand-ink {
+    @apply bg-clip-text text-transparent;
+    background-image: theme('backgroundImage.brand-gradient-ink');
+    background-size: 200% auto;
+  }
+
   .bg-brand {
     background-image: theme('backgroundImage.brand-gradient');
   }
