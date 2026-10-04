@@ -9,27 +9,29 @@
  */
 
 export const COLORS = {
-  /** Agricultural green paint used on the body panels and hopper. */
-  paint: '#2E6B3F',
-  paintDeep: '#23512F',
-  /** Dark machine frame / sheet-metal parts. */
-  paintCharcoal: '#23272A',
-  sheet: '#2B3033',
+  /** Harvest-clay red paint (like the red threshers in the gallery) + paddy green. */
+  paint: '#A63F16',
+  paintDeep: '#843314',
+  paintGreen: '#3A761D',
+  /** Dark machine frame / sheet-metal parts — warm soil steel. */
+  paintCharcoal: '#2A2012',
+  sheet: '#3A2E1A',
   /** Metals. */
-  steel: '#A9AFB5',
-  steelDark: '#5B6167',
-  castIron: '#3D4246',
+  steel: '#C9BFA8',
+  steelDark: '#6B5F46',
+  castIron: '#3D342A',
   /** Rubber: tyres and the v-belt. */
-  rubber: '#16181A',
-  belt: '#1B1D20',
-  /** Small machinery accents — kept deliberately limited. */
-  amber: '#E5A72B',
-  grain: '#D9A93F',
+  rubber: '#1A130A',
+  belt: '#241A0E',
+  /** Small machinery accents — harvest gold. */
+  amber: '#F7B733',
+  grain: '#FCD34D',
 }
 
 export const MAT = {
-  paintGreen: { color: COLORS.paint, metalness: 0.28, roughness: 0.52 },
-  paintGreenDark: { color: COLORS.paintDeep, metalness: 0.28, roughness: 0.55 },
+  paintGreen: { color: COLORS.paint, metalness: 0.3, roughness: 0.48 },
+  paintGreenDark: { color: COLORS.paintDeep, metalness: 0.3, roughness: 0.52 },
+  paintPaddy: { color: COLORS.paintGreen, metalness: 0.28, roughness: 0.52 },
   paintCharcoal: { color: COLORS.paintCharcoal, metalness: 0.35, roughness: 0.5 },
   sheet: { color: COLORS.sheet, metalness: 0.45, roughness: 0.45 },
   sheetGreen: { color: COLORS.paint, metalness: 0.3, roughness: 0.48 },

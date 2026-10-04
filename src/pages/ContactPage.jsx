@@ -8,9 +8,8 @@ import CTASection from '../components/CTASection'
 /**
  * ContactPage
  * ---------------------------------------------------------------------------
- * The conversion page. The Contact section carries the company details, the
- * inquiry form (anchored at #inquiry — every "Request a Quote" button on the
- * site deep-links here, optionally with ?product=CODE) and the location map.
+ * The contact page. The Contact section carries the company details, a
+ * call/WhatsApp visit panel and the location map.
  */
 export default function ContactPage() {
   const { t } = useLanguage()

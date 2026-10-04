@@ -28,18 +28,21 @@ export default function FieldContext() {
             delay={Math.min(index * 0.08, 0.24)}
             className={index === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}
           >
-            <figure className="group h-full border border-ink/10 bg-paper">
-              <div className="overflow-hidden border-b border-ink/10 bg-sand-200">
+            <figure className="grain-card group h-full overflow-hidden rounded-[6px]">
+              <div className="overflow-hidden border-b border-ink/10">
                 <img
                   src={item.src}
                   alt={item.alt}
                   loading="lazy"
                   decoding="async"
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               </div>
               <figcaption className="p-5 sm:p-6">
-                <h3 className="font-display text-lg font-bold tracking-[-0.015em]">{item.title}</h3>
+                <p className="text-2xs font-semibold uppercase tracking-technical text-harvest-700">
+                  Jhapa · Terai
+                </p>
+                <h3 className="mt-1.5 font-display text-lg font-bold tracking-[-0.015em]">{item.title}</h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-ink/65">{item.text}</p>
               </figcaption>
             </figure>

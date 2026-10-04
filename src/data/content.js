@@ -158,7 +158,6 @@ export const inquiryOptions = {
     'Larger than 1500 kg / hour',
     'Not sure — please advise',
   ],
-  machineHelp: 'Not sure — please advise',
   powerSources: ['Diesel engine', 'Electric motor', 'Both available', 'Not decided yet'],
 }
 

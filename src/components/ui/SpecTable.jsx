@@ -23,7 +23,8 @@ export default function SpecTable({ rows = [], notice, tone = 'light', caption }
 
   return (
     <div>
-      <div className={`overflow-hidden rounded-[3px] border ${dark ? 'border-white/10 bg-white/[0.03]' : 'border-ink/10 bg-paper'}`}>
+      <div className={`overflow-hidden rounded-[6px] border ${dark ? 'border-harvest-400/25 bg-white/[0.03]' : 'border-ink/10 bg-paper'}`}>
+        <div className={`h-1 ${dark ? '' : ''}`} style={{ backgroundImage: 'linear-gradient(100deg,#FCD34D 0%,#E39410 42%,#4E9626 78%,#C4541D 100%)' }} aria-hidden="true" />
         <table className="table-spec hidden sm:table">
           {caption ? <caption className="sr-only">{caption}</caption> : null}
           <thead>

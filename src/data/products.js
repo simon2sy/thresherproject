@@ -33,14 +33,14 @@ export const products = [
     id: 'p1',
     slug: 'sam-1000-heavy-duty-grain-thresher',
     code: 'SAM-1000',
-    name: 'Heavy-Duty Grain Thresher',
+    name: 'New Super Manku Thresher',
     category: 'Heavy-duty',
     badge: 'Largest frame',
     price: 'Rs. 360,000',
     short:
       'A large-frame thresher for commercial farms, cooperatives and custom hiring work.',
     summary:
-      'The SAM-1000 is our largest frame. Built around a wide threshing drum and a heavy belt drive, it is intended for long working days during peak harvest, when machine downtime costs the most.',
+      'The New Super Manku Thresher in our largest frame. Built around a wide threshing drum and a heavy belt drive, it is intended for long working days during peak harvest, when machine downtime costs the most.',
     features: [
       'Wide threshing drum built for long working days',
       'Heavy-duty belt drive with guarded pulleys',
@@ -54,7 +54,7 @@ export const products = [
       gallery: ['/images/products/thresher1.jpeg', '/images/products/thresher2.jpeg'],
     },
     specs: [
-      { label: 'Machine type', value: 'Heavy-duty multi-crop thresher (sample)' },
+      { label: 'Machine type', value: 'New Super Manku Thresher (sample)' },
       { label: 'Operating speed', value: '750 RPM' },
       { label: 'Threshing drum', value: 'Rasp-bar drum, 600 mm width (sample)' },
       { label: 'Drive', value: 'V-belt drive with steel pulley guard' },
@@ -85,14 +85,14 @@ export const products = [
     id: 'p2',
     slug: 'sam-750-multi-crop-thresher',
     code: 'SAM-750',
-    name: 'Multi-Crop Thresher',
+    name: 'New Super Manku Thresher',
     category: 'Multi-crop',
     badge: 'Most versatile',
     price: 'Rs. 360,000',
     short:
       'One machine for paddy, wheat and maize — the practical choice for mixed-crop holdings.',
     summary:
-      'The SAM-750 is configured so that a single machine can be re-set for different crops between seasons. Sieves and drum settings are changed with basic hand tools, which keeps a mixed-crop holding running with one unit.',
+      'The New Super Manku Thresher (SAM-750) is configured so that a single machine can be re-set for different crops between seasons. Sieves and drum settings are changed with basic hand tools, which keeps a mixed-crop holding running with one unit.',
     features: [
       'Reversible sieve set for paddy, wheat and maize',
       'Medium drum suitable for one- to two-person feeding',
@@ -106,7 +106,7 @@ export const products = [
       gallery: ['/images/products/thresher3.jpeg', '/images/products/thresher4.jpeg'],
     },
     specs: [
-      { label: 'Machine type', value: 'Multi-crop thresher (sample)' },
+      { label: 'Machine type', value: 'New Super Manku Thresher (sample)' },
       { label: 'Operating speed', value: '750 RPM' },
       { label: 'Threshing drum', value: 'Rasp-bar drum, 500 mm width (sample)' },
       { label: 'Drive', value: 'V-belt drive with steel pulley guard' },
@@ -136,14 +136,14 @@ export const products = [
     id: 'p3',
     slug: 'sam-500-compact-farm-thresher',
     code: 'SAM-500',
-    name: 'Compact Farm Thresher',
+    name: 'New Super Manku Thresher',
     category: 'Compact',
     badge: 'Smallholding',
     price: 'Rs. 360,000',
     short:
       'A compact, economical thresher for smallholdings and terrace plots where access is limited.',
     summary:
-      'The SAM-500 keeps the same threshing principle in a smaller frame. It can be carried on a small pickup or trolley, set up at the field edge, and powered by a small diesel engine or an electric motor where supply is available.',
+      'The New Super Manku Thresher (SAM-500) keeps the same threshing principle in a smaller frame. It can be carried on a small pickup or trolley, set up at the field edge, and powered by a small diesel engine or an electric motor where supply is available.',
     features: [
       'Compact frame suited to small and terraced plots',
       'Single or two-person feeding position',
@@ -157,7 +157,7 @@ export const products = [
       gallery: ['/images/products/thresher5.jpeg', '/images/products/thresher6.jpeg'],
     },
     specs: [
-      { label: 'Machine type', value: 'Compact farm thresher (sample)' },
+      { label: 'Machine type', value: 'New Super Manku Thresher (sample)' },
       { label: 'Operating speed', value: '750 RPM' },
       { label: 'Threshing drum', value: 'Rasp-bar drum, 400 mm width (sample)' },
       { label: 'Drive', value: 'Single v-belt drive' },

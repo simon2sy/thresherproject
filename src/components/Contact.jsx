@@ -1,7 +1,5 @@
 import { Clock, Mail, MapPin, MessageCircle, PhoneCall, User } from 'lucide-react'
-import { flags } from '../config/site'
 import { useLanguage, useSite } from '../i18n'
-import ContactForm from './ContactForm'
 import MapPanel from './MapPanel'
 import Reveal from './ui/Reveal'
 import SectionHeading from './ui/SectionHeading'
@@ -11,14 +9,13 @@ import Button from './ui/Button'
  * Contact
  * ---------------------------------------------------------------------------
  * Contact section used on the home page and on the Contact page: company
- * details, the inquiry form (anchored at #inquiry so every "Request a Quote"
- * button can deep-link to it) and the location map.
+ * details, a call/WhatsApp visit panel and the location map.
  */
-export default function Contact({ tone = 'light', showHeading = true, id = 'inquiry' }) {
+export default function Contact({ tone = 'light', showHeading = true }) {
   const { t } = useLanguage()
   const site = useSite()
   const dark = tone === 'dark'
-  const card = dark ? 'border-white/10 bg-white/[0.03]' : 'border-ink/10 bg-paper'
+  const card = dark ? 'border-harvest-400/20 bg-white/[0.03]' : 'grain-card rounded-[6px]'
   const heading = dark ? 'text-sand-50' : 'text-ink'
   const body = dark ? 'text-sand-100/65' : 'text-ink/65'
   const accent = dark ? 'text-aqua-300' : 'text-agri-600'
@@ -39,7 +36,10 @@ export default function Contact({ tone = 'light', showHeading = true, id = 'inqu
         <Reveal className="space-y-6">
           <div className={`border p-6 ${card}`}>
             <h3 className={`font-display text-xl font-bold ${heading}`}>{site.name}</h3>
-            <p className={`mt-1.5 text-sm ${body}`}>{site.tagline}</p>
+            <p className={`mt-1.5 flex items-center gap-2 text-sm ${body}`}>
+              <span className="inline-block h-1.5 w-8 rounded-full bg-gradient-to-r from-harvest-400 to-paddy-500" aria-hidden="true" />
+              {site.tagline}
+            </p>
 
             <address className="mt-7 space-y-5 text-sm not-italic">
               <div className="flex gap-3.5">
@@ -125,17 +125,25 @@ export default function Contact({ tone = 'light', showHeading = true, id = 'inqu
               </Button>
             </div>
             <p className={`mt-4 text-xs ${dark ? 'text-sand-100/40' : 'text-ink/45'}`}>
-              {flags.inquiryEndpoint ? t('contact.endpointNote') : t('contact.demoNote')}
+              {t('contact.visitSmallNote')}
             </p>
           </div>
         </Reveal>
         <Reveal variant="right" delay={0.08}>
-          <div id={id} className="scroll-mt-28 border border-ink/10 bg-paper p-6 sm:p-8">
-            <h3 className="h-card">{t('contact.formTitle')}</h3>
-            <p className="mt-2 text-sm text-ink/65">{t('contact.formHint')}</p>
-            <div className="mt-7">
-              <ContactForm />
+          <div className="grain-card scroll-mt-28 rounded-[6px] p-6 sm:p-8">
+            <h3 className="h-card">{t('contact.visitTitle')}</h3>
+            <p className="mt-2 text-sm text-ink/65">{t('contact.visitText')}</p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button href={site.phone.href} variant="accent" size="lg">
+                <PhoneCall size={16} />
+                {t('common.callWorkshop')}
+              </Button>
+              <Button href={site.whatsapp.href} external variant="outline" size="lg">
+                <MessageCircle size={16} />
+                {t('common.messageWhatsApp')}
+              </Button>
             </div>
+            <p className="mt-5 text-xs text-ink/50">{t('contact.visitNote')}</p>
           </div>
         </Reveal>
       </div>

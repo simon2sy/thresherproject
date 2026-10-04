@@ -10,17 +10,20 @@
 
 @layer base {
   :root {
-    --ink: #050e12;
-    --graphite: #0a181e;
-    --steel: #0f222a;
-    --agri: #14afc2;
-    --agri-deep: #0a8b9e;
-    --aqua: #14afc2;
-    --sand: #f6f4ee;
-    --paper: #fbfdfd;
+    --ink: #161006;
+    --graphite: #1e160b;
+    --steel: #2a2012;
+    --agri: #4e9626;
+    --agri-deep: #3a761d;
+    --aqua: #e39410;
+    --sand: #faf5e6;
+    --paper: #fffef9;
     --amber: #f7b733;
+    --harvest: #e39410;
+    --paddy: #4e9626;
+    --clay: #c4541d;
     --shell: 1240px;
-    --rule: rgba(5, 14, 18, 0.12);
+    --rule: rgba(22, 16, 6, 0.12);
   }
 
   html {
@@ -64,8 +67,12 @@
 
   body {
     @apply font-sans text-ink antialiased;
-    /* Cool aqua-tinted canvas — keeps white cards and dark sections crisp. */
-    background-color: #eef4f5;
+    /* Warm harvest canvas — sun-bleached straw with tilled furrows. */
+    background-color: #faf5e6;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(22, 16, 6, 0.035) 0 2px, transparent 2px 28px),
+      radial-gradient(120% 60% at 50% -10%, rgba(247, 183, 51, 0.14), transparent 60%),
+      radial-gradient(90% 50% at 50% 110%, rgba(78, 150, 38, 0.08), transparent 60%);
     text-rendering: optimizeLegibility;
   }
 
@@ -82,17 +89,17 @@
   }
 
   ::selection {
-    background: var(--aqua);
-    color: #fff;
+    background: #e39410;
+    color: #fff8e6;
   }
 
-  /* Modern, high-contrast focus ring: 2px accent + soft halo so keyboard focus
-     is obvious on both light cards and dark sections. */
+  /* Modern, high-contrast focus ring: harvest gold + soft halo so keyboard
+     focus is obvious on both light cards and dark sections. */
   :focus-visible {
-    outline: 2px solid var(--aqua);
+    outline: 2px solid #b87308;
     outline-offset: 3px;
     border-radius: 2px;
-    box-shadow: 0 0 0 5px rgba(20, 175, 194, 0.25);
+    box-shadow: 0 0 0 5px rgba(227, 148, 16, 0.28);
   }
 
   /* Dark sections need a light focus ring. */
@@ -236,26 +243,61 @@
    * because the layer behind it is already dark.
    */
   .glass-aqua {
-    @apply border border-aqua-300/20 bg-[#0A1E25]/55;
+    @apply border border-harvest-300/25 bg-[#241A0E]/60;
   }
 
   /**
-   * Gradient display type. Aqua → amber on dark, deep-teal → amber on light.
+   * Grain-sack paper — warm card with furrow texture + golden top edge.
+   * Use for hero panels, product cards, form shells.
+   */
+  .grain-card {
+    @apply relative border border-ink/10 bg-paper shadow-card;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(22, 16, 6, 0.04) 0 2px, transparent 2px 26px),
+      linear-gradient(to bottom, rgba(247, 183, 51, 0.1), transparent 22%);
+  }
+
+  .grain-card::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-[3px];
+    background-image: linear-gradient(100deg, #fcd34d 0%, #e39410 42%, #4e9626 78%, #c4541d 100%);
+  }
+
+  /**
+   * Thresher paint plate — dark soil panel with chaff lines + harvest rim.
+   */
+  .paint-plate {
+    @apply relative border border-white/10 bg-graphite shadow-plate;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.045) 0 1.5px, transparent 1.5px 26px),
+      radial-gradient(80% 60% at 80% 0%, rgba(247, 183, 51, 0.16), transparent 60%),
+      radial-gradient(70% 60% at 10% 100%, rgba(78, 150, 38, 0.14), transparent 60%);
+  }
+
+  .paint-plate::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px;
+    background: linear-gradient(to right, transparent, rgba(247, 183, 51, 0.5) 30%, rgba(247, 183, 51, 0.5) 70%, transparent);
+  }
+
+  /**
+   * Gradient display type. Harvest gold → paddy → clay on dark,
+   * soil → harvest → paddy on light.
    */
   .text-gradient {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(
       100deg,
-      #ffffff 0%,
-      #a3eef4 34%,
-      #f7b733 72%,
-      #6fe0eb 100%
+      #fff8e6 0%,
+      #fcd34d 34%,
+      #9bd071 72%,
+      #e99868 100%
     );
   }
 
   .text-gradient-ink {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(100deg, #050e12 0%, #0a8b9e 52%, #b87308 100%);
+    background-image: linear-gradient(100deg, #161006 0%, #b87308 48%, #3a761d 78%, #a63f16 100%);
   }
 
   /**
@@ -348,12 +390,48 @@
 
   /* Status dot with an expanding ring — "we're here / in stock / open". */
   .pulse-dot {
-    @apply relative inline-flex h-2 w-2 rounded-full bg-aqua-400;
+    @apply relative inline-flex h-2 w-2 rounded-full bg-harvest-400;
   }
 
   .pulse-dot::after {
     content: '';
-    @apply absolute inset-0 rounded-full bg-aqua-400 motion-safe:animate-ring-out;
+    @apply absolute inset-0 rounded-full bg-harvest-400 motion-safe:animate-ring-out;
+  }
+
+  .pulse-dot-green {
+    @apply relative inline-flex h-2 w-2 rounded-full bg-paddy-500;
+  }
+
+  .pulse-dot-green::after {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-paddy-500 motion-safe:animate-ring-out;
+  }
+
+  /* Harvest dish — a golden sun-disc badge for prices / stats. */
+  .harvest-disc {
+    @apply relative grid place-items-center rounded-full text-ink;
+    background: radial-gradient(circle at 32% 28%, #fef3c7 0%, #fcd34d 34%, #e39410 68%, #b87308 100%);
+    box-shadow: 0 10px 28px -12px rgba(184, 115, 8, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  }
+
+  .harvest-disc::after {
+    content: '';
+    @apply pointer-events-none absolute inset-[5px] rounded-full border border-white/40;
+  }
+
+  /* Stitched grain-sack edge — dashed seam like a sewn sack mouth. */
+  .sack-stitch {
+    background-image: linear-gradient(to right, rgba(22, 16, 6, 0.35) 55%, transparent 45%);
+    background-size: 12px 1.5px;
+    background-repeat: repeat-x;
+    height: 1.5px;
+  }
+
+  .sack-stitch-light {
+    background-image: linear-gradient(to right, rgba(255, 248, 230, 0.35) 55%, transparent 45%);
+    background-size: 12px 1.5px;
+    background-repeat: repeat-x;
+    height: 1.5px;
   }
 
   /* Industrial registration ticks used on plate corners. */
@@ -387,7 +465,7 @@
   .hatch-dark {
     background-image: repeating-linear-gradient(
       45deg,
-      rgba(255, 255, 255, 0.045) 0 1px,
+      rgba(255, 255, 255, 0.05) 0 1px,
       transparent 1px 9px
     );
   }
@@ -395,8 +473,26 @@
   .hatch-light {
     background-image: repeating-linear-gradient(
       45deg,
-      rgba(11, 13, 14, 0.05) 0 1px,
+      rgba(22, 16, 6, 0.055) 0 1px,
       transparent 1px 9px
+    );
+  }
+
+  /* Chaff drift on dark soil — fine diagonal stalks. */
+  .chaff-dark {
+    background-image: repeating-linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.05) 0 1.5px,
+      transparent 1.5px 26px
+    );
+  }
+
+  /* Furrow rows on light straw — tilled-field rhythm. */
+  .furrow-light {
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(22, 16, 6, 0.05) 0 2px,
+      transparent 2px 26px
     );
   }
 
@@ -427,18 +523,27 @@
     @apply bg-ink text-sand-50 shadow-card hover:bg-slate_steel hover:shadow-lift;
   }
 
-  /* Primary CTA — aqua gradient with a coloured glow, so the most important
-     action on any page is the most eye-catching thing on screen. */
+  /* Primary CTA — molten harvest gold, like sun on ripe wheat. The most
+     important action on any page is the warmest thing on screen. */
   .btn-accent {
-    @apply bg-gradient-to-r from-aqua-500 to-aqua-400 text-white shadow-glow-aqua hover:from-aqua-400 hover:to-aqua-300 hover:shadow-[0_18px_44px_-14px_rgba(20,175,194,0.9)] active:translate-y-px;
+    @apply bg-gradient-to-r from-harvest-600 via-harvest-500 to-harvest-400 text-ink shadow-glow-harvest hover:from-harvest-500 hover:via-harvest-400 hover:to-harvest-300 hover:shadow-[0_18px_44px_-14px_rgba(227,148,16,0.9)] active:translate-y-px;
+  }
+
+  .btn-paddy {
+    @apply bg-gradient-to-r from-paddy-700 to-paddy-500 text-white shadow-glow-paddy hover:from-paddy-600 hover:to-paddy-400 active:translate-y-px;
+  }
+
+  .btn-clay {
+    @apply bg-gradient-to-r from-clay-700 to-clay-500 text-white hover:from-clay-600 hover:to-clay-400 active:translate-y-px;
+    box-shadow: 0 12px 32px -14px rgba(166, 63, 22, 0.7);
   }
 
   .btn-outline {
-    @apply border-ink/25 text-ink transition-colors hover:border-aqua-500 hover:bg-aqua-500/[0.07] hover:text-aqua-700;
+    @apply border-ink/25 text-ink transition-colors hover:border-harvest-600 hover:bg-harvest-400/10 hover:text-harvest-700;
   }
 
   .btn-outline-light {
-    @apply border-white/30 text-white hover:border-aqua-300/70 hover:bg-aqua-400/10;
+    @apply border-white/30 text-white hover:border-harvest-300/70 hover:bg-harvest-400/10;
   }
 
   .btn-light {
@@ -464,7 +569,7 @@
 
   /* ---------- Forms ------------------------------------------------------- */
   .field {
-    @apply w-full rounded-[3px] border border-ink/15 bg-white px-3.5 py-3 text-[0.95rem] text-ink placeholder:text-ink/35 focus:border-agri-500 focus:outline-none focus:ring-2 focus:ring-agri-500/25;
+    @apply w-full rounded-[3px] border border-ink/15 bg-[#FFFDF3] px-3.5 py-3 text-[0.95rem] text-ink placeholder:text-ink/35 focus:border-harvest-500 focus:outline-none focus:ring-2 focus:ring-harvest-500/25;
   }
 
   .field-label {

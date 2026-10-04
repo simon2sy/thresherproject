@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, IndianRupee, Sprout } from 'lucide-react'
+import { ArrowRight, Wheat } from 'lucide-react'
 import { useLanguage } from '../i18n'
 import Button from './ui/Button'
 import Reveal from './ui/Reveal'
@@ -27,37 +27,45 @@ export default function ProductCard({ product, index = 0 }) {
   const cardCrops = product.crops.filter((crop) => CARD_CROPS.includes(crop))
 
   const facts = [
-    { icon: IndianRupee, label: t('productCard.price'), value: product.price },
-    { icon: Sprout, label: t('productCard.crops'), value: cardCrops.join(', ') },
+    { icon: Wheat, label: t('productCard.price'), value: product.price, hot: true },
+    { icon: Wheat, label: t('productCard.crops'), value: cardCrops.join(', '), hot: false },
   ]
 
   return (
     <Reveal delay={Math.min(index * 0.08, 0.24)} className="h-full">
       <TiltCard className="h-full" max={6} lift={8}>
-        <article className="flex h-full flex-col">
-          {/* Media */}
+        <article className="grain-card flex h-full flex-col overflow-hidden rounded-[6px]">
+          {/* Media — thresher paint backdrop */}
           <Link
             to={`/threshers/${product.slug}`}
-            className="relative block overflow-hidden border-b border-ink/10 bg-gradient-to-br from-aqua-50 via-white to-sand-100"
+            className="relative block overflow-hidden border-b border-ink/10 bg-gradient-to-br from-harvest-100 via-[#FFF8E6] to-paddy-100"
             tabIndex={-1}
             aria-hidden="true"
           >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-60"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(90deg, rgba(22,16,6,0.05) 0 2px, transparent 2px 26px)',
+              }}
+            />
             <img
               src={product.imagery.card}
               alt={`${product.code} ${product.name}`}
               loading="lazy"
               decoding="async"
-              className="aspect-[4/3] w-full object-contain p-3 transition-transform duration-500 ease-smooth group-hover:scale-[1.06] sm:p-5"
+              className="relative aspect-[4/3] w-full object-contain p-3 transition-transform duration-500 ease-smooth group-hover:scale-[1.06] sm:p-5"
             />
             {product.badge ? (
-              <span className="absolute left-0 top-0 bg-ink px-2.5 py-1.5 text-2xs font-semibold uppercase tracking-technical text-sand-50">
+              <span className="absolute left-0 top-3 bg-gradient-to-r from-harvest-500 to-harvest-400 px-2.5 py-1.5 text-2xs font-bold uppercase tracking-technical text-ink shadow-glow-harvest">
                 {product.badge}
               </span>
             ) : null}
-            {/* Aqua glow that rises from the base of the image on hover. */}
+            {/* Golden sun that rises from the base of the image on hover. */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-aqua-400/25 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-harvest-400/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
             />
             <span className="sheen" aria-hidden="true" />
           </Link>
@@ -65,15 +73,15 @@ export default function ProductCard({ product, index = 0 }) {
         {/* Body */}
         <div className="flex flex-1 flex-col p-5 sm:p-6">
           <p className="flex items-center gap-3 text-2xs uppercase tracking-technical text-ink/45">
-            <span className="tabular font-semibold text-agri-600">{product.code}</span>
-            <span className="h-px flex-1 bg-ink/10" />
+            <span className="rounded-[3px] bg-paddy-700 px-2 py-1 tabular font-semibold text-white">{product.code}</span>
+            <span className="h-px flex-1 bg-gradient-to-r from-harvest-500/50 to-transparent" />
             <span>{product.category}</span>
           </p>
 
           <h3 className="h-card mt-3">
             <Link
               to={`/threshers/${product.slug}`}
-              className="transition-colors hover:text-agri-600"
+              className="transition-colors hover:text-harvest-700"
             >
               {product.name}
             </Link>
@@ -82,14 +90,14 @@ export default function ProductCard({ product, index = 0 }) {
           <p className="mt-3 text-sm leading-relaxed text-ink/65">{product.short}</p>
 
           {/* Technical facts */}
-          <dl className="mt-5 grid grid-cols-1 gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-2">
+          <dl className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-[4px] border border-ink/10 bg-ink/10 sm:grid-cols-2">
             {facts.map((fact) => (
-              <div key={fact.label} className="bg-paper px-3.5 py-3">
+              <div key={fact.label} className={`px-3.5 py-3 ${fact.hot ? 'bg-harvest-100/70' : 'bg-paper'}`}>
                 <dt className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-technical text-ink/45">
-                  <fact.icon size={13} strokeWidth={1.8} aria-hidden="true" />
+                  <fact.icon size={13} strokeWidth={1.8} aria-hidden="true" className={fact.hot ? 'text-harvest-600' : 'text-paddy-600'} />
                   {fact.label}
                 </dt>
-                <dd className="mt-1 text-[0.8rem] font-semibold leading-snug text-ink">
+                <dd className={`mt-1 text-[0.8rem] font-semibold leading-snug ${fact.hot ? 'text-harvest-800' : 'text-ink'}`}>
                   {fact.value}
                 </dd>
               </div>
@@ -101,14 +109,6 @@ export default function ProductCard({ product, index = 0 }) {
             <Button to={`/threshers/${product.slug}`} variant="primary" size="sm" className="flex-1">
               {t('common.viewDetails')}
               <ArrowRight size={15} />
-            </Button>
-            <Button
-              to={`/contact?product=${encodeURIComponent(product.code)}#inquiry`}
-              variant="outline"
-              size="sm"
-              className="flex-1"
-            >
-              {t('common.enquire')}
             </Button>
           </div>
         </div>

@@ -26,14 +26,14 @@ export default function Process({ tone = 'dark' }) {
       />
 
       <div className="relative mt-14">
-        {/* Connecting rail */}
+        {/* Connecting rail — harvest gold */}
         <div
-          className={`absolute left-0 right-0 top-[26px] hidden h-px lg:block ${
+          className={`absolute left-0 right-0 top-[26px] hidden h-[2px] lg:block ${
             dark ? 'bg-white/10' : 'bg-ink/10'
           }`}
         >
           <motion.span
-            className="block h-px origin-left bg-amber_acc-400"
+            className="block h-[2px] origin-left bg-gradient-to-r from-harvest-300 via-harvest-500 to-paddy-600"
             initial={reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -47,14 +47,14 @@ export default function Process({ tone = 'dark' }) {
               key={step.step}
               as="li"
               delay={0.1 + index * 0.1}
-              className="card-dark card-dark-hover group relative rounded-[4px] p-5 lg:p-6"
+              className="paint-plate group relative rounded-[6px] p-5 lg:p-6"
             >
               <div className="flex items-center gap-4 lg:block">
                 <span
                   className={`grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full border font-display text-[0.95rem] font-extrabold tabular transition-transform duration-300 ease-smooth group-hover:scale-105 ${
                     dark
-                      ? 'border-amber_acc-400/30 bg-ink text-amber_acc-300'
-                      : 'border-ink/15 bg-paper text-agri-600'
+                      ? 'border-harvest-400/40 bg-gradient-to-br from-harvest-400 to-harvest-600 text-ink shadow-glow-harvest'
+                      : 'border-harvest-600/25 bg-harvest-100 text-harvest-800'
                   }`}
                 >
                   {step.step}

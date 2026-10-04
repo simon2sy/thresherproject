@@ -76,18 +76,18 @@ export default function AuroraBackdrop({
           className={`absolute left-1/2 top-1/2 h-[150%] w-[150%] -translate-x-1/2 -translate-y-1/2 opacity-40 ${motion}animate-spin-slow [mask-image:radial-gradient(closest-side,#000_25%,transparent_75%)]`}
           style={{
             backgroundImage:
-              'conic-gradient(from 0deg, rgba(111,224,235,0.16), rgba(20,175,194,0.05) 25%, rgba(247,183,51,0.10) 50%, rgba(20,175,194,0.05) 75%, rgba(111,224,235,0.16))',
+              'conic-gradient(from 0deg, rgba(252,211,77,0.20), rgba(227,148,16,0.06) 25%, rgba(78,150,38,0.12) 50%, rgba(196,84,29,0.10) 75%, rgba(252,211,77,0.20))',
           }}
         />
       ) : null}
 
-      {/* 4 — diagonal light streaks */}
+      {/* 4 — drifting chaff: fine diagonal stalks */}
       {streaks && !isHeader ? (
         <div
-          className={`absolute -inset-x-1/4 inset-y-0 ${motion}animate-streak-drift opacity-[0.5]`}
+          className={`absolute -inset-x-1/4 inset-y-0 ${motion}animate-streak-drift opacity-[0.55]`}
           style={{
             backgroundImage:
-              'repeating-linear-gradient(115deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 2px, transparent 2px, transparent 90px)',
+              'repeating-linear-gradient(115deg, rgba(255,248,230,0.06) 0px, rgba(255,248,230,0.06) 1.5px, transparent 1.5px, transparent 26px)',
             maskImage:
               'radial-gradient(70% 70% at 50% 40%, #000 0%, transparent 75%)',
             WebkitMaskImage:
@@ -116,7 +116,15 @@ export default function AuroraBackdrop({
         className="absolute inset-0"
         style={{
           backgroundImage:
-            'radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(4,13,17,0.55) 100%)',
+            'radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(18,13,6,0.6) 100%)',
+        }}
+      />
+      {/* Horizon ember — warm glow sitting low like sun on stubble. */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/3"
+        style={{
+          backgroundImage:
+            'linear-gradient(to top, rgba(227,148,16,0.16), transparent)',
         }}
       />
     </div>

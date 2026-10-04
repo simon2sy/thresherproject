@@ -4,30 +4,77 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* Deep teal-blacks — base surfaces for the header, hero and footer --- */
-        ink: '#050E12',
-        graphite: '#0A181E',
-        slate_steel: '#0F222A',
-        /* Deep teal — premium dark surface for the header and hero ------------ */
+        /* Harvest soil blacks — warm, earthy base for header, hero, footer ---- */
+        ink: '#161006',
+        graphite: '#1E160B',
+        slate_steel: '#2A2012',
+        /* Deep soil — premium dark surface ------------------------------------ */
         forest: {
-          900: '#040D11',
-          800: '#07161B',
-          700: '#0A1E25',
-          600: '#0E2A33',
+          900: '#120D06',
+          800: '#1A130A',
+          700: '#241A0E',
+          600: '#322515',
         },
-        /* Warm off-white card surface (matches --paper in index.css) ----------- */
-        paper: '#FBFDFD',
+        /* Warm paper — sun-bleached grain sack ------------------------------- */
+        paper: '#FFFEF9',
         /* Metals -------------------------------------------------------------- */
         metal: {
-          100: '#EFF4F5',
-          200: '#DBE4E6',
-          300: '#C2CFD2',
-          400: '#9BA9AD',
-          500: '#788689',
-          600: '#576467',
-          700: '#3A4548',
+          100: '#F1EDE3',
+          200: '#DED6C4',
+          300: '#C2B498',
+          400: '#9A8B6F',
+          500: '#766851',
+          600: '#574D3B',
+          700: '#3A342A',
         },
-        /* Aqua — the primary brand accent. Reads as water + crop together. ---- */
+        /* Harvest gold — ripe wheat. THE brand colour. ------------------------ */
+        harvest: {
+          50: '#FFFBEB',
+          100: '#FEF3C7',
+          200: '#FDE68A',
+          300: '#FCD34D',
+          400: '#F7B733',
+          500: '#E39410',
+          600: '#B87308',
+          700: '#945C0A',
+          800: '#783F0B',
+          900: '#5C3008',
+        },
+        /* Paddy green — living crop ------------------------------------------- */
+        paddy: {
+          50: '#F2F9E8',
+          100: '#E0F1D0',
+          200: '#C2E3A6',
+          300: '#9BD071',
+          400: '#6FB83F',
+          500: '#4E9626',
+          600: '#3A761D',
+          700: '#2E5C19',
+          800: '#284C19',
+          900: '#233F19',
+        },
+        /* Fired clay — thresher paint, Terai brick ---------------------------- */
+        clay: {
+          50: '#FDF3EC',
+          100: '#F9E2D2',
+          200: '#F2C2A1',
+          300: '#E99868',
+          400: '#DD6F35',
+          500: '#C4541D',
+          600: '#A63F16',
+          700: '#843314',
+          800: '#6B2D17',
+          900: '#572716',
+        },
+        /* Straw / chaff neutrals ---------------------------------------------- */
+        straw: {
+          50: '#FFFEF9',
+          100: '#FAF5E6',
+          200: '#F1E7CC',
+          300: '#E3D2A8',
+          400: '#D2B87E',
+        },
+        /* Aqua — kept as secondary (sky / water) so old utilities keep working */
         aqua: {
           50: '#ECFCFD',
           100: '#CFF7FA',
@@ -40,30 +87,30 @@ export default {
           800: '#0D5763',
           900: '#0F4953',
         },
-        /* Kept as an alias of aqua so existing `agri-*` utilities (hero rails,
-           icon chips, checkmarks) re-tint automatically with the new palette. */
+        /* `agri` now points at paddy green — every agri-* utility re-tints to
+           living-crop green automatically. */
         agri: {
-          50: '#ECFCFD',
-          100: '#CFF7FA',
-          200: '#A3EEF4',
-          300: '#6FE0EB',
-          400: '#34CBDB',
-          500: '#14AFC2',
-          600: '#0A8B9E',
-          700: '#0B6E7D',
-          800: '#0D5763',
-          900: '#0F4953',
+          50: '#F2F9E8',
+          100: '#E0F1D0',
+          200: '#C2E3A6',
+          300: '#9BD071',
+          400: '#6FB83F',
+          500: '#4E9626',
+          600: '#3A761D',
+          700: '#2E5C19',
+          800: '#284C19',
+          900: '#233F19',
         },
-        /* Warm neutrals — 50 doubles as the crisp section background -------- */
+        /* Warm neutrals — straw paper -------------------------------------------- */
         sand: {
-          50: '#FFFFFF',
-          100: '#F6F4EE',
-          200: '#EBE7DC',
-          300: '#D8D2C2',
+          50: '#FFFEF9',
+          100: '#FAF5E6',
+          200: '#F1E7CC',
+          300: '#DED2B2',
         },
-        /* Machinery accent — warm amber keeps the industrial note ------------- */
+        /* Machinery accent — harvest gold --------------------------------------- */
         amber_acc: {
-          300: '#FFD98A',
+          300: '#FDE68A',
           400: '#F7B733',
           500: '#E39410',
           600: '#B87308',
@@ -83,31 +130,33 @@ export default {
         shell: '1240px',
       },
       boxShadow: {
-        plate: '0 1px 0 0 rgba(255,255,255,0.06) inset, 0 12px 32px -18px rgba(0,0,0,0.55)',
-        lift: '0 18px 48px -22px rgba(5,14,18,0.45)',
+        plate: '0 1px 0 0 rgba(255,255,255,0.08) inset, 0 12px 32px -18px rgba(0,0,0,0.6)',
+        lift: '0 18px 48px -22px rgba(22,16,6,0.5)',
         /* Layered, softer card shadow — reads as a lifted surface, not a sticker */
-        card: '0 1px 2px rgba(5,14,18,0.04), 0 8px 20px -12px rgba(5,14,18,0.16)',
-        'lift-lg': '0 2px 4px rgba(5,14,18,0.04), 0 24px 48px -20px rgba(5,14,18,0.28)',
-        /* Aqua rim-light used on hover to make cards feel lit */
-        glow: '0 0 0 1px rgba(20,175,194,0.22), 0 22px 46px -20px rgba(20,175,194,0.45)',
-        'glow-amber': '0 0 0 1px rgba(247,183,51,0.24), 0 22px 46px -20px rgba(247,183,51,0.38)',
-        'glow-aqua': '0 10px 34px -14px rgba(20,175,194,0.75)',
-        'glow-ink': '0 14px 40px -16px rgba(5,14,18,0.6)',
+        card: '0 1px 2px rgba(22,16,6,0.06), 0 10px 24px -14px rgba(22,16,6,0.22)',
+        'lift-lg': '0 2px 4px rgba(22,16,6,0.05), 0 26px 52px -20px rgba(22,16,6,0.32)',
+        /* Harvest rim-light used on hover to make cards feel sun-lit */
+        glow: '0 0 0 1px rgba(227,148,16,0.28), 0 24px 48px -20px rgba(227,148,16,0.5)',
+        'glow-amber': '0 0 0 1px rgba(247,183,51,0.3), 0 24px 48px -20px rgba(247,183,51,0.45)',
+        'glow-aqua': '0 12px 36px -14px rgba(227,148,16,0.8)',
+        'glow-harvest': '0 14px 40px -14px rgba(227,148,16,0.65)',
+        'glow-paddy': '0 14px 40px -16px rgba(78,150,38,0.55)',
+        'glow-ink': '0 14px 40px -16px rgba(22,16,6,0.65)',
       },
       backgroundImage: {
         'hatch':
           'repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 8px)',
         'grid-tech':
-          'linear-gradient(to right, rgba(5,14,18,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(5,14,18,0.06) 1px, transparent 1px)',
-        /* Drifting colour wash used behind dark sections */
+          'linear-gradient(to right, rgba(22,16,6,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(22,16,6,0.07) 1px, transparent 1px)',
+        /* Warm harvest wash used behind dark sections — sunset over wheat */
         aurora:
-          'radial-gradient(46% 44% at 16% 20%, rgba(20,175,194,0.40) 0%, rgba(5,14,18,0) 62%), radial-gradient(44% 42% at 86% 66%, rgba(52,203,219,0.22) 0%, rgba(5,14,18,0) 60%), radial-gradient(36% 34% at 62% 96%, rgba(247,183,51,0.14) 0%, rgba(5,14,18,0) 58%)',
-        /* Brighter aqua wash for the hero — the signature of the new palette */
+          'radial-gradient(46% 44% at 16% 20%, rgba(247,183,51,0.34) 0%, rgba(22,16,6,0) 62%), radial-gradient(44% 42% at 86% 66%, rgba(78,150,38,0.20) 0%, rgba(22,16,6,0) 60%), radial-gradient(36% 34% at 62% 96%, rgba(196,84,29,0.22) 0%, rgba(22,16,6,0) 58%)',
+        /* Golden wash for the hero — ripe field at golden hour */
         'aurora-bright':
-          'radial-gradient(50% 46% at 74% 34%, rgba(52,203,219,0.38) 0%, rgba(5,14,18,0) 62%), radial-gradient(46% 44% at 10% 88%, rgba(20,175,194,0.26) 0%, rgba(5,14,18,0) 64%)',
-        /* Aqua → amber brand gradient, used on rails, headings and chips */
-        'brand-gradient': 'linear-gradient(100deg, #6FE0EB 0%, #14AFC2 45%, #F7B733 100%)',
-        'brand-gradient-ink': 'linear-gradient(100deg, #0A1E25 0%, #0A8B9E 52%, #B87308 100%)',
+          'radial-gradient(50% 46% at 74% 30%, rgba(247,183,51,0.4) 0%, rgba(22,16,6,0) 62%), radial-gradient(46% 44% at 10% 88%, rgba(78,150,38,0.22) 0%, rgba(22,16,6,0) 64%)',
+        /* Harvest → paddy → clay brand gradient, used on rails, headings, chips */
+        'brand-gradient': 'linear-gradient(100deg, #FCD34D 0%, #E39410 42%, #4E9626 78%, #C4541D 100%)',
+        'brand-gradient-ink': 'linear-gradient(100deg, #161006 0%, #B87308 48%, #3A761D 82%, #A63F16 100%)',
         /* Specular streak for the button/card shine sweep */
         sheen:
           'linear-gradient(105deg, transparent 32%, rgba(255,255,255,0.38) 48%, rgba(255,255,255,0.08) 56%, transparent 72%)',
@@ -116,16 +165,23 @@ export default {
           'linear-gradient(to bottom, rgba(255,255,255,0.10), rgba(255,255,255,0) 60%)',
 
         /**
-         * Aurora mesh — the site signature background.
-         * Three offset colour fields (aqua, cyan, amber) plus a conic sweep.
-         * Each layer is animated independently by `animate-aurora-mesh`, so the
-         * whole composition never repeats visibly.
+         * Harvest mesh — the site signature background.
+         * Ripe-gold sun + paddy-green field + clay ember, drifting independently.
          */
         'aurora-mesh':
-          'radial-gradient(38% 44% at 18% 24%, rgba(52,203,219,0.34) 0%, rgba(5,14,18,0) 60%), radial-gradient(34% 40% at 82% 20%, rgba(20,175,194,0.30) 0%, rgba(5,14,18,0) 62%), radial-gradient(40% 46% at 68% 86%, rgba(247,183,51,0.16) 0%, rgba(5,14,18,0) 60%), radial-gradient(46% 40% at 30% 74%, rgba(111,224,235,0.18) 0%, rgba(5,14,18,0) 64%)',
-        /* A single soft light source, used to lift one corner of a section */
+          'radial-gradient(38% 44% at 18% 24%, rgba(247,183,51,0.32) 0%, rgba(22,16,6,0) 60%), radial-gradient(34% 40% at 82% 20%, rgba(78,150,38,0.26) 0%, rgba(22,16,6,0) 62%), radial-gradient(40% 46% at 68% 86%, rgba(196,84,29,0.24) 0%, rgba(22,16,6,0) 60%), radial-gradient(46% 40% at 30% 74%, rgba(252,211,77,0.20) 0%, rgba(22,16,6,0) 64%)',
+        /* Warm sun in one corner of a section */
         'glow-corner':
-          'radial-gradient(60% 60% at 88% 12%, rgba(52,203,219,0.22) 0%, rgba(5,14,18,0) 65%)',
+          'radial-gradient(60% 60% at 88% 12%, rgba(247,183,51,0.24) 0%, rgba(22,16,6,0) 65%)',
+        /* Chaff drift — fine diagonal grain stalks */
+        'chaff-lines':
+          'repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1.5px, transparent 1.5px, transparent 26px)',
+        /* Sun rows — tilled-field furrows for light panels */
+        'furrows':
+          'repeating-linear-gradient(90deg, rgba(22,16,6,0.045) 0 2px, transparent 2px 26px)',
+        /* Wheat stalk silhouette tile (SVG) for hero / CTA edges */
+        'wheat':
+          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23B87308' stroke-opacity='0.20' stroke-width='1.4'%3E%3Cpath d='M60 112 V44'/%3E%3Cpath d='M60 88 C48 84 42 74 42 62 C54 66 60 76 60 88 Z'/%3E%3Cpath d='M60 88 C72 84 78 74 78 62 C66 66 60 76 60 88 Z'/%3E%3Cpath d='M60 66 C50 62 45 54 45 44 C55 48 60 56 60 66 Z'/%3E%3Cpath d='M60 66 C70 62 75 54 75 44 C65 48 60 56 60 66 Z'/%3E%3C/g%3E%3C/svg%3E\")",
         /* Film grain — a 160px SVG-noise tile, keeps large flat gradients from
            banding on 8-bit displays and adds a tactile, printed quality. */
         grain:

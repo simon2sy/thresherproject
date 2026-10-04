@@ -38,8 +38,8 @@ export default function GalleryPage() {
         lead={t('galleryPage.lead')}
         breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.gallery') }]}
         action={
-          <Button to="/contact#inquiry" variant="accent" size="lg">
-            {t('common.requestQuote')}
+          <Button to="/threshers" variant="accent" size="lg">
+            {t('common.exploreThreshers')}
           </Button>
         }
       />

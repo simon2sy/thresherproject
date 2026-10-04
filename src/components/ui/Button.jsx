@@ -16,10 +16,13 @@ import { Link } from 'react-router-dom'
 const VARIANTS = {
   primary: 'btn-primary',
   accent: 'btn-accent',
+  paddy: 'btn-paddy',
+  clay: 'btn-clay',
   outline: 'btn-outline',
   outlineLight: 'btn-outline-light',
   light: 'btn-light',
   amber: 'btn-amber',
+  harvest: 'btn-accent',
   quiet: 'btn-outline border-transparent',
 }
 

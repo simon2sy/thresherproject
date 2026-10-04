@@ -110,8 +110,9 @@ export default function ProductDetails() {
               <ArrowLeft size={16} />
               {t('common.backToRange')}
             </Button>
-            <Button to="/contact#inquiry" variant="outline">
-              {t('productDetails.askAboutMachine')}
+            <Button href={site.phone.href} variant="outline">
+              <PhoneCall size={16} />
+              {t('common.callWorkshop')}
             </Button>
           </div>
         </div>
@@ -132,10 +133,7 @@ export default function ProductDetails() {
         ]}
         action={
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button to={`/contact?product=${encodeURIComponent(product.code)}#inquiry`} variant="accent" size="lg">
-              {t('common.requestQuote')}
-            </Button>
-            <Button href={site.phone.href} variant="outlineLight" size="lg">
+            <Button href={site.phone.href} variant="accent" size="lg">
               <PhoneCall size={16} />
               {t('common.callUs')}
             </Button>
@@ -153,13 +151,9 @@ export default function ProductDetails() {
               {t('productDetails.mediaNote')}
             </p>
             <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
-              <Button
-                to={`/contact?product=${encodeURIComponent(product.code)}#inquiry`}
-                variant="primary"
-                size="sm"
-              >
-                {t('common.requestQuote')}
-                <ArrowRight size={15} />
+              <Button href={site.phone.href} variant="primary" size="sm">
+                <PhoneCall size={15} />
+                {t('common.callUs')}
               </Button>
               <Button to="/threshers" variant="outline" size="sm">
                 {t('common.compareModels')}
@@ -373,13 +367,9 @@ export default function ProductDetails() {
                 <p className="mt-4 text-sm leading-relaxed text-sand-100/65">
                   {t('productDetails.warrantyText')}
                 </p>
-                <Button
-                  to={`/contact?product=${encodeURIComponent(product.code)}#inquiry`}
-                  variant="accent"
-                  size="sm"
-                  className="mt-5"
-                >
-                  {t('productDetails.askWarranty')}
+                <Button href={site.phone.href} variant="accent" size="sm" className="mt-5">
+                  <PhoneCall size={15} />
+                  {t('common.callWorkshop')}
                 </Button>
               </div>
             </div>

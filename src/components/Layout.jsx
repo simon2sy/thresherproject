@@ -63,7 +63,7 @@ export default function Layout() {
 
       {/* Sticky contact bar — small screens only. Sits above the safe-area
           inset on phones with a home indicator. */}
-      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-white/10 bg-[#040D11]/95 pb-[env(safe-area-inset-bottom)] lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-harvest-500/20 bg-[#120D06]/95 pb-[env(safe-area-inset-bottom)] lg:hidden">
         <a
           href={site.phone.href}
           className="flex items-center justify-center gap-2 py-3.5 text-sm font-semibold text-sand-50 transition-colors active:bg-white/10"
@@ -75,7 +75,7 @@ export default function Layout() {
           href={site.whatsapp.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 bg-gradient-to-r from-aqua-500 to-aqua-400 py-3.5 text-sm font-semibold text-white shadow-[0_-10px_30px_-16px_rgba(20,175,194,0.9)] transition-colors active:from-aqua-600 active:to-aqua-500"
+          className="flex items-center justify-center gap-2 bg-gradient-to-r from-harvest-600 via-harvest-500 to-harvest-400 py-3.5 text-sm font-semibold text-ink shadow-[0_-10px_30px_-16px_rgba(227,148,16,0.9)] transition-colors active:from-harvest-700 active:to-harvest-600"
         >
           <MessageCircle size={16} />
           {t('common.whatsapp')}

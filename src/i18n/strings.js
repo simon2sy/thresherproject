@@ -17,7 +17,6 @@
 export const strings = {
   /* ---- Common actions / repeated labels ---------------------------------- */
   common: {
-    requestQuote: { en: 'Request a Quote', ne: 'मूल्य जानकारी माग्नुहोस्' },
     callUs: { en: 'Call Us', ne: 'हामीलाई फोन गर्नुहोस्' },
     callWorkshop: { en: 'Call the workshop', ne: 'कारखानामा फोन गर्नुहोस्' },
     exploreThreshers: { en: 'Explore Threshers', ne: 'थ्रेसरहरू हेर्नुहोस्' },
@@ -109,8 +108,8 @@ export const strings = {
     specDriveValue: { en: 'Belt drive', ne: 'बेल्ट ड्राइभ' },
     specCropsValue: { en: 'Paddy · Wheat · Maize', ne: 'धान · गहुँ · मकै' },
     imageAlt: {
-      en: 'Daju Bhai Grill Udyog agricultural thresher machine with feeding hopper, threshing drum and transport wheels',
-      ne: 'फिडिङ हपर, थ्रेसिङ ड्रम र ढुवानी चक्कासहित दाजु भाइ ग्रिल उद्योगको कृषि थ्रेसर मेसिन',
+      en: 'Workers feeding a heap of harvested paddy straw into an orange thresher machine in an open field in the Terai, with grain being bagged at the outlet',
+      ne: 'तराईको खुला खेतमा काटिएको धानको परालको थुप्रोबाट सुन्तला रंगको थ्रेसर मेसिनमा दाना हाल्दै गरेका कामदार, आउटलेटमा अन्न बोरामा हाल्दै',
     },
   },
 
@@ -131,7 +130,7 @@ export const strings = {
 
   /* ---- CTA section ------------------------------------------------------- */
   cta: {
-    eyebrow: { en: 'Request a quote', ne: 'मूल्य जानकारी' },
+    eyebrow: { en: 'Talk to us', ne: 'हामीसँग कुरा गर्नुहोस्' },
     phone: { en: 'Phone', ne: 'फोन' },
     email: { en: 'Email', ne: 'इमेल' },
     workshop: { en: 'Workshop', ne: 'कारखाना' },
@@ -161,17 +160,33 @@ export const strings = {
       ne: 'खुल्ने समयमा कारखानामा फोन गर्नुहोस्, वा तपाईंको बालीको फोटो र मेसिन कहाँ प्रयोग हुनेछ भन्ने जानकारीसहित व्हाट्सएपमा सन्देश पठाउनुहोस्।',
     },
     endpointNote: {
-      en: 'Inquiries submitted here are delivered to our team inbox.',
-      ne: 'यहाँ पठाइने जिज्ञासाहरू हाम्रो टोलीको इनबक्समा पुग्छन्।',
+      en: 'Fastest reply: phone or WhatsApp during working hours.',
+      ne: 'छिटो जवाफ: कामको समयमा फोन वा व्हाट्सएप।',
     },
     demoNote: {
-      en: 'This build runs without a backend: the form validates and confirms, but does not send.',
-      ne: 'यो संस्करण ब्याकएन्डबिना चल्छ: फारमले जाँच र पुष्टि गर्छ, तर पठाउँदैन।',
+      en: 'Fastest reply: phone or WhatsApp during working hours.',
+      ne: 'छिटो जवाफ: कामको समयमा फोन वा व्हाट्सएप।',
     },
-    formTitle: { en: 'Request a quote', ne: 'मूल्य जानकारी माग्नुहोस्' },
+    visitTitle: {
+      en: 'Visit the workshop or give us a call',
+      ne: 'कारखानामा आउनुहोस् वा फोन गर्नुहोस्',
+    },
+    visitText: {
+      en: 'See the New Super Manku Thresher running before you decide. Call the workshop or message on WhatsApp — we answer during working hours.',
+      ne: 'निर्णय गर्नुअघि न्यु सुपर मान्कु थ्रेसर चलेको हेर्नुहोस्। कारखानामा फोन गर्नुहोस् वा व्हाट्सएपमा सन्देश पठाउनुहोस् — कामको समयमा हामी जवाफ दिन्छौं।',
+    },
+    visitNote: {
+      en: 'Sunday – Friday, 8:00 AM – 7:00 PM · Jhapa Gaupalika, Jhapa.',
+      ne: 'आइतबार – शुक्रबार, बिहान 8:00 – साँझ 7:00 · झापा गाउँपालिका, झापा।',
+    },
+    visitSmallNote: {
+      en: 'Fastest reply: phone or WhatsApp during working hours.',
+      ne: 'छिटो जवाफ: कामको समयमा फोन वा व्हाट्सएप।',
+    },
+    formTitle: { en: 'Visit the workshop or call', ne: 'कारखानामा आउनुहोस् वा फोन गर्नुहोस्' },
     formHint: {
-      en: 'Required fields are marked with an asterisk. Everything else helps us answer faster.',
-      ne: 'अनिवार्य फाँटहरू ताराचिन्ह (*) ले देखाइएका छन्। बाँकी जानकारीले छिटो जवाफ दिन सहयोग पुग्छ।',
+      en: 'No online form — call or WhatsApp us and we will answer during working hours.',
+      ne: 'अनलाइन फारम छैन — हामीलाई फोन वा व्हाट्सएप गर्नुहोस्, कामको समयमा हामी जवाफ दिन्छौं।',
     },
   },
   /* ---- Inquiry form ------------------------------------------------------ */
@@ -185,8 +200,6 @@ export const strings = {
     emailPlaceholder: { en: 'name@example.com', ne: 'name@example.com' },
     location: { en: 'Location', ne: 'स्थान' },
     locationPlaceholder: { en: 'Village / Municipality, District', ne: 'गाउँ / नगरपालिका, जिल्ला' },
-    machine: { en: 'Machine / Product', ne: 'मेसिन / उत्पादन' },
-    machinePlaceholder: { en: 'Select a thresher model', ne: 'थ्रेसर मोडेल छान्नुहोस्' },
     capacity: { en: 'Required capacity', ne: 'आवश्यक क्षमता' },
     capacityPlaceholder: { en: 'Select a capacity range', ne: 'क्षमता दायरा छान्नुहोस्' },
     power: { en: 'Power available', ne: 'उपलब्ध शक्ति' },
@@ -477,7 +490,7 @@ export const strings = {
       en: 'The model you followed may have been renamed or replaced. The current range is listed under Threshers.',
       ne: 'तपाईंले खोल्नुभएको मोडेलको नाम परिवर्तन वा प्रतिस्थापन भएको हुन सक्छ। हालको रेन्ज “थ्रेसरहरू” अन्तर्गत राखिएको छ।',
     },
-    askAboutMachine: { en: 'Ask about a machine', ne: 'मेसिनबारे सोध्नुहोस्' },
+    
     eyebrowTemplate: { en: '{category} thresher', ne: '{category} थ्रेसर' },
     mediaNote: {
       en: 'Rotate the machine, open the exploded view to see how the assemblies separate, or step through the photographs. Specifications are listed further down this page.',

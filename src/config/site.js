@@ -24,7 +24,7 @@ const PLACEHOLDER = {
 
 export const site = {
   name: envOr(env.VITE_COMPANY_NAME, 'Daju Bhai Grill Udyog'),
-  shortName: envOr(env.VITE_COMPANY_SHORT_NAME, 'DAJU BHAI GRILL'),
+  shortName: envOr(env.VITE_COMPANY_SHORT_NAME, 'DAJU BHAI GRILL UDYOG'),
   tagline: envOr(env.VITE_COMPANY_TAGLINE, 'Agricultural Machinery & Thresher Solutions'),
   /** Used in the footer copyright line. */
   legalName: 'Daju Bhai Grill Udyog',

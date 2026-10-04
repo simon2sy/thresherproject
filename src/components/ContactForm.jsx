@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useState } from 'react'
 import { CheckCircle2, Loader2, Send } from 'lucide-react'
 import { flags, site } from '../config/site'
-import { useInquiryOptions, useLanguage, useProducts } from '../i18n'
+import { useInquiryOptions, useLanguage } from '../i18n'
 import Button from './ui/Button'
 
 /**
@@ -17,8 +16,8 @@ import Button from './ui/Button'
  *                                panel and offers phone / email instead, so the
  *                                site is fully usable before a backend exists
  *
- * A machine can be pre-selected from the URL (?product=SAM-1000) — that is how
- * the "Enquire" buttons on the product cards behave.
+ * A machine used to be pre-selected from the URL (?product=SAM-1000); that is
+ * gone, so no query parameters are read here.
  */
 
 const EMPTY_FORM = {
@@ -26,7 +25,6 @@ const EMPTY_FORM = {
   phone: '',
   email: '',
   location: '',
-  machine: '',
   capacity: '',
   power: '',
   message: '',
@@ -52,9 +50,7 @@ function validate(values, t) {
 }
 
 export default function ContactForm() {
-  const [searchParams] = useSearchParams()
   const { t } = useLanguage()
-  const products = useProducts()
   const inquiryOptions = useInquiryOptions()
   const [values, setValues] = useState(EMPTY_FORM)
   const [errors, setErrors] = useState({})
@@ -64,38 +60,6 @@ export default function ContactForm() {
   // Flat [field, message] pairs for the summary banner at the top of the form.
   // Fields cleared while typing are stored as `undefined`, so drop them here.
   const errorList = Object.entries(errors).filter(([, message]) => Boolean(message))
-
-  const machineOptions = useMemo(
-    () => [
-      ...products.map((product) => `${product.code} — ${product.name}`),
-      inquiryOptions.machineHelp,
-    ],
-    [products, inquiryOptions],
-  )
-
-  // Pre-select the machine when the visitor arrives from a product page, and
-  // keep an existing selection in sync when the language changes (the option
-  // label is localised, the model code is not).
-  useEffect(() => {
-    const requested = searchParams.get('product')
-    if (requested) {
-      const match = machineOptions.find((option) =>
-        option.toLowerCase().startsWith(requested.toLowerCase()),
-      )
-      if (match) {
-        setValues((current) =>
-          current.machine === match ? current : { ...current, machine: match },
-        )
-        return
-      }
-    }
-    setValues((current) => {
-      if (!current.machine) return current
-      const code = current.machine.split('—')[0].trim()
-      const match = machineOptions.find((option) => option.startsWith(code))
-      return match && match !== current.machine ? { ...current, machine: match } : current
-    })
-  }, [searchParams, machineOptions])
 
   const update = (field) => (event) => {
     const { value } = event.target
@@ -119,7 +83,6 @@ export default function ContactForm() {
 
     const payload = {
       ...values,
-      product: values.machine,
       source: 'website-inquiry-form',
       submittedAt: new Date().toISOString(),
     }
@@ -295,26 +258,6 @@ export default function ContactForm() {
                 onChange={update('location')}
                 placeholder={t('form.locationPlaceholder')}
               />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="field-label" htmlFor="inquiry-machine">
-                {t('form.machine')}
-              </label>
-              <select
-                id="inquiry-machine"
-                name="machine"
-                className="field"
-                value={values.machine}
-                onChange={update('machine')}
-              >
-                <option value="">{t('form.machinePlaceholder')}</option>
-                {machineOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
             </div>
 
             <div>

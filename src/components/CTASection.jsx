@@ -19,16 +19,20 @@ export default function CTASection() {
   return (
     <section className="on-dark relative isolate overflow-hidden bg-ink">
       <AuroraBackdrop variant="section" sweep={false} />
+      {/* Wheat field silhouette */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-wheat opacity-[0.14] [mask-image:radial-gradient(70%_60%_at_50%_60%,#000_0%,transparent_80%)]"
+      />
       <div
         className="absolute inset-0 opacity-[0.16] [mask-image:radial-gradient(60%_60%_at_50%_50%,#000_0%,transparent_100%)]"
         style={{
           backgroundImage:
-            'linear-gradient(to right, rgba(255,255,255,0.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.10) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
+            'repeating-linear-gradient(115deg, rgba(255,248,230,0.06) 0 1.5px, transparent 1.5px 26px)',
         }}
         aria-hidden="true"
       />
-      {/* Aqua→amber brand rail with a highlight travelling down it. */}
+      {/* Harvest rail */}
       <div className="rail-brand motion-safe:animate-hue-drift" aria-hidden="true">
         <span className="absolute inset-x-0 h-1/3 bg-gradient-to-b from-white/70 to-transparent motion-safe:animate-rail-sweep" />
       </div>
@@ -36,15 +40,15 @@ export default function CTASection() {
       <div className="shell relative py-16 lg:py-20">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
           <Reveal className="max-w-2xl">
-            <p className="eyebrow text-aqua-300">{t('cta.eyebrow')}</p>
-            <h2 className="h-section mt-4 text-sand-50">{ctaSection.title}</h2>
+            <p className="eyebrow text-harvest-300">{t('cta.eyebrow')}</p>
+            <h2 className="h-section mt-4 text-sand-50">
+              {ctaSection.title.split(' ').slice(0, -2).join(' ')}{' '}
+              <span className="text-gradient">{ctaSection.title.split(' ').slice(-2).join(' ')}</span>
+            </h2>
             <p className="lede mt-5 text-sand-100/70">{ctaSection.text}</p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button to="/contact#inquiry" variant="accent" size="lg">
-                {t('common.requestQuote')}
-              </Button>
-              <Button href={site.phone.href} variant="outlineLight" size="lg">
+              <Button href={site.phone.href} variant="accent" size="lg">
                 <PhoneCall size={16} />
                 {t('common.callUs')}
               </Button>

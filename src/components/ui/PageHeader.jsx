@@ -22,17 +22,17 @@ export default function PageHeader({ eyebrow, title, lead, breadcrumb = [], acti
   const { t } = useLanguage()
   return (
     <header className="on-dark relative isolate overflow-hidden bg-ink pt-28 sm:pt-32 lg:pt-36">
-      {/* Same aurora language as the hero, so inner pages feel like part of
-          the same world rather than a different template. The conic sweep is
-          disabled here — on a short header strip it is invisible but still
-          costs a full-width composite. */}
       <AuroraBackdrop variant="section" sweep={false} />
+      {/* Wheat silhouette */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-wheat opacity-[0.12] [mask-image:radial-gradient(60%_60%_at_70%_40%,#000_0%,transparent_80%)]"
+      />
       <div
         className="absolute inset-0 opacity-[0.14] [mask-image:radial-gradient(65%_70%_at_30%_40%,#000_0%,transparent_100%)]"
         style={{
           backgroundImage:
-            'linear-gradient(to right, rgba(255,255,255,0.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.10) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
+            'repeating-linear-gradient(115deg, rgba(255,248,230,0.06) 0 1.5px, transparent 1.5px 26px)',
         }}
         aria-hidden="true"
       />
@@ -66,15 +66,18 @@ export default function PageHeader({ eyebrow, title, lead, breadcrumb = [], acti
           <div className="max-w-3xl">
             {eyebrow ? (
               <Reveal variant="fade">
-                <p className="eyebrow text-aqua-300">{eyebrow}</p>
+                <p className="eyebrow text-harvest-300">{eyebrow}</p>
               </Reveal>
             ) : null}
             <Reveal>
-              <h1 className="h-display mt-4 text-sand-50">{title}</h1>
+              <h1 className="h-display mt-4 text-sand-50">
+                {title}
+                <span className="mt-3 block h-[3px] w-24 bg-gradient-to-r from-harvest-300 via-harvest-500 to-paddy-500" aria-hidden="true" />
+              </h1>
             </Reveal>
             {lead ? (
               <Reveal delay={0.06}>
-                <p className="lede mt-5 max-w-2xl text-sand-100/70">{lead}</p>
+                <p className="lede mt-5 max-w-2xl border-l-2 border-harvest-400/60 pl-4 text-sand-100/70">{lead}</p>
               </Reveal>
             ) : null}
           </div>

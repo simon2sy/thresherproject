@@ -2,6 +2,9 @@ import { ArrowRight } from 'lucide-react'
 import { useLanguage, useProducts, useSampleNotice, useSite } from '../i18n'
 import { useSeo, localBusinessSchema } from '../hooks/useSeo'
 import Hero from '../components/Hero'
+import CropMarquee from '../components/CropMarquee'
+import HarvestStats from '../components/HarvestStats'
+import SeasonBand from '../components/SeasonBand'
 import ProductCard from '../components/ProductCard'
 import WhyUs from '../components/WhyUs'
 import Process from '../components/Process'
@@ -57,6 +60,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <CropMarquee />
 
       {/* ---------------- Product range ---------------- */}
       <section id="range" className="section">
@@ -65,7 +69,7 @@ export default function Home() {
             eyebrow={t('home.rangeEyebrow')}
             title={t('home.rangeTitle')}
             highlight={7}
-            titleClassName="[&>em]:bg-clip-text [&>em]:text-transparent [&>em]:bg-gradient-to-r [&>em]:from-ink [&>em]:via-agri-600 [&>em]:to-amber_acc-600"
+            titleClassName="[&>em]:bg-clip-text [&>em]:text-transparent [&>em]:bg-gradient-to-r [&>em]:from-ink [&>em]:via-harvest-600 [&>em]:to-paddy-700"
             lead={t('home.rangeLead')}
             action={
               <Button to="/threshers" variant="outline" size="sm">
@@ -87,17 +91,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------------- Harvest sun-disc stats ---------------- */}
+      <section className="section-tight">
+        <div className="shell">
+          <HarvestStats />
+        </div>
+      </section>
+
       {/* ---------------- Why us ---------------- */}
-      <section className="section-tight border-y border-ink/10 bg-sand-50">
+      <section className="section-tight border-y border-harvest-600/20 bg-sand-50 furrow-light">
         <div className="shell">
           <WhyUs />
         </div>
       </section>
 
       {/* ---------------- How it works ---------------- */}
-      <section className="on-dark section bg-graphite">
+      <section className="on-dark section bg-graphite chaff-dark">
         <div className="shell">
           <Process />
+        </div>
+      </section>
+
+      {/* ---------------- Field to sack ---------------- */}
+      <section className="section-tight">
+        <div className="shell">
+          <SeasonBand />
         </div>
       </section>
 
@@ -109,7 +127,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- Technical specifications ---------------- */}
-      <section className="on-dark section bg-ink">
+      <section className="on-dark section bg-ink chaff-dark">
         <div className="shell">
           <Specifications />
         </div>

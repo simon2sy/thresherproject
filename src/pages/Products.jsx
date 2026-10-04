@@ -72,8 +72,8 @@ export default function Products() {
         lead={t('products.lead')}
         breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.threshers') }]}
         action={
-          <Button to="/contact#inquiry" variant="accent" size="lg">
-            {t('common.requestQuote')}
+          <Button to="/threshers#range" variant="accent" size="lg">
+            {t('common.exploreThreshers')}
           </Button>
         }
       />
@@ -135,8 +135,8 @@ export default function Products() {
               <p className="mx-auto mt-2 max-w-lg text-sm text-ink/65">
                 {t('products.noMatchText')}
               </p>
-              <Button to="/contact#inquiry" variant="primary" size="sm" className="mt-5">
-                {t('products.askConfig')}
+              <Button href={site.phone.href} variant="primary" size="sm" className="mt-5">
+                {t('common.callWorkshop')}
               </Button>
             </div>
           )}
@@ -151,9 +151,8 @@ export default function Products() {
               title={t('products.chooseTitle')}
               lead={t('products.chooseLead')}
               action={
-                <Button to="/contact#inquiry" variant="outline" size="sm">
-                  {t('common.talkToUs')}
-                  <ArrowRight size={15} />
+                <Button href={site.phone.href} variant="outline" size="sm">
+                  {t('common.callWorkshop')}
                 </Button>
               }
             />

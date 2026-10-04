@@ -28,14 +28,32 @@ export default function Footer() {
   }
 
   return (
-    <footer className="on-dark hatch-dark bg-ink text-sand-100/70">
-      <div className="shell py-14 lg:py-16">
+    <footer className="on-dark chaff-dark relative overflow-hidden bg-ink text-sand-100/70">
+      {/* Golden horizon */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-harvest-400/70 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          backgroundImage:
+            'radial-gradient(50% 40% at 85% 0%, rgba(247,183,51,0.14) 0%, rgba(22,16,6,0) 60%)',
+        }}
+      />
+      <div className="shell relative py-14 lg:py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr]">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-[3px] bg-gradient-to-br from-aqua-400 to-aqua-600 text-sm font-extrabold text-white shadow-glow-aqua">
-                DB
+              <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-[3px] bg-gradient-to-br from-harvest-300 via-harvest-500 to-clay-600 text-sm font-extrabold text-ink shadow-glow-harvest">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                  <path d="M12 21 V9" />
+                  <path d="M12 13 C9.5 12.2 8 10.2 7.6 7.4 C10.2 8.2 11.7 10.2 12 13 Z" fill="currentColor" stroke="none" opacity="0.85" />
+                  <path d="M12 13 C14.5 12.2 16 10.2 16.4 7.4 C13.8 8.2 12.3 10.2 12 13 Z" fill="currentColor" stroke="none" opacity="0.85" />
+                  <path d="M4 21 H20" />
+                </svg>
                 <span className="brand-bar absolute inset-x-0 bottom-0 h-[3px]">
                   <span className="motion-safe:animate-gradient-pan" />
                 </span>
@@ -120,7 +138,7 @@ export default function Footer() {
             </h2>
             <address className="mt-5 space-y-4 text-sm not-italic">
               <p className="flex gap-3">
-                <MapPin size={17} className="mt-0.5 shrink-0 text-agri-300" />
+                <MapPin size={17} className="mt-0.5 shrink-0 text-harvest-400" />
                 <span>
                   {site.address.line1}
                   <br />
@@ -130,14 +148,14 @@ export default function Footer() {
                 </span>
               </p>
               <p className="flex gap-3">
-                <User size={17} className="mt-0.5 shrink-0 text-agri-300" />
+                <User size={17} className="mt-0.5 shrink-0 text-harvest-400" />
                 <span>
                   <span className="text-sand-100/50">{t('footer.proprietor')} </span>
                   <span className="font-semibold text-sand-50">{site.proprietor}</span>
                 </span>
               </p>
               <p className="flex gap-3">
-                <PhoneCall size={17} className="mt-0.5 shrink-0 text-agri-300" />
+                <PhoneCall size={17} className="mt-0.5 shrink-0 text-harvest-400" />
                 <a href={site.phone.href} className="link-on-dark tabular">
                   {site.phone.display}
                 </a>
@@ -166,7 +184,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-harvest-500/15 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.legalName}. {t('footer.rights')}
           </p>

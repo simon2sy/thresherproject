@@ -79,6 +79,7 @@ export default function Specifications({ tone = 'dark' }) {
           tone={tone}
           caption={t('specs.caption')}
         />
+        <div className="sack-stitch-light mt-6" aria-hidden="true" />
       </Reveal>
     </div>
   )

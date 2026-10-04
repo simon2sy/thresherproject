@@ -25,7 +25,7 @@ export default function WhyUs({ tone = 'light', showHeading = true }) {
         />
       ) : null}
 
-      <div className="mt-12 grid gap-px overflow-hidden border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-px overflow-hidden rounded-[6px] border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
         {whyUs.map((item, index) => (
           <Reveal
             key={item.id}
@@ -33,14 +33,16 @@ export default function WhyUs({ tone = 'light', showHeading = true }) {
             delay={Math.min(index * 0.06, 0.3)}
             className={`group p-6 transition-colors duration-300 sm:p-7 ${
               dark
-                ? 'bg-graphite hover:bg-[#191D20]'
-                : 'bg-paper hover:bg-agri-50/40'
+                ? 'bg-graphite hover:bg-[#2A2012]'
+                : 'bg-paper hover:bg-harvest-50'
             }`}
           >
             <div className="flex items-start justify-between gap-4">
               <span
-                className={`grid h-10 w-10 place-items-center rounded-[3px] transition-all duration-300 ease-smooth group-hover:scale-110 group-hover:shadow-glow-aqua ${
-                  dark ? 'bg-aqua-400/10 text-aqua-300' : 'bg-aqua-50 text-aqua-600'
+                className={`grid h-11 w-11 place-items-center rounded-full transition-all duration-300 ease-smooth group-hover:scale-110 group-hover:shadow-glow-harvest ${
+                  dark
+                    ? 'bg-gradient-to-br from-harvest-400 to-harvest-600 text-ink'
+                    : 'bg-gradient-to-br from-paddy-100 to-harvest-100 text-paddy-700 ring-1 ring-harvest-500/30'
                 }`}
               >
                 <Icon name={item.icon} size={19} />
@@ -62,13 +64,13 @@ export default function WhyUs({ tone = 'light', showHeading = true }) {
             </p>
 
             <ul
-              className={`mt-5 space-y-2 border-t pt-4 text-xs ${
-                dark ? 'border-white/10 text-sand-100/55' : 'border-ink/10 text-ink/55'
+              className={`mt-5 space-y-2 border-t border-dashed pt-4 text-xs ${
+                dark ? 'border-harvest-400/25 text-sand-100/55' : 'border-ink/15 text-ink/55'
               }`}
             >
               {item.points.map((point) => (
                 <li key={point} className="flex items-start gap-2">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 bg-current" />
+                  <Icon name="wheat" size={13} className="mt-0.5 shrink-0 text-paddy-600" />
                   {point}
                 </li>
               ))}
