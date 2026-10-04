@@ -66,7 +66,9 @@ export default function Hero() {
 
       <div className="shell relative">
         <div className="grid gap-10 pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.12fr)] lg:items-center lg:gap-12 lg:pb-14">
-          <div className="max-w-2xl">
+          {/* Mobile: the machine photo leads; desktop restores the original
+              text-left / image-right arrangement. */}
+          <div className="order-2 max-w-2xl lg:order-1">
             <Reveal variant="fade">
               <p className="eyebrow text-aqua-300">
                 <span className="pulse-dot" aria-hidden="true" />
@@ -138,7 +140,7 @@ export default function Hero() {
             </Reveal>
           </div>
 
-          <div className="relative">
+          <div className="relative order-1 lg:order-2">
             <Reveal variant="fade" delay={0.1}>
               <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
                 <p className="flex items-center gap-2.5 text-2xs uppercase tracking-technical text-sand-100/55">
