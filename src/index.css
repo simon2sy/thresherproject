@@ -25,7 +25,41 @@
 
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
+    /*
+     * PERFORMANCE: `scroll-behavior: smooth` must NOT be set here. Lenis
+     * animates scrolling by writing `scrollTop` on every animation frame; with
+     * CSS smooth scrolling enabled, each write restarts a native smooth-scroll
+     * animation that never completes, so the page lags badly behind the wheel.
+     * (Known Lenis conflict — see darkroomengineering/lenis discussion #342.)
+     * Lenis itself provides the smoothing; hash jumps go through
+     * `window.__lenis.scrollTo` in ScrollManager.
+     */
+  }
+
+  /*
+   * Lenis-recommended CSS (from the Lenis README): while Lenis is active the
+   * browser's own smooth scrolling must be disabled, and its auto-height /
+   * stopped / nested-scroll behaviours made explicit.
+   */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 
   body {
