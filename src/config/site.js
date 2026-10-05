@@ -95,14 +95,6 @@ export const site = {
     },
   },
 
-  /** Placeholder social profiles — swap the href values for the real pages. */
-  socials: [
-    { label: 'Facebook', icon: 'facebook', href: '#' },
-    { label: 'Instagram', icon: 'instagram', href: '#' },
-    { label: 'YouTube', icon: 'youtube', href: '#' },
-    { label: 'TikTok', icon: 'tiktok', href: '#' },
-  ],
-
   /**
    * Values that are not yet confirmed. They are rendered as explicit
    * placeholders in the interface instead of invented claims.

@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Mail, MapPin, PhoneCall, User } from 'lucide-react'
 import { useLanguage, useNavLinks, useProducts, useSite } from '../i18n'
-import { brandIcons } from './icons/BrandIcons'
+import { WhatsappIcon } from './icons/BrandIcons'
 import Icon from './ui/Icon'
 import { scrollToTop } from './SmoothScroll'
 
@@ -9,7 +9,7 @@ import { scrollToTop } from './SmoothScroll'
  * Footer
  * ---------------------------------------------------------------------------
  * Industrial footer: brand block, navigation, product list (generated from the
- * catalogue so it never drifts out of date), contact details and social links.
+ * catalogue so it never drifts out of date), contact details and WhatsApp link.
  */
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -72,22 +72,16 @@ export default function Footer() {
               {t('footer.description')}
             </p>
 
-            <ul className="mt-6 flex items-center gap-2">
-              {site.socials.map((social) => {
-                const Glyph = brandIcons[social.icon]
-                return (
-                  <li key={social.label}>
-                    <a
-                      href={social.href}
-                      aria-label={t('footer.onSocialAria', { name: site.name, label: social.label })}
-                      className="grid h-10 w-10 place-items-center rounded-[2px] border border-white/15 text-sand-100/70 transition-colors hover:border-white/40 hover:text-sand-50"
-                    >
-                      {Glyph ? <Glyph size={17} /> : null}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
+            <a
+              href={site.whatsapp.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('footer.onSocialAria', { name: site.name, label: t('common.whatsapp') })}
+              className="mt-6 inline-flex items-center gap-2 rounded-[2px] border border-white/15 px-4 py-2.5 text-sm font-semibold text-sand-100/80 transition-colors hover:border-agri-300/60 hover:text-sand-50"
+            >
+              <WhatsappIcon size={18} />
+              {t('common.whatsapp')}
+            </a>
           </div>
 
           {/* Navigation */}
@@ -187,6 +181,9 @@ export default function Footer() {
         <div className="mt-12 flex flex-col gap-4 border-t border-harvest-500/15 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.legalName}. {t('footer.rights')}
+          </p>
+          <p>
+            Designed by <span className="font-semibold text-sand-100/70">TrustNepalTechnologies (TNT)</span>
           </p>
           <p className="flex items-start gap-2 text-sand-100/45 sm:max-w-xl sm:text-right">
             <Icon name="info" size={14} className="mt-0.5 shrink-0" />

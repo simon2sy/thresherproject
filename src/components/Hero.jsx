@@ -71,16 +71,7 @@ export default function Hero() {
             <Reveal delay={0.05}>
               <h1 className="h-display mt-5">
                 <span className="text-ink">{t('hero.titleLead')}</span>
-                {/*
-                  The travelling gradient is a `transform` on an oversized inner
-                  span (not `background-position`), so the headline animates on
-                  the compositor instead of repainting every frame.
-                */}
-                <span className="relative inline-block overflow-hidden align-bottom">
-                  <span className="text-brand-ink motion-safe:animate-gradient-pan inline-block w-[200%]">
-                    {t('hero.titleAccent')}
-                  </span>
-                </span>
+                <span className="text-brand-ink">{t('hero.titleAccent')}</span>
               </h1>
             </Reveal>
 
