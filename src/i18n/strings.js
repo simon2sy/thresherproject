@@ -599,29 +599,29 @@ export const strings = {
   meta: {
     home: {
       title: {
-        en: 'Agricultural Thresher Machines in Nepal — Jhapa Gaupalika, Jhapa',
-        ne: 'नेपालमा कृषि थ्रेसर मेसिन — झापा गाउँपालिका, झापा',
+        en: 'Affordable Thresher Price in Nepal — Jhapa',
+        ne: 'झापामा किफायती थ्रेसर मूल्य — नेपाल',
       },
       description: {
-        en: 'Thresher machines for paddy, wheat and maize built and supplied in Jhapa Gaupalika, Jhapa, Nepal. Heavy-duty steel construction and belt drive — every model Rs. 360,000.',
-        ne: 'झापा गाउँपालिका, झापा, नेपालमा निर्मित र वितरण गरिने धान, गहुँ र मकैका थ्रेसर मेसिन। बलियो स्टिल निर्माण र बेल्ट ड्राइभ — हरेक मोडेल रु. ३,६०,०००।',
+        en: 'Looking for an affordable thresher in Jhapa, Nepal? Daju Bhai Grill Udyog offers rice, wheat and maize threshers at Rs. 360,000 per model. Call 9825943105.',
+        ne: 'झापा, नेपालमा किफायती थ्रेसर खोज्दै हुनुहुन्छ? दाजु भाइ ग्रिल उद्योगमा धान, गहुँ र मकै थ्रेसर प्रति मोडेल रु. ३,६०,००० मा। ९८२५९४३१०५ मा फोन गर्नुहोस्।',
       },
     },
     products: {
-      title: { en: 'Thresher Machines — Rice, Wheat & Maize Threshers in Nepal', ne: 'थ्रेसर मेसिन — नेपालमा धान, गहुँ र मकै थ्रेसर' },
+      title: { en: 'Thresher Price in Nepal — Rice, Wheat & Maize', ne: 'नेपालमा थ्रेसरको मूल्य — धान, गहुँ र मकै' },
       description: {
-        en: 'Explore the thresher range from Daju Bhai Grill Udyog, Jhapa Gaupalika: heavy-duty grain threshers, multi-crop threshers and compact farm threshers — every model Rs. 360,000.',
-        ne: 'दाजु भाइ ग्रिल उद्योग, झापा गाउँपालिकाको थ्रेसर रेन्ज हेर्नुहोस्: हेभी-ड्युटी अन्न थ्रेसर, बहुबाली थ्रेसर र कम्प्याक्ट फार्म थ्रेसर — हरेक मोडेल रु. ३,६०,०००।',
+        en: 'Compare rice, wheat and multi-crop threshers from Jhapa, Nepal. Every listed model costs Rs. 360,000. Contact Daju Bhai Grill Udyog to check availability.',
+        ne: 'झापा, नेपालका धान, गहुँ र बहुबाली थ्रेसर तुलना गर्नुहोस्। सूचीमा रहेका हरेक मोडेलको मूल्य रु. ३,६०,००० हो। उपलब्धता बुझ्न दाजु भाइ ग्रिल उद्योगमा सम्पर्क गर्नुहोस्।',
       },
     },
     product: {
       title: {
-        en: '{code} {name} — Thresher Machine in Nepal',
-        ne: '{code} {name} — नेपालमा थ्रेसर मेसिन',
+        en: '{code} Thresher for Sale in Jhapa',
+        ne: '{code} थ्रेसर — झापामा बिक्रीका लागि',
       },
       description: {
-        en: '{code} {name}: {short} Available from Daju Bhai Grill Udyog, Jhapa Gaupalika, Jhapa, Nepal.',
-        ne: '{code} {name}: {short} दाजु भाइ ग्रिल उद्योग, झापा गाउँपालिका, झापा, नेपालबाट उपलब्ध।',
+        en: 'Affordable {code} thresher in Jhapa, Nepal: {price}. Call Daju Bhai Grill Udyog on {phone} to confirm availability and details.',
+        ne: 'झापा, नेपालमा {code} थ्रेसरको मूल्य {price}। उपलब्धता र विवरण पुष्टि गर्न दाजु भाइ ग्रिल उद्योगमा {phone} मा फोन गर्नुहोस्।',
       },
       fallbackTitle: { en: 'Thresher machine', ne: 'थ्रेसर मेसिन' },
       fallbackDescription: {

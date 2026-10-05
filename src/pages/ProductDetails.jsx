@@ -51,7 +51,8 @@ export default function ProductDetails() {
       ? t('meta.product.description', {
           code: product.code,
           name: product.name,
-          short: product.short,
+          price: product.price,
+          phone: site.phone.display,
         })
       : t('meta.product.fallbackDescription'),
     path: `/threshers/${slug}`,
@@ -78,7 +79,6 @@ export default function ProductDetails() {
             offers: {
               '@type': 'Offer',
               url: productUrl,
-              availability: 'https://schema.org/InStock',
               price: Number(product.price.replace(/[^\d]/g, '')),
               priceCurrency: 'NPR',
               seller: { '@type': 'Organization', name: site.name },

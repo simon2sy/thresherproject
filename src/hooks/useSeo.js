@@ -24,7 +24,7 @@ import { useSite } from '../i18n'
  */
 
 const SITE_URL = englishSite.url.replace(/\/$/, '')
-const DEFAULT_IMAGE = `${SITE_URL}/images/og-cover.jpg`
+const DEFAULT_IMAGE = `${SITE_URL}/images/products/thresher1.jpeg`
 
 const absolute = (value) => {
   if (!value) return DEFAULT_IMAGE
@@ -55,6 +55,7 @@ const upsertLink = (rel, href) => {
 
 /** Structured data blocks are keyed so replacing a route's schema is idempotent. */
 const upsertJsonLd = (blocks) => {
+  document.getElementById('static-local-business')?.remove()
   const existing = document.head.querySelectorAll('script[data-seo-jsonld]')
   existing.forEach((node) => node.remove())
   blocks.filter(Boolean).forEach((block) => {
@@ -127,23 +128,18 @@ export const localBusinessSchema = () => ({
     postalCode: englishSite.address.postalCode,
     addressCountry: englishSite.address.countryCode,
   },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: englishSite.address.lat,
-    longitude: englishSite.address.lng,
-  },
   areaServed: {
     '@type': 'AdministrativeArea',
     name: `${englishSite.address.district}, ${englishSite.address.country}`,
   },
-  openingHoursSpecification: englishSite.hours.map((slot) => ({
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek:
-      slot.days === 'Saturday'
-        ? 'Saturday'
-        : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    description: slot.time,
-  })),
+  openingHoursSpecification: englishSite.hours
+    .filter((slot) => slot.opens && slot.closes)
+    .map((slot) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: slot.opens,
+      closes: slot.closes,
+    })),
 })
 
 export default useSeo

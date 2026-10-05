@@ -31,7 +31,7 @@ export const site = {
   /** Owner of the business. */
   proprietor: 'Dulal Shiekh',
 
-  url: envOr(env.VITE_SITE_URL, 'https://www.shresthaagromachines.com'),
+  url: envOr(env.VITE_SITE_URL, 'https://dajubhaigrilludyog.com'),
 
   /* ---- Contact -------------------------------------------------------- */
   phone: {
@@ -78,7 +78,7 @@ export const site = {
 
   /** Opening hours shown on the contact page. Adjust to the real workshop schedule. */
   hours: [
-    { days: 'Sunday – Friday', time: '8:00 AM – 7:00 PM' },
+    { days: 'Sunday – Friday', time: '8:00 AM – 7:00 PM', opens: '08:00', closes: '19:00' },
     { days: 'Saturday', time: 'By appointment' },
   ],
 

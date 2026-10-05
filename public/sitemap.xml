@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Replace https://www.shresthaagromachines.com with the live domain before launch. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.shresthaagromachines.com/</loc>
+    <loc>https://dajubhaigrilludyog.com/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/threshers</loc>
+    <loc>https://dajubhaigrilludyog.com/threshers</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/threshers/sam-1000-heavy-duty-grain-thresher</loc>
+    <loc>https://dajubhaigrilludyog.com/threshers/sam-1000-heavy-duty-grain-thresher</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/threshers/sam-750-multi-crop-thresher</loc>
+    <loc>https://dajubhaigrilludyog.com/threshers/sam-750-multi-crop-thresher</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/threshers/sam-500-compact-farm-thresher</loc>
+    <loc>https://dajubhaigrilludyog.com/threshers/sam-500-compact-farm-thresher</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/about</loc>
+    <loc>https://dajubhaigrilludyog.com/about</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/why-us</loc>
+    <loc>https://dajubhaigrilludyog.com/why-us</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/gallery</loc>
+    <loc>https://dajubhaigrilludyog.com/gallery</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.shresthaagromachines.com/contact</loc>
+    <loc>https://dajubhaigrilludyog.com/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>

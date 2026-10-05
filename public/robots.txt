@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.shresthaagromachines.com/sitemap.xml
+Sitemap: https://dajubhaigrilludyog.com/sitemap.xml
