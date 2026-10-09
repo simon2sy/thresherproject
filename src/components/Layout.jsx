@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Outlet, useLocation } from 'react-router-dom'
-import { MessageCircle, PhoneCall } from 'lucide-react'
+import { ChevronUp, MessageCircle, PhoneCall } from 'lucide-react'
 import { useLanguage, useSite } from '../i18n'
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -63,6 +63,14 @@ export default function Layout() {
 
       {/* Sticky contact bar — small screens only. Sits above the safe-area
           inset on phones with a home indicator. */}
+      <a
+        href="#main"
+        aria-label={t('layout.backToTop')}
+        className="grid place-items-center rounded-[3px] border border-white/10 bg-[#120D06]/80 px-3 py-2.5 text-2xs font-semibold text-sand-100/80 transition-colors hover:border-harvest-500/30 hover:text-harvest-300 lg:hidden"
+      >
+        <ChevronUp size={16} />
+        <span className="ml-1.5">{t('layout.backToTop')}</span>
+      </a>
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-harvest-500/20 bg-[#120D06]/95 pb-[env(safe-area-inset-bottom)] lg:hidden">
         <a
           href={site.phone.href}

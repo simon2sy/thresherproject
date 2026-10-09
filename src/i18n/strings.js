@@ -55,6 +55,7 @@ export const strings = {
 
   layout: {
     skip: { en: 'Skip to content', ne: 'मुख्य सामग्रीमा जानुहोस्' },
+    backToTop: { en: 'Back to top', ne: 'माथि पुग्नुहोस्' },
     call: { en: 'Call', ne: 'फोन' },
   },
 

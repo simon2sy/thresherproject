@@ -17,7 +17,7 @@ import CTASection from '../components/CTASection'
  * filters as soon as it is added to the data file.
  */
 
-const CHIP = 'rounded-[2px] border px-3 py-2 text-2xs font-semibold uppercase tracking-technical transition-colors'
+const CHIP = 'rounded-[2px] border px-3 py-2.5 text-[0.82rem] font-semibold uppercase tracking-technical transition-colors'
 const CHIP_OFF = 'border-ink/15 text-ink/60 hover:border-ink/40 hover:text-ink'
 const CHIP_ON = 'border-ink bg-ink text-sand-50'
 
@@ -103,7 +103,7 @@ export default function Products() {
             </div>
 
             <div className="flex items-center gap-4">
-              <p className="tabular text-2xs uppercase tracking-technical text-ink/45">
+              <p className="tabular text-[0.82rem] uppercase tracking-technical text-ink/45">
                 {t(filtered.length === 1 ? 'products.countOne' : 'products.countMany', {
                   n: String(filtered.length).padStart(2, '0'),
                 })}
@@ -114,7 +114,7 @@ export default function Products() {
                   onClick={() => {
                     setCropIndex(0)
                   }}
-                  className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-technical text-ink/60 transition-colors hover:text-ink"
+                  className="flex items-center gap-2 text-[0.82rem] font-semibold uppercase tracking-technical text-ink/60 transition-colors hover:text-ink"
                 >
                   <RotateCcw size={13} />
                   {t('products.clear')}

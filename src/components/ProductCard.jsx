@@ -109,8 +109,7 @@ export default function ProductCard({ product, index = 0 }) {
             <Button
               to={`/threshers/${product.slug}`}
               variant="primary"
-              size="sm"
-              className="w-full !gap-1.5 !px-2 text-[0.72rem] sm:!gap-2 sm:!px-4 sm:text-[0.82rem]"
+              className="w-full !gap-1.5 !py-3 !px-2 text-[0.82rem] sm:!py-3.5 sm:!px-4 sm:text-[0.82rem]"
             >
               <span className="truncate">{t('common.viewDetails')}</span>
               <ArrowRight size={14} className="shrink-0" />
